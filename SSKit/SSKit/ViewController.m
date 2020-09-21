@@ -25,6 +25,8 @@
     [self ss_navigationBarHiddenUnderline];
     [self ss_navigationBarCustomBackButton:@"icon_back_black"];
     self.view.backgroundColor = UIColor.redBlood;
+    
+    
 }
 
 

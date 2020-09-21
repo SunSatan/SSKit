@@ -42,13 +42,13 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>NSFileProviderDomainUsageDescription</key>
-	<string>访问文件提供域</string>
+	<string>访问由文件提供程序管理的文件。</string>
 	<key>NSDocumentsFolderUsageDescription</key>
-	<string></string>
+	<string>访问用户的“文档”文件夹。</string>
 	<key>NSDesktopFolderUsageDescription</key>
-	<string></string>
+	<string>访问用户桌面文件夹。</string>
 	<key>NSDownloadsFolderUsageDescription</key>
-	<string></string>
+	<string>访问用户的下载文件夹。</string>
 	<key>NSAppleEventsUsageDescription</key>
 	<string>如果不允许，您将无法发送事件。</string>
 	<key>NSBluetoothAlwaysUsageDescription</key>
@@ -56,7 +56,7 @@
 	<key>NSCameraUsageDescription</key>
 	<string>相机权限</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string></string>
+	<string>蓝牙权限</string>
 	<key>NSCalendarsUsageDescription</key>
 	<string>日历权限</string>
 	<key>OSBundleUsageDescription</key>
@@ -76,7 +76,7 @@
 	<key>NSHomeKitUsageDescription</key>
 	<string>HomeKit权限</string>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string></string>
+	<string>访问本地网络。</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>定位权限</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -87,8 +87,6 @@
 	<string>定位权限</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>定位权限</string>
-	<key>NSLocationTemporaryUsageDescriptionDictionary</key>
-	<dict/>
 	<key>NSAppleMusicUsageDescription</key>
 	<string>媒体库权限</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -98,7 +96,7 @@
 	<key>kTCCServiceMediaLibrary</key>
 	<string>音乐权限</string>
 	<key>NSNetworkVolumesUsageDescription</key>
-	<string></string>
+	<string>访问网络卷上的文件</string>
 	<key>NFCReaderUsageDescription</key>
 	<string>NFC权限</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
@@ -108,15 +106,15 @@
 	<key>NSRemindersUsageDescription</key>
 	<string>备忘录权限</string>
 	<key>NSRemovableVolumesUsageDescription</key>
-	<string></string>
+	<string>访问可移动卷上的文件。</string>
 	<key>NSSiriUsageDescription</key>
 	<string>Siri使用权限</string>
 	<key>NSSpeechRecognitionUsageDescription</key>
 	<string>语音识别权限</string>
 	<key>NSSystemAdministrationUsageDescription</key>
-	<string></string>
+	<string>请求操作系统配置。</string>
 	<key>NSSystemExtensionUsageDescription</key>
-	<string></string>
+	<string>请求操作系统扩展。</string>
 	<key>NSUserTrackingUsageDescription</key>
 	<string>广告跟踪权限</string>
 	<key>NSVideoSubscriberAccountUsageDescription</key>

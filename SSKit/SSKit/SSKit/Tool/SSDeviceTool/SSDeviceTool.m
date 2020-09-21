@@ -15,7 +15,80 @@
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
 
+@interface SSDeviceTool ()
+
+@property (nonatomic, strong) CADisplayLink *link;
+@property (nonatomic, assign) NSTimeInterval countFPS;
+@property (nonatomic, assign) NSTimeInterval startTimestamp;
+@property (nonatomic, copy) FPSDispalyBlock FPSDispalyBlock;
+
+@end
+
 @implementation SSDeviceTool
+
+- (void)dealloc
+{
+    [self endCalculateFPS];
+}
+
+#pragma mark - fps参数
+
+- (void)startCalculateFPS:(FPSDispalyBlock)FPSDispalyBlock
+{
+    if (!_link) {
+        __weak typeof(self) weakSelf = self;
+        _link = [CADisplayLink displayLinkWithTarget:weakSelf selector:@selector(ticktack:)];
+        [_link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+        
+        self.FPSDispalyBlock = FPSDispalyBlock;
+    }
+}
+
+- (void)endCalculateFPS
+{
+    [_link invalidate];
+    _link = nil;
+}
+
+- (void)ticktack:(CADisplayLink *)link
+{
+    if (_startTimestamp == 0) _startTimestamp = link.timestamp; //记下开始时间戳
+    
+    _countFPS++;
+    
+    NSTimeInterval seconds = _link.timestamp - _startTimestamp;
+    if (seconds < 1)  return;
+    
+    _startTimestamp = link.timestamp;
+    CGFloat FPS = _countFPS / seconds;
+    NSString *FPSString = [NSString stringWithFormat:@"%.0f", round(FPS)];
+    _countFPS = 0;
+    
+    if (self.FPSDispalyBlock) {
+        self.FPSDispalyBlock(FPS, FPSString);
+    }
+    
+}
+
+#pragma mark - 网络参数
+
++ (NSString *)networkProvider
+{
+    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
+    
+    if (@available(iOS 12.0, *)) {
+        NSDictionary *dict = [info serviceSubscriberCellularProviders];
+        for (id info in dict) {
+            CTCarrier *carrier = dict[info];
+        }
+    }
+    
+    CTCarrier *carrier = [info subscriberCellularProvider];
+    if (!carrier.isoCountryCode) {
+        return @"";
+    }
+    return carrier.carrierName;
+}
 
 #pragma mark - 屏幕参数
 
@@ -197,24 +270,6 @@
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     CGFloat batteryLevel = [UIDevice currentDevice].batteryLevel;
     return batteryLevel;
-}
-
-+ (NSString *)networkProvider
-{
-    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
-    
-    if (@available(iOS 12.0, *)) {
-        NSDictionary *dict = [info serviceSubscriberCellularProviders];
-        for (id info in dict) {
-            CTCarrier *carrier = dict[info];
-        }
-    }
-    
-    CTCarrier *carrier = [info subscriberCellularProvider];
-    if (!carrier.isoCountryCode) {
-        return @"";
-    }
-    return carrier.carrierName;
 }
 
 + (NSString *)deviceModel

@@ -64,8 +64,6 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @property (class, nonatomic, assign) CGFloat deviceBatteryLevel; //获取当前设备电量
 
-@property (class, nonatomic, strong) NSString *networkProvider; //网络服务商、未完成
-
 @end
 
 #pragma mark - app参数
@@ -75,6 +73,25 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 @property (class, nonatomic, strong) NSString *currentAppName;   //获取当前安装本app名称 Display Name
 @property (class, nonatomic, strong) NSString *currentAppVerion; //获取设备当前安装本app版本号 Verion
 @property (class, nonatomic, strong) NSString *currentAppBuild;  //获取设备当前安装本app构建号 Build
+
+@end
+
+#pragma mark - 网络参数
+
+@interface SSDeviceTool (SSNetwork)
+
+@property (class, nonatomic, strong) NSString *networkProvider; //网络服务商、未完成
+
+@end
+
+#pragma mark - fps
+
+typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
+
+@interface SSDeviceTool (FPS)
+
+- (void)startCalculateFPS:(FPSDispalyBlock)FPSDispalyBlock;
+- (void)endCalculateFPS;
 
 @end
 
