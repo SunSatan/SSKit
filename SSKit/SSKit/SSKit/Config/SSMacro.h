@@ -11,13 +11,17 @@
 
 #pragma mark - 通用常量宏定义
 
-
+#define iOS(x) @available(iOS x, *)
 
 #define weakify   autoreleasepool{} __weak   typeof(self) selfWeak = self
 #define strongify autoreleasepool{} __strong typeof(selfWeak) self = selfWeak;
 
 #define WeakObj(o)   autoreleasepool{} __weak   typeof(o) o##Weak = o##Strong;
 #define StrongObj(o) autoreleasepool{} __strong typeof(o) o##Strong = o##Weak;
+
+//分支预测优化
+#define fastpath(x) (__builtin_expect(!!x, 1))
+#define slowpath(x) (__builtin_expect(!!x, 0))
 
 //自定义提示框和NSLog
 #ifdef DEBUG
@@ -32,12 +36,6 @@
     #define SSParameterLog(...) nil
     #define SSAlertLog(...) nil
 #endif
-
-
-
-//分支预测优化
-#define fastpath(x) (__builtin_expect(!!x, 1))
-#define slowpath(x) (__builtin_expect(!!x, 0))
 
 //线程
 #define GlobalQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)

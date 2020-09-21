@@ -9,6 +9,7 @@
 #import "SSDeviceTool.h"
 
 #import <AdSupport/AdSupport.h>
+#import <AppTrackingTransparency/AppTrackingTransparency.h>
 #import <sys/utsname.h>
 #import <objc/runtime.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
@@ -17,6 +18,11 @@
 @implementation SSDeviceTool
 
 #pragma mark - 屏幕参数
+
++ (CGRect)deviceScreenBounds
+{
+    return [UIScreen mainScreen].bounds;
+}
 
 + (CGFloat)deviceScreenWidth
 {
@@ -158,6 +164,13 @@
     return [languageArray objectAtIndex:0];
 }
 
++ (NSString *)localeCountry
+{
+    NSLocale *locale = [NSLocale currentLocale];
+    NSString *localeIdentifier = [locale localizedStringForCountryCode:locale.countryCode];
+    return localeIdentifier;
+}
+
 + (NSString *)deviceIDFV
 {
     NSString *idfv = [UIDevice currentDevice].identifierForVendor.UUIDString;
@@ -167,10 +180,15 @@
 + (NSString *)deviceIDFA
 {
     NSString *idfa = @"";
-    if ([ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled) {
-        idfa = [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+    if (@available(iOS 14, *)) {
+        if (ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusAuthorized) {
+            idfa = [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+        }
+    } else {
+        if ([ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled) {
+            idfa = [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+        }
     }
-    
     return idfa;
 }
 
@@ -181,7 +199,7 @@
     return batteryLevel;
 }
 
-+ (NSString *)phoneNetworkProvider
++ (NSString *)networkProvider
 {
     CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
     

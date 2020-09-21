@@ -20,7 +20,7 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = UIColor.whiteColor;
-    self.navigationItem.title = @"我的";
+    self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.deviceLanguage];
 //    [self ss_setNavigationTiTle:@"我的"];
     [self ss_navigationBarHiddenUnderline];
     [self ss_navigationBarCustomBackButton:@"icon_back_black"];
