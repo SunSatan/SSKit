@@ -28,22 +28,22 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @interface SSDeviceTool (SSDeviceScreen)
 
-@property (class, nonatomic, assign) CGRect  deviceScreenBounds; //获取设备屏幕Bounds
-@property (class, nonatomic, assign) CGFloat deviceScreenWidth;  //获取设备屏幕宽度
-@property (class, nonatomic, assign) CGFloat deviceScreenHeight; //获取设备屏幕高度
+@property (class, nonatomic, assign, readonly) CGRect  deviceScreenBounds; //获取设备屏幕Bounds
+@property (class, nonatomic, assign, readonly) CGFloat deviceScreenWidth;  //获取设备屏幕宽度
+@property (class, nonatomic, assign, readonly) CGFloat deviceScreenHeight; //获取设备屏幕高度
 
-@property (class, nonatomic, assign) CGFloat statusBarHeight; //获取设备状态栏高度
+@property (class, nonatomic, assign, readonly) CGFloat statusBarHeight; //获取设备状态栏高度
 
-@property (class, nonatomic, assign) CGFloat navigationBarHeight;     //获取设备导航栏高度
-@property (class, nonatomic, assign) CGFloat navigationToolBarHeight; //获取设备导航工具栏高度
+@property (class, nonatomic, assign, readonly) CGFloat navigationBarHeight;     //获取设备导航栏高度
+@property (class, nonatomic, assign, readonly) CGFloat navigationToolBarHeight; //获取设备导航工具栏高度
 
-@property (class, nonatomic, assign) CGFloat tabBarHeight; //获取设备标签栏高度
+@property (class, nonatomic, assign, readonly) CGFloat tabBarHeight; //获取设备标签栏高度
 
-@property (class, nonatomic, assign) CGRect  safeAreaFrame;  //获取设备安全区域
-@property (class, nonatomic, assign) CGFloat safeAreaLeft;   //获取设备安全区域左边距
-@property (class, nonatomic, assign) CGFloat safeAreaRight;  //获取设备安全区域右边距
-@property (class, nonatomic, assign) CGFloat safeAreaTop;    //获取设备安全区域上边距
-@property (class, nonatomic, assign) CGFloat safeAreaBottom; //获取设备安全区域下边距
+@property (class, nonatomic, assign, readonly) CGRect  safeAreaFrame;  //获取设备安全区域
+@property (class, nonatomic, assign, readonly) CGFloat safeAreaLeft;   //获取设备安全区域左边距
+@property (class, nonatomic, assign, readonly) CGFloat safeAreaRight;  //获取设备安全区域右边距
+@property (class, nonatomic, assign, readonly) CGFloat safeAreaTop;    //获取设备安全区域上边距
+@property (class, nonatomic, assign, readonly) CGFloat safeAreaBottom; //获取设备安全区域下边距
 
 @end
 
@@ -53,16 +53,18 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 + (NSString *)pushTokenForDeviceToken:(NSData *)deviceToken; //将 deviceToken 转换成 pushToken
 
-@property (class, nonatomic, strong) NSString *deviceModel;         //获取设备型号：iPhone 6S、iPhone X
-@property (class, nonatomic, strong) NSString *deviceSystemVersion; //获取设备系统版本：iOS 13.3.1
-@property (class, nonatomic, strong) NSString *devicePhoneName;     //获取设备名称：SunSatan
-@property (class, nonatomic, strong) NSString *deviceIDFV;          //获取设备IDFV(唯一设备标识)
-@property (class, nonatomic, strong) NSString *deviceIDFA;          //获取设备IDFA(广告标示符)
+@property (class, nonatomic, strong, readonly) NSString *deviceModel;         //获取设备型号：iPhone 6S、iPhone X
+@property (class, nonatomic, strong, readonly) NSString *deviceSystemVersion; //获取设备系统版本：iOS 13.3.1
+@property (class, nonatomic, strong, readonly) NSString *devicePhoneName;     //获取设备名称：SunSatan
+@property (class, nonatomic, strong, readonly) NSString *deviceIDFV;          //获取设备IDFV(唯一设备标识)
+@property (class, nonatomic, strong, readonly) NSString *deviceIDFA;          //获取设备IDFA(广告标示符)
 
-@property (class, nonatomic, strong) NSString *deviceLanguage;      //获取当前设备语言：zh-Hans-CN(简体中文)
-@property (class, nonatomic, strong) NSString *localeCountry; //获取当前地区国家：en_CN(中国)
+@property (class, nonatomic, strong, readonly) NSString *deviceLanguage;      //获取当前设备语言：zh-Hans-CN(简体中文)
+@property (class, nonatomic, strong, readonly) NSString *localeCountry; //获取当前地区国家：en_CN(中国)
 
-@property (class, nonatomic, assign) CGFloat deviceBatteryLevel; //获取当前设备电量
+@property (class, nonatomic, assign, readonly) CGFloat deviceBatteryLevel; //获取当前设备电量
+
+@property (class, nonatomic, strong, readonly) NSDate *deviceLatestRestartTime;
 
 @end
 
@@ -70,9 +72,9 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @interface SSDeviceTool (SSAppInfo)
 
-@property (class, nonatomic, strong) NSString *currentAppName;   //获取当前安装本app名称 Display Name
-@property (class, nonatomic, strong) NSString *currentAppVerion; //获取设备当前安装本app版本号 Verion
-@property (class, nonatomic, strong) NSString *currentAppBuild;  //获取设备当前安装本app构建号 Build
+@property (class, nonatomic, strong, readonly) NSString *currentAppName;   //获取当前安装本app名称 Display Name
+@property (class, nonatomic, strong, readonly) NSString *currentAppVerion; //获取设备当前安装本app版本号 Verion
+@property (class, nonatomic, strong, readonly) NSString *currentAppBuild;  //获取设备当前安装本app构建号 Build
 
 @end
 
@@ -80,11 +82,11 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @interface SSDeviceTool (SSNetwork)
 
-@property (class, nonatomic, strong) NSString *networkProvider; //网络服务商、未完成
+@property (class, nonatomic, strong, readonly) NSString *networkProvider; //网络服务商、未完成
 
 @end
 
-#pragma mark - fps
+#pragma mark - FPS
 
 typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 
@@ -94,5 +96,26 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 - (void)endCalculateFPS;
 
 @end
+
+#pragma mark - CPU信息
+
+@interface SSDeviceTool (SSCPU)
+
+@property (class, nonatomic, strong, readonly) NSString *CPUModel;
+//@property (class, nonatomic, assign, readonly) NSUInteger CPUCoresNumber;
+
+
+@property (class, nonatomic, strong, readonly) NSString *deviceColorHexString;
+@property (class, nonatomic, strong, readonly) NSString *deviceEnclosureColorHexString;
+
+@property (class, nonatomic, assign, readonly) NSUInteger ramTotalSize;
+
+
+
+@end
+
+
+
+
 
 NS_ASSUME_NONNULL_END

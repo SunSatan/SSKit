@@ -14,6 +14,7 @@
 #import <objc/runtime.h>
 #import <CoreTelephony/CTTelephonyNetworkInfo.h>
 #import <CoreTelephony/CTCarrier.h>
+#include <sys/sysctl.h>
 
 @interface SSDeviceTool ()
 
@@ -28,7 +29,58 @@
 
 - (void)dealloc
 {
-    [self endCalculateFPS];
+    NSLog(@"SSDeviceTool -> dealloc");
+}
+
+#pragma mark - Private Method
+
++ (NSUInteger)_systemInfo:(uint)typeSpecifier
+{
+    size_t size = sizeof(int);
+    int result;
+    int mib[2] = {CTL_HW, typeSpecifier};
+    sysctl(mib, 2, &result, &size, NULL, 0);
+    return (NSUInteger)result;
+}
+
++ (NSString *)_deviceColorWithKey:(NSString *)key
+{
+    UIDevice *device = [UIDevice currentDevice];
+    SEL selector = NSSelectorFromString(@"deviceInfoForKey:");
+    if (![device respondsToSelector:selector]) {
+        selector = NSSelectorFromString(@"_deviceInfoForKey:");
+    }
+    if ([device respondsToSelector:selector]) {
+        IMP imp = [device methodForSelector:selector];
+        NSString * (*func)(id, SEL, NSString *) = (void *)imp;
+        return func(device, selector, key);
+    }
+    return @"Un Known";
+}
+
++ (NSDate *)deviceLatestRestartTime
+{
+    NSTimeInterval time = [[NSProcessInfo processInfo] systemUptime];
+    return [[NSDate alloc] initWithTimeIntervalSinceNow:(0 - time)];
+}
+
++ (NSString *)deviceColorHexString
+{
+    return [self _deviceColorWithKey:@"DeviceColor"];
+}
++ (NSString *)deviceEnclosureColorHexString
+{
+    return [self _deviceColorWithKey:@"DeviceEnclosureColor"];
+}
+
++ (NSUInteger)ramTotalSize
+{
+    return [self _systemInfo:HW_MEMSIZE];
+}
+
++ (NSString *)CPUModel
+{
+    
 }
 
 #pragma mark - fps参数

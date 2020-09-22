@@ -11,9 +11,17 @@
 
 @interface ViewController ()
 
+@property (nonatomic, strong) SSDeviceTool *tool;
+
 @end
 
 @implementation ViewController
+
+- (void)dealloc
+{
+    NSLog(@"ViewController -> dealloc");
+    
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -26,7 +34,20 @@
     [self ss_navigationBarCustomBackButton:@"icon_back_black"];
     self.view.backgroundColor = UIColor.redBlood;
     
+    @weakify;
+    self.tool = [SSDeviceTool new];
+    [self.tool startCalculateFPS:^(CGFloat FPS, NSString * _Nonnull FPSString) {
+        @strongify;
+        self.navigationItem.title = FPSString;
+    }];
     
+}
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
+{
+    [self.tool endCalculateFPS];
+    [self.navigationController pushViewController:[ViewController new] animated:YES];
 }
 
 
