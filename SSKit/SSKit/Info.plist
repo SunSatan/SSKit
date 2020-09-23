@@ -68,11 +68,11 @@
 	<key>NSFileProviderPresenceUsageDescription</key>
 	<string></string>
 	<key>NSHealthClinicalHealthRecordsShareUsageDescription</key>
-	<string>健康记录权限</string>
+	<string>如果不允许，您将无法记录健康数据。</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>健康分享权限</string>
+	<string>如果不允许，您将无法分享健康数据。</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>健康更新权限</string>
+	<string>如果不允许，您将无法更新健康数据。</string>
 	<key>NSHomeKitUsageDescription</key>
 	<string>HomeKit权限</string>
 	<key>NSLocalNetworkUsageDescription</key>

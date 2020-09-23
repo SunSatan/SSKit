@@ -40,6 +40,9 @@
 #import "SSReusablePool.h"
 #import "SSAuthorization.h"
 
+#import "SSHealth.h"
+#import "SSHealthType.h"
+
 #endif /* SSKit_h */
 
 

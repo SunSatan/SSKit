@@ -80,7 +80,7 @@
 
 + (NSString *)CPUModel
 {
-    
+    return nil;
 }
 
 #pragma mark - fps参数

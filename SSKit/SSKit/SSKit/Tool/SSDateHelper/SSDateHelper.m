@@ -93,8 +93,7 @@ static SSDateHelper *_mainHelper = nil;
                              parameter:(NSString *)parmName
                            returnValue:(NSString *)returnValue
 {
-    NSString *selName = NSStringFromSelector(sel);
-    NSLog(@"'-[SSDateHelper %@]' %@ is nil, so return %@.", selName, parmName, returnValue);
+    NSLog(@"'-[SSDateHelper %@]' %@ is nil, so return %@.", NSStringFromSelector(sel), parmName, returnValue);
 }
 
 #pragma mark - NSDate 转为 NSString
@@ -1061,6 +1060,75 @@ static SSDateHelper *_mainHelper = nil;
     NSInteger dayDifference = comp.day;
     NSInteger weekDifference = (dayDifference - weekdayDifference) / 7;
     return weekDifference;
+}
+
+#pragma mark - 日期拓展
+
+- (NSDate *)dayStartDateForDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"nil"];
+        return nil;
+    }
+    
+    NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    NSDate *dayStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    return dayStartDate;
+}
+
+- (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd parameter:@"date" returnValue:@"nil"];
+        return nil;
+    }
+    
+    NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday;
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    
+    //weekday从1-7，1是周日，2是周一，以此类推
+    static int const defaultArray[8] = {0, 0, 1, 2, 3, 4, 5, 6};
+    static int const usuallyArray[8] = {0, 6, 0, 1, 2, 3, 4, 5};
+    
+    int num = (weekMode == SSDateWeekModeDefault) ? defaultArray[dateComp.weekday] : usuallyArray[dateComp.weekday];
+    
+    dateComp.day = dateComp.day - num;
+    
+    NSDate *weekStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    return weekStartDate;
+}
+
+- (NSDate *)monthStartDateForDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"nil"];
+        return nil;
+    }
+    
+    NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth;
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    NSDate *monthStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    return monthStartDate;
+}
+
+- (NSDate *)yearStartDateForDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"nil"];
+        return nil;
+    }
+    
+    NSCalendarUnit unit = NSCalendarUnitYear;
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    NSDate *yearStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    return yearStartDate;
 }
 
 #pragma mark - 月份拓展

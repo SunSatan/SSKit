@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		542378F8251AE74200C7F6FB /* SSHealth.m in Sources */ = {isa = PBXBuildFile; fileRef = 542378F7251AE74200C7F6FB /* SSHealth.m */; };
+		5423790B251AFDAE00C7F6FB /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5423790A251AFDAE00C7F6FB /* HealthKit.framework */; };
+		5423790F251B16D900C7F6FB /* SSHealthType.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423790E251B16D900C7F6FB /* SSHealthType.m */; };
 		545642EC25132DC80093D78A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642EB25132DC80093D78A /* AppDelegate.m */; };
 		545642F225132DC80093D78A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642F125132DC80093D78A /* ViewController.m */; };
 		545642F525132DC80093D78A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545642F325132DC80093D78A /* Main.storyboard */; };
@@ -31,6 +34,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		542378F6251AE74200C7F6FB /* SSHealth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSHealth.h; sourceTree = "<group>"; };
+		542378F7251AE74200C7F6FB /* SSHealth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSHealth.m; sourceTree = "<group>"; };
+		54237908251AFDAE00C7F6FB /* SSKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SSKit.entitlements; sourceTree = "<group>"; };
+		5423790A251AFDAE00C7F6FB /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		5423790D251B16D900C7F6FB /* SSHealthType.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSHealthType.h; sourceTree = "<group>"; };
+		5423790E251B16D900C7F6FB /* SSHealthType.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSHealthType.m; sourceTree = "<group>"; };
 		545642E725132DC80093D78A /* SSKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		545642EA25132DC80093D78A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		545642EB25132DC80093D78A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -81,17 +90,38 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5423790B251AFDAE00C7F6FB /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		542378F5251AE74200C7F6FB /* SSHealth */ = {
+			isa = PBXGroup;
+			children = (
+				542378F6251AE74200C7F6FB /* SSHealth.h */,
+				542378F7251AE74200C7F6FB /* SSHealth.m */,
+				5423790D251B16D900C7F6FB /* SSHealthType.h */,
+				5423790E251B16D900C7F6FB /* SSHealthType.m */,
+			);
+			path = SSHealth;
+			sourceTree = "<group>";
+		};
+		54237909251AFDAE00C7F6FB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				5423790A251AFDAE00C7F6FB /* HealthKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		545642DE25132DC80093D78A = {
 			isa = PBXGroup;
 			children = (
 				545642E925132DC80093D78A /* SSKit */,
 				545642E825132DC80093D78A /* Products */,
+				54237909251AFDAE00C7F6FB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -106,6 +136,7 @@
 		545642E925132DC80093D78A /* SSKit */ = {
 			isa = PBXGroup;
 			children = (
+				54237908251AFDAE00C7F6FB /* SSKit.entitlements */,
 				546C477725147C8900D422D6 /* SSKit */,
 				545642EA25132DC80093D78A /* AppDelegate.h */,
 				545642EB25132DC80093D78A /* AppDelegate.m */,
@@ -202,6 +233,7 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				542378F5251AE74200C7F6FB /* SSHealth */,
 				E330DC1F2517701400C3C6EA /* SSAuthorization */,
 				E3702753251760C6006DC0D7 /* SSDeviceTool */,
 				E3D38DA125165C1500670EEB /* SSTimer */,
@@ -327,7 +359,9 @@
 				546C478425147FC300D422D6 /* UIViewController+SSCategory.m in Sources */,
 				E37027502517399D006DC0D7 /* UIImage+SSImageCategory.m in Sources */,
 				E3863A7B251655C400093968 /* AppDelegate+SSBackgroundTask.m in Sources */,
+				542378F8251AE74200C7F6FB /* SSHealth.m in Sources */,
 				E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */,
+				5423790F251B16D900C7F6FB /* SSHealthType.m in Sources */,
 				545642EC25132DC80093D78A /* AppDelegate.m in Sources */,
 				546C47ED2514C33700D422D6 /* UIColor+SSCategory.m in Sources */,
 				E3702756251760D0006DC0D7 /* SSDeviceTool.m in Sources */,
@@ -411,7 +445,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -463,7 +497,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -475,6 +509,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SSKit/SSKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2C4VMH22JU;
 				INFOPLIST_FILE = SSKit/Info.plist;
@@ -492,6 +527,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = SSKit/SSKit.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2C4VMH22JU;
 				INFOPLIST_FILE = SSKit/Info.plist;

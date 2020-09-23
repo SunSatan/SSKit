@@ -24,7 +24,7 @@
  zzzz: 功能描述，stringFromDate 或者 dateFromString
  */
 
-#define SSDateMainHelper [SSDateHelper mainHelper]
+#define SSDateMainHelper SSDateHelper.mainHelper
 
 typedef NS_ENUM(NSUInteger, SSDateSubMode) {
     /** 
@@ -61,6 +61,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - NSDate 转为 NSString
+
 @interface SSDateHelper (DateToString)
 
 /// 返回格式为 y-M-d (2019-4-1)
@@ -108,6 +109,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - NSString 转为 NSDate
+
 @interface SSDateHelper (StringToDate)
 
 /// 参数格式为 yyyy-MM-dd (2019-04-01)
@@ -147,6 +149,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - 中国农历、生肖
+
 @interface SSDateHelper (ChineseCalendar)
 
 /// 返回 农历年月日 (甲子年二月十五)
@@ -167,6 +170,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - 判断、比较
+
 @interface SSDateHelper (Judge)
 
 /**
@@ -274,6 +278,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - 计算：增加、差值
+
 @interface SSDateHelper (Calculation)
 
 /**
@@ -402,7 +407,22 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+#pragma mark - 日期拓展
+
+@interface SSDateHelper (DayExpansion)
+
+- (NSDate *)dayStartDateForDate:(NSDate *)date;
+
+- (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode;
+
+- (NSDate *)monthStartDateForDate:(NSDate *)date;
+
+- (NSDate *)yearStartDateForDate:(NSDate *)date;
+
+@end
+
 #pragma mark - 月份拓展
+
 @interface SSDateHelper (MonthExpansion)
 
 /**
@@ -450,6 +470,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - 日期区间
+
 @interface SSDateHelper (DateRange)
 
 /**
@@ -507,6 +528,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - 其他拓展
+
 @interface SSDateHelper (Other)
 
 /**

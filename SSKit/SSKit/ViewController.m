@@ -8,10 +8,12 @@
 
 #import "ViewController.h"
 #import "SSKit.h"
+#import <HealthKit/HealthKit.h>
 
 @interface ViewController ()
 
 @property (nonatomic, strong) SSDeviceTool *tool;
+
 
 @end
 
@@ -34,20 +36,13 @@
     [self ss_navigationBarCustomBackButton:@"icon_back_black"];
     self.view.backgroundColor = UIColor.redBlood;
     
-    @weakify;
-    self.tool = [SSDeviceTool new];
-    [self.tool startCalculateFPS:^(CGFloat FPS, NSString * _Nonnull FPSString) {
-        @strongify;
-        self.navigationItem.title = FPSString;
-    }];
+    self.navigationItem.title = [NSString stringWithFormat:@"%ld", [SSHealthShare stepCountSumWithEndDate:[NSDate date] timeLengthMode:SSTimeModeDay timeIntervalMode:SSTimeModeDay]];
     
 }
 
-
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    [self.tool endCalculateFPS];
-    [self.navigationController pushViewController:[ViewController new] animated:YES];
+    
 }
 
 
