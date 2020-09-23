@@ -6,12 +6,9 @@
 //
 
 #import "SSHealth.h"
-#import "SSKit.h"
-
-
-#define create dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)
-#define signal dispatch_semaphore_signal(semaphore)
-#define wait   dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+#import "SSHealthType.h"
+#import "SSMacro.h"
+#import "SSDateHelper.h"
 
 @interface SSHealth ()
 
@@ -39,38 +36,42 @@
     //开始、结束时间
     NSDate *startDate = [self startDateForEndDate:endDate timeLengthMode:timeLengthMode];
     //时间间隔
-//    NSDateComponents *intervalComponents = [self timeInterval:timeIntervalMode];
+        NSDateComponents *intervalComponents = [self timeInterval:timeIntervalMode];
     //时间段查询谓词
     NSPredicate *predicate = [HKQuery predicateForSamplesWithStartDate:startDate endDate:endDate options:HKQueryOptionStrictStartDate|HKQueryOptionStrictEndDate];
     
     
-    create;
+    SS_SEMAPHORE_CREATE_0;
     __block NSUInteger stepCountSum = 0;
     
     HKSampleQuery *sampleQuery = [[HKSampleQuery alloc] initWithSampleType:SSHealthType.stepCount predicate:predicate limit:HKObjectQueryNoLimit sortDescriptors:nil resultsHandler:^(HKSampleQuery * _Nonnull query, NSArray<__kindof HKSample *> * _Nullable results, NSError * _Nullable error) {
         
         if (@available(iOS 13.0, *)) {
             for (HKCumulativeQuantitySample *element in results) {
-                NSLog(@"%@", element.sourceRevision.productType);
+                //bundleIdentifier:com.apple.Health
+                //name:健康
+                if ([element.sourceRevision.source.bundleIdentifier isEqualToString:@"com.apple.Health"]) continue;
+                
+                stepCountSum += [element.sumQuantity doubleValueForUnit:HKUnit.countUnit];
+                
             }
-            signal;
+            SS_SEMAPHORE_SIGNAL;
         }
     }];
     
-//    HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:SSHealthType.stepCount quantitySamplePredicate:predicate options:HKStatisticsOptionCumulativeSum anchorDate:startDate intervalComponents:intervalComponents];
-//    query.initialResultsHandler = ^(HKStatisticsCollectionQuery * _Nonnull query, HKStatisticsCollection * _Nullable result, NSError * _Nullable error) {
-//
-//        for (HKStatistics *statistics in result.statistics) {
-//
-//            stepCountSum += [statistics.sumQuantity doubleValueForUnit:HKUnit.countUnit];
-//
-//            NSLog(@"statistics.sources : %ld", statistics.sources.count);
-//            for (HKSource *source in statistics.sources) {
-//                NSLog(@"%@", source.bundleIdentifier);
-//            }
-//        }
-//        signal;
-//    };
+        HKStatisticsCollectionQuery *query = [[HKStatisticsCollectionQuery alloc] initWithQuantityType:SSHealthType.stepCount quantitySamplePredicate:predicate options:HKStatisticsOptionCumulativeSum anchorDate:startDate intervalComponents:intervalComponents];
+        query.initialResultsHandler = ^(HKStatisticsCollectionQuery * _Nonnull query, HKStatisticsCollection * _Nullable result, NSError * _Nullable error) {
+    
+            for (HKStatistics *statistics in result.statistics) {
+    
+                stepCountSum += [statistics.sumQuantity doubleValueForUnit:HKUnit.countUnit];
+    
+                NSLog(@"statistics.sources : %ld", statistics.sources.count);
+                for (HKSource *source in statistics.sources) {
+                    NSLog(@"%@", source.bundleIdentifier);
+                }
+            }
+        };
     
     NSSet *set = [NSSet setWithObject:SSHealthType.stepCount];
     @weakify;
@@ -79,7 +80,7 @@
         [self.healthStore executeQuery:sampleQuery];
     }];
     
-    wait;
+    SS_SEMAPHORE_WAIT;
     return stepCountSum;
 }
 

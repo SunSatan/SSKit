@@ -34,6 +34,8 @@
 #pragma mark - Tool
 
 #import "SSDeviceTool.h"
+#import "SSDeviceLibrary.h"
+
 #import "SSTimer.h"
 #import "SSDateHelper.h"
 #import "SSContacts.h"

@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    NSLog(@"viewDidLoad");
     self.view.backgroundColor = UIColor.whiteColor;
     self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.deviceLanguage];
 //    [self ss_setNavigationTiTle:@"我的"];

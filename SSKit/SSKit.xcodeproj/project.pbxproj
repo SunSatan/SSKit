@@ -21,6 +21,7 @@
 		546C478425147FC300D422D6 /* UIViewController+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C478325147FC300D422D6 /* UIViewController+SSCategory.m */; };
 		546C47ED2514C33700D422D6 /* UIColor+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C47EC2514C33700D422D6 /* UIColor+SSCategory.m */; };
 		E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = E330DC212517702A00C3C6EA /* SSAuthorization.m */; };
+		E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */; };
 		E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CE25164DC400DEA59B /* SSIndexTipsView.m */; };
 		E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CF25164DC400DEA59B /* SSIndexBar.m */; };
 		E358C3D725164E1300DEA59B /* SSContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3D325164E1300DEA59B /* SSContacts.m */; };
@@ -63,6 +64,8 @@
 		546C47EC2514C33700D422D6 /* UIColor+SSCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SSCategory.m"; sourceTree = "<group>"; };
 		E330DC202517702A00C3C6EA /* SSAuthorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSAuthorization.h; sourceTree = "<group>"; };
 		E330DC212517702A00C3C6EA /* SSAuthorization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSAuthorization.m; sourceTree = "<group>"; };
+		E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDeviceLibrary.h; sourceTree = "<group>"; };
+		E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSDeviceLibrary.m; sourceTree = "<group>"; };
 		E358C3C82515F80C00DEA59B /* NSString+SSCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+SSCategory.h"; sourceTree = "<group>"; };
 		E358C3CC25164DC400DEA59B /* SSIndexTipsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSIndexTipsView.h; sourceTree = "<group>"; };
 		E358C3CD25164DC400DEA59B /* SSIndexBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSIndexBar.h; sourceTree = "<group>"; };
@@ -155,9 +158,9 @@
 			isa = PBXGroup;
 			children = (
 				546C47EA2514A39300D422D6 /* SSKit.h */,
+				546C477B25147C8900D422D6 /* Config */,
 				E358C3DA2516510200DEA59B /* Tool */,
 				E358C3D9251650FB00DEA59B /* View */,
-				546C477B25147C8900D422D6 /* Config */,
 				546C477825147C8900D422D6 /* Category */,
 			);
 			path = SSKit;
@@ -249,6 +252,8 @@
 			children = (
 				E3702755251760D0006DC0D7 /* SSDeviceTool.h */,
 				E3702754251760CF006DC0D7 /* SSDeviceTool.m */,
+				E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */,
+				E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */,
 			);
 			path = SSDeviceTool;
 			sourceTree = "<group>";
@@ -367,6 +372,7 @@
 				E3702756251760D0006DC0D7 /* SSDeviceTool.m in Sources */,
 				545642FD25132DCC0093D78A /* main.m in Sources */,
 				E3D38DA425165C2000670EEB /* SSTimer.m in Sources */,
+				E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */,
 				546C478125147CE300D422D6 /* UIApplication+SSCategory.m in Sources */,
 				E3D38DA025165B3000670EEB /* NSString+SSCategory.m in Sources */,
 				E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */,

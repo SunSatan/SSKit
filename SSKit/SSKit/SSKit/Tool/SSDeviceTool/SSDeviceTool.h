@@ -64,7 +64,7 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @property (class, nonatomic, readonly) CGFloat deviceBatteryLevel; //获取当前设备电量
 
-@property (class, nonatomic, readonly) NSDate *deviceLatestRestartTime;
+@property (class, nonatomic, readonly) NSDate *deviceLatestRestartTime; //最近一次重启时间
 
 @end
 
@@ -103,7 +103,6 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 
 @property (class, nonatomic, readonly) NSString *CPUModel;
 //@property (class, nonatomic, assign, readonly) NSUInteger CPUCoresNumber;
-
 
 @property (class, nonatomic, readonly) NSString *deviceColorHexString;
 @property (class, nonatomic, readonly) NSString *deviceEnclosureColorHexString;

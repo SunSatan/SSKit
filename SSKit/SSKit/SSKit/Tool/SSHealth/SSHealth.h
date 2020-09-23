@@ -22,6 +22,7 @@ typedef NS_ENUM(NSUInteger, SSTimeMode) {
 };
 
 @interface SSHealth : NSObject <NSCopying>
+
 + (instancetype)shareHealth;
 
 - (void)requestReadTypes:(nullable NSSet<HKObjectType *> *)typesToRead successCompletion:(successCompletion)successCompletion;
