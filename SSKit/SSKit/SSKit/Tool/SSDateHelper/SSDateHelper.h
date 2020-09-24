@@ -411,6 +411,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDateHelper (DayExpansion)
 
+- (NSDate *)minuteLastDateForDate:(NSDate *)date;
+
+- (NSDate *)hourLastDateForDate:(NSDate *)date;
+
 - (NSDate *)dayStartDateForDate:(NSDate *)date;
 
 - (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode;

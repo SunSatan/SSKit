@@ -10,6 +10,11 @@
 
 @implementation SSHealthType
 
++ (NSSet<HKQuantityType *> *)allTypeSet
+{
+    return [NSSet setWithObjects:self.BMI, self.bodyHeight, self.bodyWeight, self.stepCount, self.stepLength, self.walkDistance, self.flightsClimbed, self.activeEnergyBurned, self.walkSpeed, self.walkingDoubleSupportPercentage, self.walkingAsymmetryPercentage, self.heartRate, self.headphoneVolume, nil];
+}
+
 + (HKQuantityType *)BMI
 {
     return [HKQuantityType quantityTypeForIdentifier:HKQuantityTypeIdentifierBodyMassIndex]; //
@@ -76,7 +81,6 @@
     }
     return  nil;
 }
-
 
 + (HKQuantityType *)heartRate
 {

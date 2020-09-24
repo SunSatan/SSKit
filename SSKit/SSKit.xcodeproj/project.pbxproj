@@ -103,10 +103,10 @@
 		542378F5251AE74200C7F6FB /* SSHealth */ = {
 			isa = PBXGroup;
 			children = (
-				542378F6251AE74200C7F6FB /* SSHealth.h */,
-				542378F7251AE74200C7F6FB /* SSHealth.m */,
 				5423790D251B16D900C7F6FB /* SSHealthType.h */,
 				5423790E251B16D900C7F6FB /* SSHealthType.m */,
+				542378F6251AE74200C7F6FB /* SSHealth.h */,
+				542378F7251AE74200C7F6FB /* SSHealth.m */,
 			);
 			path = SSHealth;
 			sourceTree = "<group>";
@@ -139,7 +139,6 @@
 		545642E925132DC80093D78A /* SSKit */ = {
 			isa = PBXGroup;
 			children = (
-				54237908251AFDAE00C7F6FB /* SSKit.entitlements */,
 				546C477725147C8900D422D6 /* SSKit */,
 				545642EA25132DC80093D78A /* AppDelegate.h */,
 				545642EB25132DC80093D78A /* AppDelegate.m */,
@@ -150,6 +149,7 @@
 				545642F825132DCC0093D78A /* LaunchScreen.storyboard */,
 				545642FB25132DCC0093D78A /* Info.plist */,
 				545642FC25132DCC0093D78A /* main.m */,
+				54237908251AFDAE00C7F6FB /* SSKit.entitlements */,
 			);
 			path = SSKit;
 			sourceTree = "<group>";

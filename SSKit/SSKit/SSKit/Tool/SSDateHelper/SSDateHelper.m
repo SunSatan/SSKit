@@ -1064,6 +1064,36 @@ static SSDateHelper *_mainHelper = nil;
 
 #pragma mark - 日期拓展
 
+- (NSDate *)minuteLastDateForDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"nil"];
+        return nil;
+    }
+    
+    NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    NSDate *minuteLastDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    return minuteLastDate;
+}
+
+- (NSDate *)hourLastDateForDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"nil"];
+        return nil;
+    }
+    
+    NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour;
+    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    NSDate *hourLastDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    return hourLastDate;
+}
+
 - (NSDate *)dayStartDateForDate:(NSDate *)date
 {
     if (!date) {

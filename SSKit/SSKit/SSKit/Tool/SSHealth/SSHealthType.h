@@ -13,6 +13,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSHealthType : NSObject
 
+@property (class, nonatomic, readonly) NSSet<HKQuantityType *> *allTypeSet;
+
 @property (class, nonatomic, readonly) HKQuantityType *BMI;
 @property (class, nonatomic, readonly) HKQuantityType *bodyHeight; // 身高
 @property (class, nonatomic, readonly) HKQuantityType *bodyWeight; // 体重
@@ -33,6 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) HKQuantityType *walkingAsymmetryPercentage;     // 行走中，步伐不对称的百分比
 
 //血氧
+
+//睡眠时间
 
 @end
 

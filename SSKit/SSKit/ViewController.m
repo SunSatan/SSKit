@@ -36,8 +36,15 @@
     [self ss_navigationBarCustomBackButton:@"icon_back_black"];
     self.view.backgroundColor = UIColor.redBlood;
     
-    self.navigationItem.title = [NSString stringWithFormat:@"%ld", [SSHealthShare stepCountSumWithEndDate:[NSDate date] timeLengthMode:SSTimeModeDay timeIntervalMode:SSTimeModeDay]];
+    [SSHealthShare requestAllHealthAuthority];
     
+//    NSLog(@"stepCountSum:%ld", [SSHealthShare stepCountSumWithEndDate:[NSDate date] timeLengthMode:SSTimeModeDay timeIntervalMode:SSTimeModeDay]);
+//
+//    NSLog(@"walkDistanceSum:%ld", [SSHealthShare walkDistanceSumWithEndDate:[NSDate date] timeLengthMode:SSTimeModeDay timeIntervalMode:SSTimeModeDay]);
+//
+    NSLog(@"heartRateMaxToday:%ld", [SSHealthShare stepLengthLatestToday]);
+//
+//    NSLog(@"activeEnergyBurnedSumToday:%ld", [SSHealthShare activeEnergyBurnedSumToday]);
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
