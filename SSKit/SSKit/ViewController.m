@@ -9,11 +9,12 @@
 #import "ViewController.h"
 #import "SSKit.h"
 #import <HealthKit/HealthKit.h>
+#import <CoreMotion/CoreMotion.h>
 
 @interface ViewController ()
 
 @property (nonatomic, strong) SSDeviceTool *tool;
-
+@property (nonatomic, strong) CMPedometer *pedometer;
 
 @end
 
@@ -22,7 +23,6 @@
 - (void)dealloc
 {
     NSLog(@"ViewController -> dealloc");
-    
 }
 
 - (void)viewDidLoad {
@@ -45,6 +45,15 @@
     NSLog(@"heartRateMaxToday:%ld", [SSHealthShare stepLengthLatestToday]);
 //
 //    NSLog(@"activeEnergyBurnedSumToday:%ld", [SSHealthShare activeEnergyBurnedSumToday]);
+    
+//    if (CMPedometer.isStepCountingAvailable) {
+//        self.pedometer = [CMPedometer new];
+//        [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+//            NSLog(@"%ld", (long)pedometerData.numberOfSteps.integerValue);
+//        }];
+//
+//    }
+    
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
