@@ -46,12 +46,13 @@
     }];
     
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        NSLog(@"步数：%ld, 距离：%ld, 上升楼层%ld", _stepCount, _distance, _floorUpCount);
         if (handler) {
             handler(_stepCount, _distance, _floorUpCount);
         }
     });
 }
+
+#pragma mark - 步数
 
 - (NSUInteger)stepCountSumToday
 {
@@ -79,6 +80,19 @@
     }];
 }
 
+- (void)stepCountSumFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger stepCountSum))complete
+{
+    if (!CMPedometer.isStepCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:date toDate:endDate withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (complete){
+            complete(pedometerData.numberOfSteps.unsignedIntegerValue);
+        }
+    }];
+}
+
+#pragma mark - 步行距离
+
 - (NSUInteger)stepDistanceToday
 {
     if (!CMPedometer.isStepCountingAvailable) return 0;
@@ -104,6 +118,19 @@
         }
     }];
 }
+
+- (void)stepDistanceFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger distance))complete
+{
+    if (!CMPedometer.isStepCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:date toDate:endDate withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (complete){
+            complete(pedometerData.distance.unsignedIntegerValue);
+        }
+    }];
+}
+
+#pragma mark - 爬楼层数
 
 - (NSUInteger)floorUpCountToday
 {
@@ -131,6 +158,19 @@
     }];
 }
 
+- (void)floorUpCountFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger floorUpCount))complete
+{
+    if (!CMPedometer.isStepCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:date toDate:endDate withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (complete){
+            complete(pedometerData.floorsAscended.unsignedIntegerValue);
+        }
+    }];
+}
+
+#pragma mark - 下楼层数
+
 - (NSUInteger)floorDownCountToday
 {
     if (!CMPedometer.isStepCountingAvailable) return 0;
@@ -153,6 +193,17 @@
     [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
         if (handler){
             handler(pedometerData.floorsDescended.unsignedIntegerValue);
+        }
+    }];
+}
+
+- (void)floorDownCountFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger floorDownCount))complete
+{
+    if (!CMPedometer.isStepCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:date toDate:endDate withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (complete){
+            complete(pedometerData.floorsDescended.unsignedIntegerValue);
         }
     }];
 }

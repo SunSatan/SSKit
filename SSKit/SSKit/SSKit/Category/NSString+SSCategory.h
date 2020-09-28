@@ -29,6 +29,9 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)validatedMobilePhone;  /*检验手机号*/
 - (BOOL)validatedEmailAddress; /*检验邮箱*/
 
+- (NSString *)base64Encode; //base64 编码
+- (NSString *)base64Decode; //base64 解码
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -12,6 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSUInteger const Kb = 1000;
 static NSUInteger const Mb = 1000 * Kb;
+static NSUInteger const Gb = 1000 * Mb;
 
 #define SSDegreesToRadian(x)      (M_PI * (x) / 180.0)
 #define SSRadianToDegrees(radian) ((radian) * 180.0)/(M_PI)

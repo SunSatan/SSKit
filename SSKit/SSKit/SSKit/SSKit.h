@@ -45,6 +45,7 @@
 #import "SSMotion.h"
 #import "SSHealth.h"
 #import "SSHealthType.h"
+#import "SSLocation.h"
 
 #endif /* SSKit_h */
 

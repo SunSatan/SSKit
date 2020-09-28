@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)ss_addSectionCornerWithTableView:(UITableView *)tableView
                                indexPath:(NSIndexPath *)indexPath
-                         cornerViewframe:(CGRect)frame
                             cornerRadius:(CGFloat)cornerRadius;
 
 

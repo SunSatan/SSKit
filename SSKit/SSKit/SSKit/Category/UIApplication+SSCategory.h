@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 清除启动屏幕缓存：
  */
-- (void)clearLaunchScreenCache;
+- (void)ss_clearLaunchScreenCache;
 
 @end
 

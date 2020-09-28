@@ -27,10 +27,14 @@ typedef NS_ENUM(NSInteger, SSAuthorizationType) {
 
 @interface SSAuthorization : NSObject
 
-/// 获取当前应用权限
+/// 获取当前应用所有权限
 + (SSAuthorizationType)currentAuthorization;
++ (BOOL)isAvailableWithAuthorization:(SSAuthorizationType)type;
+
 /// 更新应用权限
 + (void)updateAuthorization;
+
+
 
 @end
 

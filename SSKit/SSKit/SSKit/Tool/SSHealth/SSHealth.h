@@ -1,6 +1,6 @@
 //
 //  SSHealth.h
-//  demo
+//  健康数据获取
 //
 //  Created by 孙铭健 on 2020/9/23.
 //

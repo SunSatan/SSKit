@@ -11,6 +11,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (SSCategory)
 
+/// 隐藏下划线
 - (void)ss_hiddenCellUnderline;
 
 @end

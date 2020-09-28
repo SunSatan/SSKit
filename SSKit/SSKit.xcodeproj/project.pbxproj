@@ -23,6 +23,8 @@
 		54CCDC37252175C2007D137F /* SSMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC36252175C2007D137F /* SSMotion.m */; };
 		54CCDC3D252175E0007D137F /* UITableView+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC3A252175E0007D137F /* UITableView+SSCategory.m */; };
 		54CCDC3E252175E0007D137F /* UITableViewCell+SSSectionCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC3C252175E0007D137F /* UITableViewCell+SSSectionCorner.m */; };
+		54CCE04325220768007D137F /* SSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE04225220768007D137F /* SSLocation.m */; };
+		54CCE0492522095C007D137F /* SSScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE0482522095C007D137F /* SSScreen.m */; };
 		E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = E330DC212517702A00C3C6EA /* SSAuthorization.m */; };
 		E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */; };
 		E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CE25164DC400DEA59B /* SSIndexTipsView.m */; };
@@ -71,6 +73,10 @@
 		54CCDC3A252175E0007D137F /* UITableView+SSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SSCategory.m"; sourceTree = "<group>"; };
 		54CCDC3B252175E0007D137F /* UITableViewCell+SSSectionCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+SSSectionCorner.h"; sourceTree = "<group>"; };
 		54CCDC3C252175E0007D137F /* UITableViewCell+SSSectionCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+SSSectionCorner.m"; sourceTree = "<group>"; };
+		54CCE04125220768007D137F /* SSLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSLocation.h; sourceTree = "<group>"; };
+		54CCE04225220768007D137F /* SSLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSLocation.m; sourceTree = "<group>"; };
+		54CCE0472522095C007D137F /* SSScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSScreen.h; sourceTree = "<group>"; };
+		54CCE0482522095C007D137F /* SSScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSScreen.m; sourceTree = "<group>"; };
 		E330DC202517702A00C3C6EA /* SSAuthorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSAuthorization.h; sourceTree = "<group>"; };
 		E330DC212517702A00C3C6EA /* SSAuthorization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSAuthorization.m; sourceTree = "<group>"; };
 		E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDeviceLibrary.h; sourceTree = "<group>"; };
@@ -218,6 +224,24 @@
 			path = SSMotion;
 			sourceTree = "<group>";
 		};
+		54CCE04025220753007D137F /* SSLocation */ = {
+			isa = PBXGroup;
+			children = (
+				54CCE04125220768007D137F /* SSLocation.h */,
+				54CCE04225220768007D137F /* SSLocation.m */,
+			);
+			path = SSLocation;
+			sourceTree = "<group>";
+		};
+		54CCE04625220947007D137F /* SSScreen */ = {
+			isa = PBXGroup;
+			children = (
+				54CCE0472522095C007D137F /* SSScreen.h */,
+				54CCE0482522095C007D137F /* SSScreen.m */,
+			);
+			path = SSScreen;
+			sourceTree = "<group>";
+		};
 		E330DC1F2517701400C3C6EA /* SSAuthorization */ = {
 			isa = PBXGroup;
 			children = (
@@ -258,6 +282,8 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				54CCE04625220947007D137F /* SSScreen */,
+				54CCE04025220753007D137F /* SSLocation */,
 				54CCDC34252175C2007D137F /* SSMotion */,
 				542378F5251AE74200C7F6FB /* SSHealth */,
 				E330DC1F2517701400C3C6EA /* SSAuthorization */,
@@ -389,11 +415,13 @@
 				546C478425147FC300D422D6 /* UIViewController+SSCategory.m in Sources */,
 				E37027502517399D006DC0D7 /* UIImage+SSImageCategory.m in Sources */,
 				E3863A7B251655C400093968 /* AppDelegate+SSBackgroundTask.m in Sources */,
+				54CCE04325220768007D137F /* SSLocation.m in Sources */,
 				542378F8251AE74200C7F6FB /* SSHealth.m in Sources */,
 				E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */,
 				5423790F251B16D900C7F6FB /* SSHealthType.m in Sources */,
 				545642EC25132DC80093D78A /* AppDelegate.m in Sources */,
 				546C47ED2514C33700D422D6 /* UIColor+SSCategory.m in Sources */,
+				54CCE0492522095C007D137F /* SSScreen.m in Sources */,
 				E3702756251760D0006DC0D7 /* SSDeviceTool.m in Sources */,
 				545642FD25132DCC0093D78A /* main.m in Sources */,
 				E3D38DA425165C2000670EEB /* SSTimer.m in Sources */,

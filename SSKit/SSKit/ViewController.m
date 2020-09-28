@@ -11,10 +11,14 @@
 #import <HealthKit/HealthKit.h>
 #import <CoreMotion/CoreMotion.h>
 
-@interface ViewController ()
+#import <CoreLocation/CoreLocation.h>
+#import <MapKit/MapKit.h>
+
+@interface ViewController () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) SSDeviceTool *tool;
-@property (nonatomic, strong) CMPedometer *pedometer;
+@property (nonatomic, strong) CLLocationManager *location;
+@property (nonatomic, strong) UILabel *text;
 
 @end
 
@@ -38,28 +42,32 @@
     
     [SSHealthShare requestAllHealthAuthority];
     
-//    NSLog(@"stepCountSum:%ld", [SSHealthShare stepCountSumWithEndDate:[NSDate date] timeLengthMode:SSTimeModeDay timeIntervalMode:SSTimeModeDay]);
-//
-//    NSLog(@"walkDistanceSum:%ld", [SSHealthShare walkDistanceSumWithEndDate:[NSDate date] timeLengthMode:SSTimeModeDay timeIntervalMode:SSTimeModeDay]);
-//
-    NSLog(@"heartRateMaxToday:%ld", [SSHealthShare stepLengthLatestToday]);
-//
-//    NSLog(@"activeEnergyBurnedSumToday:%ld", [SSHealthShare activeEnergyBurnedSumToday]);
+    [SSMotionMain stepCountSumToday];
     
-//    if (CMPedometer.isStepCountingAvailable) {
-//        self.pedometer = [CMPedometer new];
-//        [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
-//            NSLog(@"%ld", (long)pedometerData.numberOfSteps.integerValue);
-//        }];
-//
-//    }
+    _location = [[CLLocationManager alloc] init];
+    _location.desiredAccuracy = kCLLocationAccuracyBest;
+    _location.delegate = self;
+    [_location requestAlwaysAuthorization];
+    [_location startUpdatingLocation];
     
+    self.text = [[UILabel alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.text];
+    self.text.textAlignment = NSTextAlignmentCenter;
+    self.text.numberOfLines = 0;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
+{
+    for (CLLocation *location in locations) {
+        self.text.text = [NSString stringWithFormat:@"纬度：%.2f \n 经度：%.2f \n 海拔：%.2f \n 水平精度：%.2f \n 垂直精度：%.2f \n 航向：%.2f \n 航向精度：%.2f \n 速度：%.2f \n 速度精度：%.2f", location.coordinate.latitude, location.coordinate.longitude, location.altitude, location.horizontalAccuracy, location.verticalAccuracy, location.course, location.courseAccuracy, location.speed, location.speedAccuracy];
+    }
 }
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
     
 }
+
 
 
 @end

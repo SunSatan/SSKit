@@ -1,6 +1,6 @@
 //
 //  SSHealthType.h
-//  SSKit
+//  健康数据类型
 //
 //  Created by 孙铭健 on 2020/9/23.
 //  Copyright © 2020 孙铭健. All rights reserved.

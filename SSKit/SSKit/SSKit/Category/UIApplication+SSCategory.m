@@ -10,7 +10,7 @@
 
 @implementation UIApplication (SSCategory)
 
-- (void)clearLaunchScreenCache
+- (void)ss_clearLaunchScreenCache
 {
     NSError *error;
     [NSFileManager.defaultManager removeItemAtPath:[NSString stringWithFormat:@"%@/Library/SplashBoard",NSHomeDirectory()] error:&error];

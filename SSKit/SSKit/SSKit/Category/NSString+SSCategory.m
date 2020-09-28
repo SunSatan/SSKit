@@ -76,7 +76,22 @@
     return [emailTest evaluateWithObject:self];
 }
 
-uint32_t ss_ipIntFromIpString(char ipString[])
+- (NSString *)base64Encode
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    NSData *base64Data = [data base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    NSString *base64Str = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
+    return base64Str;
+}
+
+- (NSString *)base64Decode
+{
+    NSData *base64Data = [[NSData alloc] initWithBase64EncodedString:self options:NSDataBase64DecodingIgnoreUnknownCharacters];
+    NSString *str = [[NSString alloc] initWithData:base64Data encoding:NSUTF8StringEncoding];
+    return str;
+}
+
+uint32_t ss_ipIntFromIpString(char *ipString)
 {
     if (ipString == NULL || strlen(ipString) == 0) return 0;
 
@@ -108,8 +123,10 @@ unsigned char * ss_ipStringFormIpInt(uint32_t ipInt)
     while (ipInt > 0) {
         k = k & 255;
         ipInt = ipInt >> 8;
+        
     }
     return ipString;
 }
+
 
 @end
