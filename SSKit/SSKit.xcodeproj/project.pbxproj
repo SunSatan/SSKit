@@ -20,6 +20,9 @@
 		546C478125147CE300D422D6 /* UIApplication+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C478025147CE300D422D6 /* UIApplication+SSCategory.m */; };
 		546C478425147FC300D422D6 /* UIViewController+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C478325147FC300D422D6 /* UIViewController+SSCategory.m */; };
 		546C47ED2514C33700D422D6 /* UIColor+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C47EC2514C33700D422D6 /* UIColor+SSCategory.m */; };
+		54CCDC37252175C2007D137F /* SSMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC36252175C2007D137F /* SSMotion.m */; };
+		54CCDC3D252175E0007D137F /* UITableView+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC3A252175E0007D137F /* UITableView+SSCategory.m */; };
+		54CCDC3E252175E0007D137F /* UITableViewCell+SSSectionCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC3C252175E0007D137F /* UITableViewCell+SSSectionCorner.m */; };
 		E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = E330DC212517702A00C3C6EA /* SSAuthorization.m */; };
 		E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */; };
 		E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CE25164DC400DEA59B /* SSIndexTipsView.m */; };
@@ -62,6 +65,12 @@
 		546C47EA2514A39300D422D6 /* SSKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSKit.h; sourceTree = "<group>"; };
 		546C47EB2514C33700D422D6 /* UIColor+SSCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+SSCategory.h"; sourceTree = "<group>"; };
 		546C47EC2514C33700D422D6 /* UIColor+SSCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SSCategory.m"; sourceTree = "<group>"; };
+		54CCDC35252175C2007D137F /* SSMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMotion.h; sourceTree = "<group>"; };
+		54CCDC36252175C2007D137F /* SSMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMotion.m; sourceTree = "<group>"; };
+		54CCDC39252175E0007D137F /* UITableView+SSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SSCategory.h"; sourceTree = "<group>"; };
+		54CCDC3A252175E0007D137F /* UITableView+SSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SSCategory.m"; sourceTree = "<group>"; };
+		54CCDC3B252175E0007D137F /* UITableViewCell+SSSectionCorner.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+SSSectionCorner.h"; sourceTree = "<group>"; };
+		54CCDC3C252175E0007D137F /* UITableViewCell+SSSectionCorner.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+SSSectionCorner.m"; sourceTree = "<group>"; };
 		E330DC202517702A00C3C6EA /* SSAuthorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSAuthorization.h; sourceTree = "<group>"; };
 		E330DC212517702A00C3C6EA /* SSAuthorization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSAuthorization.m; sourceTree = "<group>"; };
 		E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDeviceLibrary.h; sourceTree = "<group>"; };
@@ -169,6 +178,10 @@
 		546C477825147C8900D422D6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				54CCDC39252175E0007D137F /* UITableView+SSCategory.h */,
+				54CCDC3A252175E0007D137F /* UITableView+SSCategory.m */,
+				54CCDC3B252175E0007D137F /* UITableViewCell+SSSectionCorner.h */,
+				54CCDC3C252175E0007D137F /* UITableViewCell+SSSectionCorner.m */,
 				E370274F2517399D006DC0D7 /* UIImage+SSImageCategory.h */,
 				E370274E2517399D006DC0D7 /* UIImage+SSImageCategory.m */,
 				E3863A79251655C400093968 /* AppDelegate+SSBackgroundTask.h */,
@@ -194,6 +207,15 @@
 				546C477D25147C8900D422D6 /* SSMacro.h */,
 			);
 			path = Config;
+			sourceTree = "<group>";
+		};
+		54CCDC34252175C2007D137F /* SSMotion */ = {
+			isa = PBXGroup;
+			children = (
+				54CCDC35252175C2007D137F /* SSMotion.h */,
+				54CCDC36252175C2007D137F /* SSMotion.m */,
+			);
+			path = SSMotion;
 			sourceTree = "<group>";
 		};
 		E330DC1F2517701400C3C6EA /* SSAuthorization */ = {
@@ -236,6 +258,7 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				54CCDC34252175C2007D137F /* SSMotion */,
 				542378F5251AE74200C7F6FB /* SSHealth */,
 				E330DC1F2517701400C3C6EA /* SSAuthorization */,
 				E3702753251760C6006DC0D7 /* SSDeviceTool */,
@@ -358,6 +381,8 @@
 				E3D38D9E25165AB800670EEB /* SSDateHelper.m in Sources */,
 				E358C3D725164E1300DEA59B /* SSContacts.m in Sources */,
 				E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */,
+				54CCDC3D252175E0007D137F /* UITableView+SSCategory.m in Sources */,
+				54CCDC37252175C2007D137F /* SSMotion.m in Sources */,
 				E3D38D9A25165A2700670EEB /* SSReusablePool.m in Sources */,
 				545642F225132DC80093D78A /* ViewController.m in Sources */,
 				546C477E25147C8900D422D6 /* UIWindow+SSCategory.m in Sources */,
@@ -373,6 +398,7 @@
 				545642FD25132DCC0093D78A /* main.m in Sources */,
 				E3D38DA425165C2000670EEB /* SSTimer.m in Sources */,
 				E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */,
+				54CCDC3E252175E0007D137F /* UITableViewCell+SSSectionCorner.m in Sources */,
 				546C478125147CE300D422D6 /* UIApplication+SSCategory.m in Sources */,
 				E3D38DA025165B3000670EEB /* NSString+SSCategory.m in Sources */,
 				E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */,

@@ -25,6 +25,8 @@
 #import "NSString+SSCategory.h"
 #import "UIImage+SSImageCategory.h"
 #import "AppDelegate+SSBackgroundTask.h"
+#import "UITableView+SSCategory.h"
+#import "UITableViewCell+SSSectionCorner.h"
 
 #pragma mark - View
 
@@ -35,13 +37,12 @@
 
 #import "SSDeviceTool.h"
 #import "SSDeviceLibrary.h"
-
 #import "SSTimer.h"
 #import "SSDateHelper.h"
 #import "SSContacts.h"
 #import "SSReusablePool.h"
 #import "SSAuthorization.h"
-
+#import "SSMotion.h"
 #import "SSHealth.h"
 #import "SSHealthType.h"
 

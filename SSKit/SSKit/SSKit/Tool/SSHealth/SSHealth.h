@@ -40,6 +40,7 @@ typedef NS_ENUM(NSUInteger, SSTimeMode) {
                         timeIntervalMode:(SSTimeMode)timeIntervalMode;
 
 - (NSInteger)heartRateLatestToday;
+
 - (NSInteger)heartRateMaxToday;
 
 - (NSInteger)stepLengthLatestToday;

@@ -1,0 +1,190 @@
+//
+//  SSMotion.m
+//  widget
+//
+//  Created by 孙铭健 on 2020/9/25.
+//
+
+#import "SSMotion.h"
+#import "SSDateHelper.h"
+#import "SSMacro.h"
+
+#import <CoreMotion/CoreMotion.h>
+
+@interface SSMotion ()
+
+@property (nonatomic, strong) CMPedometer *pedometer;
+
+@end
+
+@implementation SSMotion
+
+- (void)reloadData:(void(^)(NSUInteger stepCountSum, NSUInteger distance, NSUInteger floorUpCount))handler
+{
+    __block NSUInteger _stepCount = 0;
+    __block NSUInteger _distance = 0;
+    __block NSUInteger _floorUpCount = 0;
+    
+    dispatch_group_t group = dispatch_group_create();
+    
+    dispatch_group_enter(group);
+    [self stepCountSumToday:^(NSUInteger stepCountSum) {
+        _stepCount = stepCountSum;
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_enter(group);
+    [self stepDistanceToday:^(NSUInteger distance) {
+        _distance = distance;
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_enter(group);
+    [self floorUpCountToday:^(NSUInteger floorUpCount) {
+        _floorUpCount = floorUpCount;
+        dispatch_group_leave(group);
+    }];
+    
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        NSLog(@"步数：%ld, 距离：%ld, 上升楼层%ld", _stepCount, _distance, _floorUpCount);
+        if (handler) {
+            handler(_stepCount, _distance, _floorUpCount);
+        }
+    });
+}
+
+- (NSUInteger)stepCountSumToday
+{
+    if (!CMPedometer.isStepCountingAvailable) return 0;
+    
+    SS_SEMAPHORE_CREATE_0;
+    __block NSUInteger _stepCount = 0;
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        _stepCount = pedometerData.numberOfSteps.unsignedIntegerValue;
+        SS_SEMAPHORE_SIGNAL;
+    }];
+    
+    SS_SEMAPHORE_WAIT;
+    return _stepCount;
+}
+
+- (void)stepCountSumToday:(void(^)(NSUInteger stepCountSum))handler
+{
+    if (!CMPedometer.isStepCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (handler){
+            handler(pedometerData.numberOfSteps.unsignedIntegerValue);
+        }
+    }];
+}
+
+- (NSUInteger)stepDistanceToday
+{
+    if (!CMPedometer.isStepCountingAvailable) return 0;
+    
+    SS_SEMAPHORE_CREATE_0;
+    __block NSUInteger distance = 0;
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        distance = pedometerData.distance.unsignedIntegerValue;
+        SS_SEMAPHORE_SIGNAL;
+    }];
+    
+    SS_SEMAPHORE_WAIT;
+    return distance;
+}
+
+- (void)stepDistanceToday:(void(^)(NSUInteger distance))handler
+{
+    if (!CMPedometer.isDistanceAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (handler){
+            handler(pedometerData.distance.unsignedIntegerValue);
+        }
+    }];
+}
+
+- (NSUInteger)floorUpCountToday
+{
+    if (!CMPedometer.isStepCountingAvailable) return 0;
+    
+    SS_SEMAPHORE_CREATE_0;
+    __block NSUInteger floorUpCount = 0;
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        floorUpCount = pedometerData.floorsAscended.unsignedIntegerValue;
+        SS_SEMAPHORE_SIGNAL;
+    }];
+    
+    SS_SEMAPHORE_WAIT;
+    return floorUpCount;
+}
+
+- (void)floorUpCountToday:(void(^)(NSUInteger floorUpCount))handler
+{
+    if (!CMPedometer.isFloorCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (handler){
+            handler(pedometerData.floorsAscended.unsignedIntegerValue);
+        }
+    }];
+}
+
+- (NSUInteger)floorDownCountToday
+{
+    if (!CMPedometer.isStepCountingAvailable) return 0;
+    
+    SS_SEMAPHORE_CREATE_0;
+    __block NSUInteger floorDownCount = 0;
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        floorDownCount = pedometerData.floorsDescended.unsignedIntegerValue;
+        SS_SEMAPHORE_SIGNAL;
+    }];
+    
+    SS_SEMAPHORE_WAIT;
+    return floorDownCount;
+}
+
+- (void)floorDownCountToday:(void(^)(NSUInteger floorDownCount))handler
+{
+    if (!CMPedometer.isFloorCountingAvailable) return;
+    
+    [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
+        if (handler){
+            handler(pedometerData.floorsDescended.unsignedIntegerValue);
+        }
+    }];
+}
+
+#pragma mark - 单例
+
+static SSMotion * _main;
+
++ (instancetype)main
+{
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _main = [[super allocWithZone:nil] init];
+        _main.pedometer = [CMPedometer new];
+    });
+    
+    return _main;
+}
+
++ (instancetype)allocWithZone:(struct _NSZone *)zone
+{
+    return [self main];
+}
+
+- (id)copyWithZone:(struct _NSZone *)zone
+{
+    return _main;
+}
+
+- (id)mutableCopyWithZone:(NSZone *)zone
+{
+    return _main;
+}
+
+@end
