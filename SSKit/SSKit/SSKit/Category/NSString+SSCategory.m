@@ -91,6 +91,37 @@
     return str;
 }
 
+- (void)enumerateObjectsUsingBlock:(UsingBlock)block
+{
+    NSString *temp = nil;
+    for (int index=0; index<self.length; index++) {
+        temp = [self substringWithRange:NSMakeRange(index, 1)];
+        if (block) block(temp, index);
+    }
+}
+
++ (NSString *)stringWithArray:(NSArray<NSString *> *)array
+{
+    return [self stringWithArray:array joinded:@""];
+}
+
++ (NSString *)stringWithArray:(NSArray<NSString *> *)array joinded:(NSString *)string
+{
+    NSString *str = [array componentsJoinedByString:string];
+    return str;
+}
+
+- (NSArray<NSString *> *)stringCutApartToCharacter
+{
+    return [self stringCutApartByString:@""];
+}
+
+- (NSArray<NSString *> *)stringCutApartByString:(NSString *)string
+{
+    NSArray *arr = [self componentsSeparatedByString:string];
+    return arr;
+}
+
 uint32_t ss_ipIntFromIpString(char *ipString)
 {
     if (ipString == NULL || strlen(ipString) == 0) return 0;

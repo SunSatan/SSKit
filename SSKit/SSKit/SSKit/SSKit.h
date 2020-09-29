@@ -46,6 +46,7 @@
 #import "SSHealth.h"
 #import "SSHealthType.h"
 #import "SSLocation.h"
+#import "SSMorseCode.h"
 
 #endif /* SSKit_h */
 

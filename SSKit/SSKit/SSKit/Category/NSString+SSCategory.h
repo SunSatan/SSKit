@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^UsingBlock)(NSString *character, NSUInteger index);
+
 @interface NSString (SSCategory)
 
 /// 字符串清除字符
@@ -31,6 +33,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (NSString *)base64Encode; //base64 编码
 - (NSString *)base64Decode; //base64 解码
+
+//遍历字符串每个字符
+- (void)enumerateObjectsUsingBlock:(UsingBlock)block;
+
++ (NSString *)stringWithArray:(NSArray<NSString *> *)array;
++ (NSString *)stringWithArray:(NSArray<NSString *> *)array joinded:(NSString *)string;
+
+- (NSArray<NSString *> *)stringCutApartToCharacter;
+- (NSArray<NSString *> *)stringCutApartByString:(NSString *)string;
 
 @end
 

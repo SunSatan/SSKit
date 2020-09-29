@@ -20,6 +20,7 @@
 		546C478125147CE300D422D6 /* UIApplication+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C478025147CE300D422D6 /* UIApplication+SSCategory.m */; };
 		546C478425147FC300D422D6 /* UIViewController+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C478325147FC300D422D6 /* UIViewController+SSCategory.m */; };
 		546C47ED2514C33700D422D6 /* UIColor+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 546C47EC2514C33700D422D6 /* UIColor+SSCategory.m */; };
+		54B5C1B92522D87C000BD6AF /* SSMorseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5C1B82522D87C000BD6AF /* SSMorseCode.m */; };
 		54CCDC37252175C2007D137F /* SSMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC36252175C2007D137F /* SSMotion.m */; };
 		54CCDC3D252175E0007D137F /* UITableView+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC3A252175E0007D137F /* UITableView+SSCategory.m */; };
 		54CCDC3E252175E0007D137F /* UITableViewCell+SSSectionCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC3C252175E0007D137F /* UITableViewCell+SSSectionCorner.m */; };
@@ -67,6 +68,8 @@
 		546C47EA2514A39300D422D6 /* SSKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSKit.h; sourceTree = "<group>"; };
 		546C47EB2514C33700D422D6 /* UIColor+SSCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+SSCategory.h"; sourceTree = "<group>"; };
 		546C47EC2514C33700D422D6 /* UIColor+SSCategory.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+SSCategory.m"; sourceTree = "<group>"; };
+		54B5C1B72522D87C000BD6AF /* SSMorseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSMorseCode.h; sourceTree = "<group>"; };
+		54B5C1B82522D87C000BD6AF /* SSMorseCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSMorseCode.m; sourceTree = "<group>"; };
 		54CCDC35252175C2007D137F /* SSMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMotion.h; sourceTree = "<group>"; };
 		54CCDC36252175C2007D137F /* SSMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMotion.m; sourceTree = "<group>"; };
 		54CCDC39252175E0007D137F /* UITableView+SSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableView+SSCategory.h"; sourceTree = "<group>"; };
@@ -215,6 +218,15 @@
 			path = Config;
 			sourceTree = "<group>";
 		};
+		54B5C1B62522D86F000BD6AF /* SSMorseCode */ = {
+			isa = PBXGroup;
+			children = (
+				54B5C1B72522D87C000BD6AF /* SSMorseCode.h */,
+				54B5C1B82522D87C000BD6AF /* SSMorseCode.m */,
+			);
+			path = SSMorseCode;
+			sourceTree = "<group>";
+		};
 		54CCDC34252175C2007D137F /* SSMotion */ = {
 			isa = PBXGroup;
 			children = (
@@ -282,6 +294,7 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				54B5C1B62522D86F000BD6AF /* SSMorseCode */,
 				54CCE04625220947007D137F /* SSScreen */,
 				54CCE04025220753007D137F /* SSLocation */,
 				54CCDC34252175C2007D137F /* SSMotion */,
@@ -410,6 +423,7 @@
 				54CCDC3D252175E0007D137F /* UITableView+SSCategory.m in Sources */,
 				54CCDC37252175C2007D137F /* SSMotion.m in Sources */,
 				E3D38D9A25165A2700670EEB /* SSReusablePool.m in Sources */,
+				54B5C1B92522D87C000BD6AF /* SSMorseCode.m in Sources */,
 				545642F225132DC80093D78A /* ViewController.m in Sources */,
 				546C477E25147C8900D422D6 /* UIWindow+SSCategory.m in Sources */,
 				546C478425147FC300D422D6 /* UIViewController+SSCategory.m in Sources */,
@@ -505,7 +519,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -557,7 +571,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

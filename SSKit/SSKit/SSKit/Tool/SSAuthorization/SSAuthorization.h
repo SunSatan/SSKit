@@ -1,6 +1,6 @@
 //
 //  SSAuthorization.h
-//  SSKit
+//  SSKit  未完成
 //
 //  Created by SunSatan on 2020/9/20.
 //  Copyright © 2020 孙铭健. All rights reserved.
