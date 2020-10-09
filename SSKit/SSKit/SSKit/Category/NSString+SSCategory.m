@@ -118,6 +118,15 @@
 
 - (NSArray<NSString *> *)stringCutApartByString:(NSString *)string
 {
+    if (!string || string.length == 0) {
+        NSMutableArray *arr = [NSMutableArray array];
+        for (int index=0; index<self.length; index++) {
+            NSString *temp = [self substringWithRange:NSMakeRange(index, 1)];
+            [arr addObject:temp];
+        }
+        return [NSArray arrayWithArray:arr];
+    }
+    
     NSArray *arr = [self componentsSeparatedByString:string];
     return arr;
 }

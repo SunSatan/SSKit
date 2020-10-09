@@ -10,14 +10,18 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-static NSString * const SSMorseCodeDah = @"="; //@"-"
+static NSString * const SSMorseCodeDah = @"-"; //@"="
 static NSString * const SSMorseCodeDit = @".";
+static NSString * const SSMorseCodeSeparator = @" ";
 
 @interface SSMorseCode : NSObject
 
-@property (class, nonatomic, readonly) NSDictionary<NSString *, NSArray *> *morseCodeTable;
+@property (class, nonatomic, readonly) NSDictionary<NSString *, NSString *> *morseCodeEncodeTable;
 
-+ (NSString *)morseCode:(NSString *)string;
++ (NSString *)morseCodeFromString:(NSString *)string;
++ (NSString *)morseCodeFromString:(NSString *)string ignoreOtherChar:(BOOL)ignoreOtherChar;
+
++ (NSString *)stringFromMorseCode:(NSString *)string;
 
 @end
 

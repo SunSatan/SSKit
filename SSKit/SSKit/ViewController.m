@@ -40,20 +40,17 @@
     [self ss_navigationBarCustomBackButton:@"icon_back_black"];
     self.view.backgroundColor = UIColor.redBlood;
     
-    [SSHealthShare requestAllHealthAuthority];
-    
-    [SSMotionMain stepCountSumToday];
-    
-    _location = [[CLLocationManager alloc] init];
-    _location.desiredAccuracy = kCLLocationAccuracyBest;
-    _location.delegate = self;
-    [_location requestAlwaysAuthorization];
-    [_location startUpdatingLocation];
+//    _location = [[CLLocationManager alloc] init];
+//    _location.desiredAccuracy = kCLLocationAccuracyBest;
+//    _location.delegate = self;
+//    [_location requestAlwaysAuthorization];
+//    [_location startUpdatingLocation];
     
     self.text = [[UILabel alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.text];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.numberOfLines = 0;
+    self.text.text = @"";
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
