@@ -15,13 +15,34 @@ NS_ASSUME_NONNULL_BEGIN
 #define SSColorRGB(r, g, b)     SSColorRGBA(r, g, b, 1.0)
 
 //自定义十六进制颜色
-#define SSColorHex(hex)             [UIColor ss_colorWithHexString:hex]
-#define SSColorHexAlpha(hex, alpha) [UIColor ss_colorWithHexString:hex alpha:(alpha)]
+#define SSColorHex(hex)         [UIColor ss_colorWithHexString:hex]
+#define SSColorHexAlpha(hex, a) [UIColor ss_colorWithHexString:hex alpha:(a)]
+
+//暗黑模式，动态颜色
+#define SSColorLightAndDark(lightColor, darkColor) \
+[UIColor ss_colorWithLightColor:lightColor darkColor:darkColor]
+
+#define SSColorLightAndDarkHex(lightHex, darkHex) \
+[UIColor ss_colorWithLightColorHex:lightHex darkColorHex:darkHex]
+
+#define SSColorLightAndDarkHexAlpha(lightHex, lightAlpha, darkHex, darkAlpha) \
+[UIColor ss_colorWithLightColorHex:lightHex lightColorAlpha:lightAlpha darkColorHex:darkHex darkColorAlpha:darkAlpha]
 
 @interface UIColor (SSCategory)
 
-+ (instancetype)ss_colorWithHexString:(NSString *)hexString;
-+ (instancetype)ss_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
++ (UIColor *)ss_colorWithHexString:(NSString *)hexString;
++ (UIColor *)ss_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
+
++ (UIColor *)ss_colorWithLightColor:(UIColor *)lightColor
+                          darkColor:(UIColor *)darkColor;
+
++ (UIColor *)ss_colorWithLightColorHex:(NSString *)lightColorHex
+                          darkColorHex:(NSString *)darkColorHex;
+
++ (UIColor *)ss_colorWithLightColorHex:(NSString *)lightColorHex
+                       lightColorAlpha:(CGFloat)lightColorAlpha
+                          darkColorHex:(NSString *)darkColorHex
+                        darkColorAlpha:(CGFloat)darkColorAlpha;
 
 #pragma mark - custom color
 

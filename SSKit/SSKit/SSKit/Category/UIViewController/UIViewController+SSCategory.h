@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-#define RootViewController [UIApplication sharedApplication].keyWindow.rootViewController
+#define SSDisplayViewController UIViewController.currentDisplayViewController
 
 @interface UIViewController (SSCategory)
 
@@ -44,7 +44,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)ss_edgesExtendedForNone;  //
 - (void)ss_navigationPopNotCover; //
 
-- (void)ss_navigationBarCustomBackButton:(NSString *)imageName;
+- (void)ss_navigationBarImageBackButton:(NSString *)imageName;
 
 @end
 

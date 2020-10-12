@@ -104,11 +104,11 @@
 
 #pragma mark - navigation BarButtonItem
 
-- (void)ss_navigationBarCustomBackButton:(NSString *)imageName
+- (void)ss_navigationBarImageBackButton:(NSString *)imageName
 {
     NSParameterAssert(imageName);
     UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, 44, 44);
+    backBtn.frame = CGRectMake(0, 0, 36, 36);
     [backBtn setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(ss_navigationAnimatedPopViewController) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftButtonItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
