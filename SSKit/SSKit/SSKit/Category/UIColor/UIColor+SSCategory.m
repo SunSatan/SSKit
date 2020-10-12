@@ -11,12 +11,12 @@
 
 @implementation UIColor (SSCategory)
 
-+ (instancetype)colorWithHexString:(NSString *)hexString
++ (instancetype)ss_colorWithHexString:(NSString *)hexString
 {
-    return [self colorWithHexString:hexString alpha:1];
+    return [self ss_colorWithHexString:hexString alpha:1];
 }
 
-+ (instancetype)colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha
++ (instancetype)ss_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha
 {
     NSParameterAssert(hexString);
     
@@ -47,6 +47,34 @@
     [[NSScanner scannerWithString:blueString]  scanHexInt:&blue];
     
     return [self colorWithRed:red/255.f green:green/255.f blue:blue/255.f alpha:alpha];
+}
+
++ (UIColor *)ss_colorWithLightColor:(UIColor *)lightColor darkColor:(UIColor *)darkColor
+{
+    if (@available(iOS 13.0, *)) {
+        return [UIColor colorWithDynamicProvider:^UIColor * _Nonnull(UITraitCollection * _Nonnull trainCollection) {
+            if ([trainCollection userInterfaceStyle] == UIUserInterfaceStyleLight) {
+                return lightColor;
+            } else {
+                return darkColor;
+            }
+        }];
+    } else {
+        return lightColor ? lightColor : (darkColor ? darkColor : [UIColor clearColor]);
+    }
+}
+
++ (UIColor *)ss_colorWithLightColorHex:(NSString *)lightColorHex darkColorHex:(NSString *)darkColorHex
+{
+    return [self ss_colorWithLightColor:SSColorHex(lightColorHex) darkColor:SSColorHex(darkColorHex)];
+}
+
++ (UIColor *)ss_colorWithLightColorHex:(NSString *)lightColorHex
+                       lightColorAlpha:(CGFloat)lightColorAlpha
+                          darkColorHex:(NSString *)darkColorHex
+                        darkColorAlpha:(CGFloat)darkColorAlpha
+{
+    return [self ss_colorWithLightColor:SSColorHexAlpha(lightColorHex, lightColorAlpha) darkColor:SSColorHexAlpha(darkColorHex, darkColorAlpha)];
 }
 
 #pragma mark - pink

@@ -203,8 +203,8 @@
 		54BDA1482534748000094633 /* UIImage */ = {
 			isa = PBXGroup;
 			children = (
-				54BDA1492534748000094633 /* UIImage+SSImageCategory.m */,
 				54BDA14A2534748000094633 /* UIImage+SSImageCategory.h */,
+				54BDA1492534748000094633 /* UIImage+SSImageCategory.m */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -212,8 +212,8 @@
 		54BDA14B2534748000094633 /* UIWindow */ = {
 			isa = PBXGroup;
 			children = (
-				54BDA14C2534748000094633 /* UIWindow+SSCategory.m */,
 				54BDA14D2534748000094633 /* UIWindow+SSCategory.h */,
+				54BDA14C2534748000094633 /* UIWindow+SSCategory.m */,
 			);
 			path = UIWindow;
 			sourceTree = "<group>";
@@ -230,8 +230,8 @@
 		54BDA1512534748000094633 /* UIColor */ = {
 			isa = PBXGroup;
 			children = (
-				54BDA1522534748000094633 /* UIColor+SSCategory.m */,
 				54BDA1532534748000094633 /* UIColor+SSCategory.h */,
+				54BDA1522534748000094633 /* UIColor+SSCategory.m */,
 			);
 			path = UIColor;
 			sourceTree = "<group>";
@@ -258,8 +258,8 @@
 			isa = PBXGroup;
 			children = (
 				54BDA15B2534748000094633 /* UITableViewCell+SSSectionCorner.h */,
-				54BDA15C2534748000094633 /* UITableView+SSCategory.h */,
 				54BDA15D2534748000094633 /* UITableViewCell+SSSectionCorner.m */,
+				54BDA15C2534748000094633 /* UITableView+SSCategory.h */,
 				54BDA15E2534748000094633 /* UITableView+SSCategory.m */,
 			);
 			path = UITableView;
@@ -268,8 +268,8 @@
 		54BDA15F2534748000094633 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
-				54BDA1602534748000094633 /* AppDelegate+SSBackgroundTask.m */,
 				54BDA1612534748000094633 /* AppDelegate+SSBackgroundTask.h */,
+				54BDA1602534748000094633 /* AppDelegate+SSBackgroundTask.m */,
 			);
 			path = AppDelegate;
 			sourceTree = "<group>";

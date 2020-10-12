@@ -20,13 +20,13 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @interface SSDeviceTool : NSObject
 
++ (NSString *)pushTokenForDeviceToken:(NSData *)deviceToken; //将 deviceToken 转换成 pushToken
+
 @end
 
 #pragma mark - 设备参数
 
 @interface SSDeviceTool (SSDeviceInfo)
-
-+ (NSString *)pushTokenForDeviceToken:(NSData *)deviceToken; //将 deviceToken 转换成 pushToken
 
 @property (class, nonatomic, readonly) NSString *deviceModel;         //获取设备型号：iPhone 6S、iPhone X
 @property (class, nonatomic, readonly) NSString *deviceSystemVersion; //获取设备系统版本：iOS 13.3.1

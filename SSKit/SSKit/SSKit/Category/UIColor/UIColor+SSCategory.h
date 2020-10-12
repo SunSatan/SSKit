@@ -12,16 +12,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 //自定义RGB颜色
 #define SSColorRGBA(r, g, b, a) [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:(a)]
-#define SSColorRGB(r, g, b)     [UIColor colorWithRed:(r)/255.0f green:(g)/255.0f blue:(b)/255.0f alpha:1.0]
+#define SSColorRGB(r, g, b)     SSColorRGBA(r, g, b, 1.0)
 
 //自定义十六进制颜色
-#define SSColorHex(hex)             [UIColor colorWithHexString:hex]
-#define SSColorHexAlpha(hex, alpha) [UIColor colorWithHexString:hex alpha:(alpha)]
+#define SSColorHex(hex)             [UIColor ss_colorWithHexString:hex]
+#define SSColorHexAlpha(hex, alpha) [UIColor ss_colorWithHexString:hex alpha:(alpha)]
 
 @interface UIColor (SSCategory)
 
-+ (instancetype)colorWithHexString:(NSString *)hexString;
-+ (instancetype)colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
++ (instancetype)ss_colorWithHexString:(NSString *)hexString;
++ (instancetype)ss_colorWithHexString:(NSString *)hexString alpha:(CGFloat)alpha;
 
 #pragma mark - custom color
 
