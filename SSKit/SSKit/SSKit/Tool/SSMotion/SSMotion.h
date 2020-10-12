@@ -22,18 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSUInteger)floorDownCountToday;
 
 // 异步方法，block在子线程
-- (void)stepCountSumToday:(void(^)(NSUInteger stepCountSum))handler;
+- (void)stepCountSumToday:(void(^)(NSUInteger stepCountSum))handler; //单位是步
 - (void)stepDistanceToday:(void(^)(NSUInteger distance))handler;  //单位是米
-- (void)floorUpCountToday:(void(^)(NSUInteger floorUpCount))handler;
-- (void)floorDownCountToday:(void(^)(NSUInteger floorDownCount))handler;
+- (void)floorUpCountToday:(void(^)(NSUInteger floorUpCount))handler; //单位是楼层
+- (void)floorDownCountToday:(void(^)(NSUInteger floorDownCount))handler; //单位是楼层
 
 // 指定开始日期和结束日期
 - (void)stepCountSumFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger stepCountSum))complete;
 - (void)stepDistanceFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger distance))complete;
 - (void)floorUpCountFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger floorUpCount))complete;
 - (void)floorDownCountFromDate:(NSDate *)date toDate:(NSDate *)endDate complete:(void(^)(NSUInteger floorDownCount))complete;
-
-- (void)reloadData:(void(^)(NSUInteger stepCountSum, NSUInteger distance, NSUInteger floorUpCount))handler;
 
 @end
 

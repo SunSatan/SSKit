@@ -19,39 +19,6 @@
 
 @implementation SSMotion
 
-- (void)reloadData:(void(^)(NSUInteger stepCountSum, NSUInteger distance, NSUInteger floorUpCount))handler
-{
-    __block NSUInteger _stepCount = 0;
-    __block NSUInteger _distance = 0;
-    __block NSUInteger _floorUpCount = 0;
-    
-    dispatch_group_t group = dispatch_group_create();
-    
-    dispatch_group_enter(group);
-    [self stepCountSumToday:^(NSUInteger stepCountSum) {
-        _stepCount = stepCountSum;
-        dispatch_group_leave(group);
-    }];
-    
-    dispatch_group_enter(group);
-    [self stepDistanceToday:^(NSUInteger distance) {
-        _distance = distance;
-        dispatch_group_leave(group);
-    }];
-    
-    dispatch_group_enter(group);
-    [self floorUpCountToday:^(NSUInteger floorUpCount) {
-        _floorUpCount = floorUpCount;
-        dispatch_group_leave(group);
-    }];
-    
-    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        if (handler) {
-            handler(_stepCount, _distance, _floorUpCount);
-        }
-    });
-}
-
 #pragma mark - 步数
 
 - (NSUInteger)stepCountSumToday

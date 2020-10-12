@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 static NSString * const SSMorseCodeDah = @"-"; //@"="
 static NSString * const SSMorseCodeDit = @".";
-static NSString * const SSMorseCodeSeparator = @" ";
+static NSString * const SSMorseCodeSeparator = @" "; //自定义分隔符
 
 @interface SSMorseCode : NSObject
 

@@ -94,7 +94,7 @@ static NSString *morseCodeAIter; // @
 + (NSString *)stringFromMorseCode:(NSString *)string
 {
     NSString *result = @"";
-    NSArray *morseCodeArray = [string stringCutApartByString:@" "];
+    NSArray *morseCodeArray = [string stringCutApartByString:SSMorseCodeSeparator];
     for (NSString *morseCode in morseCodeArray) {
         NSString *string = self.morseCodeDecodeTable[morseCode];
         result = [result stringByAppendingFormat:@"%@", string];

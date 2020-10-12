@@ -11,7 +11,7 @@
 
 #import <UIKit/UIKit.h>
 
-#pragma mark - other
+#pragma mark - Config
 
 #import "SSConstant.h"
 #import "SSMacro.h"
@@ -43,8 +43,6 @@
 #import "SSReusablePool.h"
 #import "SSAuthorization.h"
 #import "SSMotion.h"
-#import "SSHealth.h"
-#import "SSHealthType.h"
 #import "SSLocation.h"
 #import "SSMorseCode.h"
 

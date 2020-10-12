@@ -14,6 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// 隐藏下划线
 - (void)ss_hiddenCellUnderline;
 
+// 添加 tableHeaderView
+- (void)ss_addTableHeaderView:(UIView *)view;
+
+// 添加 tableFooterView
+- (void)ss_addTableFooterView:(UIView *)view;
+
 @end
 
 NS_ASSUME_NONNULL_END

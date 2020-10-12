@@ -54,7 +54,7 @@
         // 开始 row 则顶部圆角
         self.contentView.layer.mask = self.topCorners;
     }
-    else if (indexPath.row == [tableView numberOfRowsInSection:indexPath.section] - 1){
+    else if (indexPath.row == ([tableView numberOfRowsInSection:indexPath.section] - 1)){
         // 结束 row 则顶部圆角
        self.contentView.layer.mask = self.bottomCorners;
     }

@@ -20,8 +20,6 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @interface SSDeviceTool : NSObject
 
-
-
 @end
 
 #pragma mark - 设备参数

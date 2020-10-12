@@ -115,4 +115,32 @@
     self.navigationItem.leftBarButtonItem = leftButtonItem;
 }
 
+#pragma mark - Current Display ViewController
+
++ (UIViewController *)currentDisplayViewController
+{
+    UIViewController *rootVC = UIApplication.sharedApplication.keyWindow.rootViewController;
+    UIViewController *currentShowVC = [self findCurrentDisplayViewController:rootVC];
+    return currentShowVC;
+}
+
+/** 递归查找当前显示的VC*/
++ (UIViewController *)findCurrentDisplayViewController:(UIViewController *)fromVC
+{
+    if ([fromVC isKindOfClass:UINavigationController.class]) {
+        return [self findCurrentDisplayViewController:[((UINavigationController *)fromVC) visibleViewController]];
+    }
+    else if ([fromVC isKindOfClass:UITabBarController.class]) {
+        return [self findCurrentDisplayViewController:((UITabBarController *)fromVC).selectedViewController];
+    }
+    else {
+        if (fromVC.presentedViewController) {
+            return [self findCurrentDisplayViewController:fromVC.presentedViewController];
+        }
+        else {
+            return fromVC;
+        }
+    }
+}
+
 @end

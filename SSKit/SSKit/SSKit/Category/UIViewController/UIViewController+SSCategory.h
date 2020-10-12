@@ -13,6 +13,9 @@ NS_ASSUME_NONNULL_BEGIN
 #define RootViewController [UIApplication sharedApplication].keyWindow.rootViewController
 
 @interface UIViewController (SSCategory)
+
+@property (class, nonatomic, readonly) UIViewController *currentDisplayViewController;
+
 /**
  * 设置导航栏透明(包括隐藏下划线)
  */
