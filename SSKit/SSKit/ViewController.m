@@ -37,8 +37,9 @@
     self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.deviceLanguage];
 //    [self ss_setNavigationTiTle:@"我的"];
     [self ss_navigationBarHiddenUnderline];
-    [self ss_navigationBarCustomBackButton:@"icon_back_black"];
-    self.view.backgroundColor = UIColor.redBlood;
+    [self ss_navigationBarImageBackButton:@"icon_back_black"];
+    
+    self.view.backgroundColor = SSColorLightAndDark(UIColor.redBlood, UIColor.blueDoder);
     
 //    _location = [[CLLocationManager alloc] init];
 //    _location.desiredAccuracy = kCLLocationAccuracyBest;

@@ -155,6 +155,13 @@
 			path = SSKit;
 			sourceTree = "<group>";
 		};
+		5460360925359D0B00D9D836 /* SSSystemConvert */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SSSystemConvert;
+			sourceTree = "<group>";
+		};
 		546C477725147C8900D422D6 /* SSKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -341,6 +348,7 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				5460360925359D0B00D9D836 /* SSSystemConvert */,
 				54B5C1B62522D86F000BD6AF /* SSMorseCode */,
 				54CCE04625220947007D137F /* SSScreen */,
 				54CCE04025220753007D137F /* SSLocation */,

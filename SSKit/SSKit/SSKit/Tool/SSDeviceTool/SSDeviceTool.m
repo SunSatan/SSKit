@@ -127,20 +127,21 @@
 
 + (NSString *)networkProvider
 {
-    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
-    
-    if (@available(iOS 12.0, *)) {
-        NSDictionary *dict = [info serviceSubscriberCellularProviders];
-        for (id info in dict) {
-            CTCarrier *carrier = dict[info];
-        }
-    }
-    
-    CTCarrier *carrier = [info subscriberCellularProvider];
-    if (!carrier.isoCountryCode) {
-        return @"";
-    }
-    return carrier.carrierName;
+//    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
+//
+//    if (@available(iOS 12.0, *)) {
+//        NSDictionary *dict = [info serviceSubscriberCellularProviders];
+//        for (id info in dict) {
+//            CTCarrier *carrier = dict[info];
+//        }
+//    }
+//
+//    CTCarrier *carrier = [info subscriberCellularProvider];
+//    if (!carrier.isoCountryCode) {
+//        return @"";
+//    }
+//    return carrier.carrierName;
+    return @"";
 }
 
 #pragma mark - 屏幕参数
@@ -227,6 +228,13 @@
     [UIDevice currentDevice].batteryMonitoringEnabled = YES;
     CGFloat batteryLevel = [UIDevice currentDevice].batteryLevel;
     return batteryLevel;
+}
+
++ (UIDeviceBatteryState)deviceBatteryState
+{
+    [UIDevice currentDevice].batteryMonitoringEnabled = YES;
+    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+    return batteryState;
 }
 
 + (NSString *)deviceModel

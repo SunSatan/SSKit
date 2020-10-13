@@ -38,6 +38,7 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 @property (class, nonatomic, readonly) NSString *localeCountry; //获取当前地区国家：en_CN(中国)
 
 @property (class, nonatomic, readonly) CGFloat deviceBatteryLevel; //获取当前设备电量
+@property (class, nonatomic, readonly) UIDeviceBatteryState deviceBatteryState;
 
 @property (class, nonatomic, readonly) NSDate *deviceLatestRestartTime; //最近一次重启时间
 

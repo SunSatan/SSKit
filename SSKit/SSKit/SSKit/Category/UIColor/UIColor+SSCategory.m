@@ -365,5 +365,4 @@
     return SSColorHex(@"#FF4500");
 }
 
-
 @end

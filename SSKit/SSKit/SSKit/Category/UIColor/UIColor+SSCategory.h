@@ -19,8 +19,8 @@ NS_ASSUME_NONNULL_BEGIN
 #define SSColorHexAlpha(hex, a) [UIColor ss_colorWithHexString:hex alpha:(a)]
 
 //暗黑模式，动态颜色
-#define SSColorLightAndDark(lightColor, darkColor) \
-[UIColor ss_colorWithLightColor:lightColor darkColor:darkColor]
+#define SSColorLightAndDark(light, dark) \
+[UIColor ss_colorWithLightColor:light darkColor:dark]
 
 #define SSColorLightAndDarkHex(lightHex, darkHex) \
 [UIColor ss_colorWithLightColorHex:lightHex darkColorHex:darkHex]
