@@ -51,7 +51,7 @@
     [self.view addSubview:self.text];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.numberOfLines = 0;
-    self.text.text = @"";
+    self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1000"]];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations

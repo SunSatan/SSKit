@@ -20,17 +20,17 @@ static const void *timerKey = &timerKey;
 
 @implementation AppDelegate (SSBackgroundTask)
 
-- (void)beginBackgroundTaskWithBlock:(void (^)(void))doSomething
+- (void)ss_beginBackgroundTaskWithBlock:(void (^)(void))doSomething
 {
-    [self beginBackgroundTaskWithBlock:doSomething openTimeRemaining:NO];
+    [self ss_beginBackgroundTaskWithBlock:doSomething openTimeRemaining:NO];
 }
 
-- (void)beginBackgroundTaskWithBlock:(void (^)(void))doSomething openTimeRemaining:(BOOL)openTimeRemaining
+- (void)ss_beginBackgroundTaskWithBlock:(void (^)(void))doSomething openTimeRemaining:(BOOL)openTimeRemaining
 {
     if (![self isMultitaskingSupported]) return;
     
     self.backgroundTaskIdentifier = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [self endBackgroundTask];
+        [self ss_endBackgroundTask];
     }];
     
     doSomething();
@@ -38,9 +38,9 @@ static const void *timerKey = &timerKey;
     if (openTimeRemaining) [self openTimeRemaining];
 }
 
-- (void)endBackgroundTask
+- (void)ss_endBackgroundTask
 {
-    NSLog(@"endBackgroundTask");
+    NSLog(@"End BackgroundTask");
     __weak typeof(self) selfWeak = self;
     dispatch_async(dispatch_get_main_queue(), ^{ //为什么要放到主队列来做？
         //end task
@@ -69,7 +69,7 @@ static const void *timerKey = &timerKey;
         if (backgroundTimeRemaining == DBL_MAX){ //等于最大值则未定
             NSLog(@"Background Time Remaining is Undetermined");
         } else {
-            NSLog(@"Background Time Remaining is %.02f Seconds", backgroundTimeRemaining);
+            NSLog(@"Background Time Remaining is %.0f Seconds", backgroundTimeRemaining);
         }
     }];
 }

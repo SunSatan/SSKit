@@ -45,6 +45,7 @@
 #import "SSMotion.h"
 #import "SSLocation.h"
 #import "SSMorseCode.h"
+#import "SSSystemConvert.h"
 
 #endif /* SSKit_h */
 

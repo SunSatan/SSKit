@@ -14,6 +14,7 @@
 		545642F725132DCC0093D78A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 545642F625132DCC0093D78A /* Assets.xcassets */; };
 		545642FA25132DCC0093D78A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545642F825132DCC0093D78A /* LaunchScreen.storyboard */; };
 		545642FD25132DCC0093D78A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642FC25132DCC0093D78A /* main.m */; };
+		546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 546037132536C1E100D9D836 /* SSSystemConvert.m */; };
 		54B5C1B92522D87C000BD6AF /* SSMorseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5C1B82522D87C000BD6AF /* SSMorseCode.m */; };
 		54BDA1622534748000094633 /* UIImage+SSImageCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA1492534748000094633 /* UIImage+SSImageCategory.m */; };
 		54BDA1632534748000094633 /* UIWindow+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA14C2534748000094633 /* UIWindow+SSCategory.m */; };
@@ -51,6 +52,8 @@
 		545642F925132DCC0093D78A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		545642FB25132DCC0093D78A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		545642FC25132DCC0093D78A /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		546037122536C1E100D9D836 /* SSSystemConvert.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSSystemConvert.h; sourceTree = "<group>"; };
+		546037132536C1E100D9D836 /* SSSystemConvert.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSSystemConvert.m; sourceTree = "<group>"; };
 		546C477C25147C8900D422D6 /* SSConstant.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSConstant.h; sourceTree = "<group>"; };
 		546C477D25147C8900D422D6 /* SSMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMacro.h; sourceTree = "<group>"; };
 		546C47EA2514A39300D422D6 /* SSKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSKit.h; sourceTree = "<group>"; };
@@ -158,6 +161,8 @@
 		5460360925359D0B00D9D836 /* SSSystemConvert */ = {
 			isa = PBXGroup;
 			children = (
+				546037122536C1E100D9D836 /* SSSystemConvert.h */,
+				546037132536C1E100D9D836 /* SSSystemConvert.m */,
 			);
 			path = SSSystemConvert;
 			sourceTree = "<group>";
@@ -473,6 +478,7 @@
 			files = (
 				E3D38D9E25165AB800670EEB /* SSDateHelper.m in Sources */,
 				E358C3D725164E1300DEA59B /* SSContacts.m in Sources */,
+				546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */,
 				E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */,
 				54BDA1642534748000094633 /* UIApplication+SSCategory.m in Sources */,
 				54CCDC37252175C2007D137F /* SSMotion.m in Sources */,

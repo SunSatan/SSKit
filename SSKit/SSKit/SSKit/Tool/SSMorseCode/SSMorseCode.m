@@ -77,8 +77,8 @@ static NSString *morseCodeAIter; // @
 + (NSString *)morseCodeFromString:(NSString *)string ignoreOtherChar:(BOOL)ignoreOtherChar
 {
     NSString *result = @"";
-    string = [string clearAllSpaceAndNewline];
-    NSArray *stringArray = [string stringCutApartToCharacter];
+    string = [string ss_clearAllSpaceAndNewline];
+    NSArray *stringArray = [string ss_stringCutApartToCharacter];
     for (NSString *key in stringArray) {
         
         NSString *morseCode = self.morseCodeEncodeTable[key];
@@ -94,7 +94,7 @@ static NSString *morseCodeAIter; // @
 + (NSString *)stringFromMorseCode:(NSString *)string
 {
     NSString *result = @"";
-    NSArray *morseCodeArray = [string stringCutApartByString:SSMorseCodeSeparator];
+    NSArray *morseCodeArray = [string ss_stringCutApartByString:SSMorseCodeSeparator];
     for (NSString *morseCode in morseCodeArray) {
         NSString *string = self.morseCodeDecodeTable[morseCode];
         result = [result stringByAppendingFormat:@"%@", string];

@@ -56,7 +56,7 @@ static NSUInteger const kOtherIndex = 26; //# 放最后面
         return;
     }
     //中文转拼音
-    _characterName = [_name chineseTransformPinyinWithCapitalized:YES];//首字母大写用于排序
+    _characterName = [_name ss_chineseTransformPinyinWithCapitalized:YES];//首字母大写用于排序
     //缓存
     nameCache[_name] = _characterName;
 }

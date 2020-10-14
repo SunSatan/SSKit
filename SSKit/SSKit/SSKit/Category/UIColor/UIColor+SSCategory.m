@@ -20,7 +20,7 @@
 {
     NSParameterAssert(hexString);
     
-    hexString  = [hexString clearAllSpaceAndNewline];
+    hexString  = [hexString ss_clearAllSpaceAndNewline];
     if ([hexString hasPrefix:@"#"]) {
         hexString = [hexString substringFromIndex:1];
     }

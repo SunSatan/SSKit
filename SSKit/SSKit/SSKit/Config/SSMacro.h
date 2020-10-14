@@ -11,8 +11,10 @@
 
 #pragma mark - 通用常量宏定义
 
-#define iOS(x) available(iOS x, *)
+//版本判断
+#define iOS(x) available(iOS (x), *)
 
+//强弱引用
 #define weakify   autoreleasepool{} __weak   typeof(self) selfWeak = self
 #define strongify autoreleasepool{} __strong typeof(selfWeak) self = selfWeak;
 
@@ -42,7 +44,6 @@
 #define SS_SEMAPHORE_CREATE_0  dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)
 #define SS_SEMAPHORE_SIGNAL    dispatch_semaphore_signal(semaphore)
 #define SS_SEMAPHORE_WAIT      dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
-
 
 //线程
 #define GlobalQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)

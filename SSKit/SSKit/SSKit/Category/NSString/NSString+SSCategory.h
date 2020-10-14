@@ -15,33 +15,39 @@ typedef void(^UsingBlock)(NSString *character, NSUInteger index);
 @interface NSString (SSCategory)
 
 /// 字符串清除字符
-- (NSString *)clearAllSpace;
-- (NSString *)clearAllSpaceAndNewline;
-- (NSString *)clearSpaceAtHeadAndTail;
-- (NSString *)clearNewlineAtHeadAndTail;
-- (NSString *)clearSpaceAndNewlineAtHeadAndTail;
+- (NSString *)ss_clearAllSpace;
+- (NSString *)ss_clearAllSpaceAndNewline;
+- (NSString *)ss_clearSpaceAtHeadAndTail;
+- (NSString *)ss_clearNewlineAtHeadAndTail;
+- (NSString *)ss_clearSpaceAndNewlineAtHeadAndTail;
 
 /// 十六进制字符串 转 十进制int
-- (NSUInteger)hexStringToInt;
+//- (NSUInteger)hexStringToInt;
 
 /// 中文转拼音（系统方法）
 /// @param capitalized 是否开启首字母大写
-- (NSString *)chineseTransformPinyinWithCapitalized:(BOOL)capitalized;
+- (NSString *)ss_chineseTransformPinyinWithCapitalized:(BOOL)capitalized;
 
-- (BOOL)validatedMobilePhone;  /*检验手机号*/
-- (BOOL)validatedEmailAddress; /*检验邮箱*/
+- (BOOL)ss_validatedMobilePhone;  /*检验手机号*/
+- (BOOL)ss_validatedEmailAddress; /*检验邮箱*/
 
-- (NSString *)base64Encode; //base64 编码
-- (NSString *)base64Decode; //base64 解码
+- (NSString *)ss_base64Encode; //base64 编码
+- (NSString *)ss_base64Decode; //base64 解码
 
-//遍历字符串每个字符
-- (void)enumerateObjectsUsingBlock:(UsingBlock)block;
+// 遍历字符串每个字符
+- (void)ss_enumerateObjectsUsingBlock:(UsingBlock)block;
+- (void)ss_enumerateObjectsReverseUsingBlock:(UsingBlock)block;
 
-+ (NSString *)stringWithArray:(NSArray<NSString *> *)array;
-+ (NSString *)stringWithArray:(NSArray<NSString *> *)array joinded:(NSString *)string;
+// 字符串数组构建字符串
++ (NSString *)ss_stringWithArray:(NSArray<NSString *> *)array;
++ (NSString *)ss_stringWithArray:(NSArray<NSString *> *)array joinded:(NSString *)string;
 
-- (NSArray<NSString *> *)stringCutApartToCharacter;
-- (NSArray<NSString *> *)stringCutApartByString:(NSString *)string;
+// 字符串分割成单字符
+- (NSArray<NSString *> *)ss_stringCutApartToCharacter;
+- (NSArray<NSString *> *)ss_stringCutApartByString:(NSString *)string;
+
+// 反转字符串
+- (NSString *)ss_reversal;
 
 @end
 

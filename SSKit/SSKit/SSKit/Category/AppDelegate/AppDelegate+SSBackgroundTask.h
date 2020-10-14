@@ -14,12 +14,12 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 开启后台任务，在app切换至后台时预留时间搞事情
  */
-- (void)beginBackgroundTaskWithBlock:(void (^)(void))doSomething;
-- (void)beginBackgroundTaskWithBlock:(void (^)(void))doSomething openTimeRemaining:(BOOL)openTimeRemaining;
+- (void)ss_beginBackgroundTaskWithBlock:(void (^)(void))doSomething;
+- (void)ss_beginBackgroundTaskWithBlock:(void (^)(void))doSomething openTimeRemaining:(BOOL)openTimeRemaining;
 /**
  * 一定要结束后台任务
  */
-- (void)endBackgroundTask;
+- (void)ss_endBackgroundTask;
 
 @end
 
