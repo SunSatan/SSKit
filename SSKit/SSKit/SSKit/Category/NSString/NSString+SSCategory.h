@@ -49,6 +49,10 @@ typedef void(^UsingBlock)(NSString *character, NSUInteger index);
 // 反转字符串
 - (NSString *)ss_reversal;
 
+//内存单位
++ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize; //默认保留两位小数
++ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal;
+
 @end
 
 NS_ASSUME_NONNULL_END

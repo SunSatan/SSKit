@@ -7,6 +7,7 @@
 //
 
 #import "NSString+SSCategory.h"
+#import "SSConstant.h"
 
 @implementation NSString (SSCategory)
 
@@ -151,5 +152,35 @@
     return reversal;
 }
 
++ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize
+{
+    return [self ss_MemoryUnit:memorySize decimal:2];
+}
+
++ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal
+{
+    NSString *str = @"";
+    NSString* format = [NSString stringWithFormat:@"%%.%ldlf", decimal];
+    if (memorySize < SS_TB && memorySize >= SS_GB) {
+        format = [format stringByAppendingString:@" GB"];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_GB];
+    }
+    else if (memorySize < SS_GB && memorySize >= SS_MB) {
+        format = [format stringByAppendingString:@" MB"];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_MB];
+    }
+    else if (memorySize < SS_MB && memorySize >= SS_KB) {
+        format = [format stringByAppendingString:@" KB"];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_KB];
+    }
+    else if (memorySize < SS_KB) {
+        str = [NSString stringWithFormat:@"%llu B", memorySize];
+    }
+    else if (memorySize > SS_TB) {
+        format = [format stringByAppendingString:@" TB"];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_TB];
+    }
+    return str;
+}
 
 @end

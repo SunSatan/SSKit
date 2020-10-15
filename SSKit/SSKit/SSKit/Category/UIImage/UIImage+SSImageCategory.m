@@ -10,6 +10,9 @@
 
 #import <CoreImage/CoreImage.h>
 
+#import "SSConstant.h"
+
+
 @implementation UIImage (SSImageCategory)
 
 #pragma mark - 二维码QRCode

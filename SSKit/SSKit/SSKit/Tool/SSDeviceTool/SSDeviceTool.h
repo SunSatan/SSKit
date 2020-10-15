@@ -15,7 +15,7 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
     SSMobileOperatorChinaTelecom,//中国电信
     SSMobileOperatorChinaUnicom, //中国联通
     SSMobileOperatorChinaMobile, //中国移动
-    SSMobileOperatorUnknown      //未知
+    SSMobileOperatorOther      //其他
 };
 
 @interface SSDeviceTool : NSObject
@@ -42,6 +42,9 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 
 @property (class, nonatomic, readonly) NSDate *deviceLatestRestartTime; //最近一次重启时间
 
+@property (class, nonatomic, readonly) NSString *deviceColorHexString;
+@property (class, nonatomic, readonly) NSString *deviceEnclosureColorHexString;
+
 @end
 
 #pragma mark - app参数
@@ -51,6 +54,8 @@ typedef NS_ENUM(NSUInteger, SSMobileOperator) {
 @property (class, nonatomic, readonly) NSString *currentAppName;   //获取当前安装本app名称 Display Name
 @property (class, nonatomic, readonly) NSString *currentAppVerion; //获取设备当前安装本app版本号 Verion
 @property (class, nonatomic, readonly) NSString *currentAppBuild;  //获取设备当前安装本app构建号 Build
+
+@property (class, nonatomic, readonly) NSUInteger appDiskSize; //app 包体积大小
 
 @end
 
@@ -77,15 +82,34 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 
 @interface SSDeviceTool (SSCPU)
 
-@property (class, nonatomic, readonly) NSString *CPUModel;
-//@property (class, nonatomic, assign, readonly) NSUInteger CPUCoresNumber;
+@property (class, nonatomic, readonly) NSString *CPUModel; //cpu 名称
+@property (class, nonatomic, readonly) NSUInteger CPUCoresNumber; //cpu 核心数
+@property (class, nonatomic, readonly) NSUInteger CPUMaxFrequency; //cpu 最高频率
+@property (class, nonatomic, readonly) NSUInteger CPUCurrentFrequency; //cpu 当前频率
 
-@property (class, nonatomic, readonly) NSString *deviceColorHexString;
-@property (class, nonatomic, readonly) NSString *deviceEnclosureColorHexString;
+@end
 
-@property (class, nonatomic, readonly) NSUInteger ramTotalSize;
+#pragma mark - 内存、硬盘信息
 
+@interface SSDeviceTool (SSMemory)
 
+@property (class, nonatomic, readonly) unsigned long long deviceMemorySize;
+@property (class, nonatomic, readonly) NSString *deviceMemorySizeString;
+
+@property (class, nonatomic, readonly) unsigned long long deviceMemoryFreeSize;
+@property (class, nonatomic, readonly) NSString *deviceMemoryFreeSizeString;
+
+@property (class, nonatomic, readonly) unsigned long long deviceMemoryUsedSize;
+@property (class, nonatomic, readonly) NSString *deviceMemoryUsedSizeString;
+
+@property (class, nonatomic, readonly) unsigned long long deviceDiskSize;
+@property (class, nonatomic, readonly) NSString *deviceDiskSizeString;
+
+@property (class, nonatomic, readonly) unsigned long long deviceDiskFreeSize;
+@property (class, nonatomic, readonly) NSString *deviceDiskFreeSizeString;
+
+@property (class, nonatomic, readonly) unsigned long long deviceDiskUsedSize;
+@property (class, nonatomic, readonly) NSString *deviceDiskUsedSizeString;
 
 @end
 

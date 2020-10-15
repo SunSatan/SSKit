@@ -14,6 +14,8 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
+#import <sys/mount.h>
+
 @interface ViewController () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) SSDeviceTool *tool;
@@ -51,7 +53,10 @@
     [self.view addSubview:self.text];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.numberOfLines = 0;
-    self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1000"]];
+//    self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1000"]];
+    
+//    self.text.text = [NSString stringWithFormat:@"%lu", (unsigned long)SSDeviceTool.deviceMemorySizeString];
+    self.text.text = SSDeviceTool.deviceDiskFreeSizeString;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
@@ -65,7 +70,5 @@
 {
     
 }
-
-
 
 @end

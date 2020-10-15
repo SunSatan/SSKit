@@ -8,14 +8,17 @@
 
 #import "SSDeviceTool.h"
 #import "SSDeviceLibrary.h"
+#import "NSString+SSCategory.h"
 
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
-#import <sys/utsname.h>
 #import <objc/runtime.h>
-#import <CoreTelephony/CTTelephonyNetworkInfo.h>
-#import <CoreTelephony/CTCarrier.h>
+#import <sys/utsname.h>
+#import <sys/mount.h>
+#import <mach/mach.h>
 #include <sys/sysctl.h>
+//#import <CoreTelephony/CTTelephonyNetworkInfo.h>
+//#import <CoreTelephony/CTCarrier.h>
 
 @interface SSDeviceTool ()
 
@@ -59,29 +62,89 @@
     return @"Un Known";
 }
 
-+ (NSDate *)deviceLatestRestartTime
-{
-    NSTimeInterval time = [[NSProcessInfo processInfo] systemUptime];
-    return [[NSDate alloc] initWithTimeIntervalSinceNow:(0 - time)];
-}
+#pragma mark - CPU信息
 
-+ (NSString *)deviceColorHexString
++ (NSUInteger)CPUCoresNumber
 {
-    return [self _deviceColorWithKey:@"DeviceColor"];
-}
-+ (NSString *)deviceEnclosureColorHexString
-{
-    return [self _deviceColorWithKey:@"DeviceEnclosureColor"];
-}
-
-+ (NSUInteger)ramTotalSize
-{
-    return [self _systemInfo:HW_MEMSIZE];
+    return [self _systemInfo:HW_NCPU];
 }
 
 + (NSString *)CPUModel
 {
     return nil;
+}
+
++ (NSUInteger)CPUMaxFrequency
+{
+    return 0;
+}
+
++ (NSUInteger)CPUCurrentFrequency
+{
+    return 0;
+}
+
+#pragma mark - 内存、硬盘信息
+
++ (unsigned long long)deviceMemorySize
+{
+    return NSProcessInfo.processInfo.physicalMemory;
+}
+
++ (NSString *)deviceMemorySizeString
+{
+    unsigned long long memorySize = self.deviceMemorySize;
+    return [NSString ss_MemoryUnit:memorySize decimal:0];
+}
+
++ (unsigned long long)deviceMemoryFreeSize
+{
+    vm_statistics_data_t vmStats;
+    mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
+    kern_return_t kernReturn = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmStats, &infoCount);
+    if (kernReturn != KERN_SUCCESS) {
+        return NSNotFound;
+    }
+    
+    return ((vm_page_size * (vmStats.free_count +vmStats.inactive_count)));
+}
+
++ (NSString *)deviceMemoryFreeSizeString
+{
+    unsigned long long memoryFreeSize = self.deviceMemoryFreeSize;
+    return [NSString ss_MemoryUnit:memoryFreeSize decimal:2];
+}
+
++ (unsigned long long)deviceDiskSize
+{
+    struct statfs buf;
+    unsigned long long freeSpace = -1;
+    if (statfs("/var", &buf) >= 0) {
+        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
+    }
+    return freeSpace;
+}
+
++ (NSString *)deviceDiskSizeString
+{
+    unsigned long long diskSize = self.deviceDiskSize;
+    return [NSString ss_MemoryUnit:diskSize decimal:2];
+}
+
++ (unsigned long long)deviceDiskFreeSize
+{
+    struct statfs buf;
+    unsigned long long freeSpace = -1;
+    if (statfs("/var", &buf) >= 0) {
+        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bfree);
+    }
+    return freeSpace;
+}
+
++ (NSString *)deviceDiskFreeSizeString
+{
+    unsigned long long diskFreeSize = self.deviceDiskFreeSize;
+    return [NSString ss_MemoryUnit:diskFreeSize decimal:2];
 }
 
 #pragma mark - fps参数
@@ -143,10 +206,6 @@
 //    return carrier.carrierName;
     return @"";
 }
-
-#pragma mark - 屏幕参数
-
-
 
 #pragma mark - app参数
 
@@ -245,5 +304,23 @@
     
     return [SSDeviceLibrary deviceModelWithDeviceName:deviceName];
 }
+
++ (NSDate *)deviceLatestRestartTime
+{
+    NSTimeInterval time = [[NSProcessInfo processInfo] systemUptime];
+    return [[NSDate alloc] initWithTimeIntervalSinceNow:(0 - time)];
+}
+
++ (NSString *)deviceColorHexString
+{
+    return [self _deviceColorWithKey:@"DeviceColor"];
+}
+
++ (NSString *)deviceEnclosureColorHexString
+{
+    return [self _deviceColorWithKey:@"DeviceEnclosureColor"];
+}
+
+
 
 @end
