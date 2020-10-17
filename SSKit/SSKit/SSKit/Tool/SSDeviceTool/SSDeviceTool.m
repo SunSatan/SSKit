@@ -9,6 +9,7 @@
 #import "SSDeviceTool.h"
 #import "SSDeviceLibrary.h"
 #import "NSString+SSCategory.h"
+#import "SSTimer.h"
 
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
@@ -27,6 +28,8 @@
 @property (nonatomic, assign) NSTimeInterval startTimestamp;
 @property (nonatomic, copy) FPSDispalyBlock FPSDispalyBlock;
 
+@property (nonatomic, strong) SSTimer *memoryTime;
+
 @end
 
 @implementation SSDeviceTool
@@ -41,15 +44,14 @@
 + (NSUInteger)_systemInfo:(uint)typeSpecifier
 {
     size_t size = sizeof(int);
-    int result;
-    int mib[2] = {CTL_HW, typeSpecifier};
+    int result = 0 , mib[2] = {CTL_HW, typeSpecifier};
     sysctl(mib, 2, &result, &size, NULL, 0);
     return (NSUInteger)result;
 }
 
 + (NSString *)_deviceColorWithKey:(NSString *)key
 {
-    UIDevice *device = [UIDevice currentDevice];
+    UIDevice *device = UIDevice.currentDevice;
     SEL selector = NSSelectorFromString(@"deviceInfoForKey:");
     if (![device respondsToSelector:selector]) {
         selector = NSSelectorFromString(@"_deviceInfoForKey:");
@@ -84,7 +86,48 @@
     return 0;
 }
 
++ (NSString *)CPUArchitecture
+{
+    return [NSBundle.mainBundle.infoDictionary[@"UIRequiredDeviceCapabilities"] firstObject];
+}
+
 #pragma mark - 内存、硬盘信息
+
+- (void)startMemoryWithTimeInterval:(NSTimeInterval)timeInterval
+{
+    if (self.memoryTime) return;
+    
+    __weak typeof(self) selfWeak = self;
+    self.memoryTime = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
+        __strong typeof(self) self = selfWeak;
+        
+        if (self.memorySizeTimeBlock)
+            self.memorySizeTimeBlock(self.class.deviceMemorySize);
+        if (self.memorySizeStringTimeBlock)
+            self.memorySizeStringTimeBlock(self.class.deviceMemorySizeString);
+        if (self.memoryFreeSizeTimeBlock)
+            self.memoryFreeSizeTimeBlock(self.class.deviceMemoryFreeSize);
+        if (self.memoryFreeSizeStringTimeBlock)
+            self.memoryFreeSizeStringTimeBlock(self.class.deviceMemoryFreeSizeString);
+        if (self.memoryUsedSizeTimeBlock)
+            self.memoryUsedSizeTimeBlock(self.class.deviceMemoryUsedSize);
+        if (self.memoryUsedSizeStringTimeBlock)
+            self.memoryUsedSizeStringTimeBlock(self.class.deviceMemoryUsedSizeString);
+        
+        if (self.diskSizeTimeBlock)
+            self.diskSizeTimeBlock(self.class.deviceDiskSize);
+        if (self.diskSizeStringTimeBlock)
+            self.diskSizeStringTimeBlock(self.class.deviceDiskSizeString);
+        if (self.diskFreeSizeTimeBlock)
+            self.diskFreeSizeTimeBlock(self.class.deviceDiskFreeSize);
+        if (self.diskFreeSizeStringTimeBlock)
+            self.diskFreeSizeStringTimeBlock(self.class.deviceDiskFreeSizeString);
+        if (self.diskUsedSizeTimeBlock)
+            self.diskUsedSizeTimeBlock(self.class.deviceDiskUsedSize);
+        if (self.diskUsedSizeStringTimeBlock)
+            self.diskUsedSizeStringTimeBlock(self.class.deviceDiskUsedSizeString);
+    }];
+}
 
 + (unsigned long long)deviceMemorySize
 {
@@ -112,7 +155,17 @@
 + (NSString *)deviceMemoryFreeSizeString
 {
     unsigned long long memoryFreeSize = self.deviceMemoryFreeSize;
-    return [NSString ss_MemoryUnit:memoryFreeSize decimal:2];
+    return [NSString ss_MemoryUnit:memoryFreeSize decimal:1];
+}
+
++ (unsigned long long)deviceMemoryUsedSize
+{
+    return self.deviceMemorySize - self.deviceMemoryFreeSize;
+}
+
++ (NSString *)deviceMemoryUsedSizeString
+{
+    return [NSString ss_MemoryUnit:self.deviceMemoryUsedSize decimal:1];
 }
 
 + (unsigned long long)deviceDiskSize
@@ -120,7 +173,7 @@
     struct statfs buf;
     unsigned long long freeSpace = -1;
     if (statfs("/var", &buf) >= 0) {
-        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
+        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_blocks);
     }
     return freeSpace;
 }
@@ -128,7 +181,7 @@
 + (NSString *)deviceDiskSizeString
 {
     unsigned long long diskSize = self.deviceDiskSize;
-    return [NSString ss_MemoryUnit:diskSize decimal:2];
+    return [NSString ss_MemoryUnit:diskSize decimal:0];
 }
 
 + (unsigned long long)deviceDiskFreeSize
@@ -136,7 +189,7 @@
     struct statfs buf;
     unsigned long long freeSpace = -1;
     if (statfs("/var", &buf) >= 0) {
-        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bfree);
+        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
     }
     return freeSpace;
 }
@@ -147,17 +200,26 @@
     return [NSString ss_MemoryUnit:diskFreeSize decimal:2];
 }
 
++ (unsigned long long)deviceDiskUsedSize
+{
+    return self.deviceDiskSize - self.deviceDiskFreeSize;
+}
+
++ (NSString *)deviceDiskUsedSizeString
+{
+    return [NSString ss_MemoryUnit:self.deviceDiskUsedSize decimal:2];
+}
+
 #pragma mark - fps参数
 
 - (void)startCalculateFPS:(FPSDispalyBlock)FPSDispalyBlock
 {
-    if (!_link) {
-        __weak typeof(self) weakSelf = self;
-        _link = [CADisplayLink displayLinkWithTarget:weakSelf selector:@selector(ticktack:)];
-        [_link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
-        
-        self.FPSDispalyBlock = FPSDispalyBlock;
-    }
+    if (_link) return;
+    
+    _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(ticktack:)];
+    [_link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+    
+    self.FPSDispalyBlock = FPSDispalyBlock;
 }
 
 - (void)endCalculateFPS
@@ -176,54 +238,30 @@
     if (seconds < 1)  return;
     
     _startTimestamp = link.timestamp;
-    CGFloat FPS = _countFPS / seconds;
-    NSString *FPSString = [NSString stringWithFormat:@"%.0f", round(FPS)];
+    CGFloat FPS = floor(_countFPS / seconds);
+    NSString *FPSString = [NSString stringWithFormat:@"%.0f FPS", round(FPS)];
     _countFPS = 0;
     
-    if (self.FPSDispalyBlock) {
-        self.FPSDispalyBlock(FPS, FPSString);
-    }
-    
-}
-
-#pragma mark - 网络参数
-
-+ (NSString *)networkProvider
-{
-//    CTTelephonyNetworkInfo *info = [[CTTelephonyNetworkInfo alloc] init];
-//
-//    if (@available(iOS 12.0, *)) {
-//        NSDictionary *dict = [info serviceSubscriberCellularProviders];
-//        for (id info in dict) {
-//            CTCarrier *carrier = dict[info];
-//        }
-//    }
-//
-//    CTCarrier *carrier = [info subscriberCellularProvider];
-//    if (!carrier.isoCountryCode) {
-//        return @"";
-//    }
-//    return carrier.carrierName;
-    return @"";
+    if (self.FPSDispalyBlock) self.FPSDispalyBlock(FPS, FPSString);
 }
 
 #pragma mark - app参数
 
 + (NSString *)currentAppName
 {
-    NSString *version = [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleName"];
+    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
     return version;
 }
 
 + (NSString *)currentAppVerion
 {
-    NSString *version = [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleShortVersionString"];
+    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     return version;
 }
 
 + (NSString *)currentAppBuild
 {
-    NSString *version = [[NSBundle mainBundle].infoDictionary objectForKey:@"CFBundleVersion"];
+    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
     return version;
 }
 
@@ -231,39 +269,38 @@
 
 + (NSString *)pushTokenForDeviceToken:(NSData *)deviceToken
 {
-    const unsigned *tokenBytes = [deviceToken bytes];
+    const unsigned *tokenBytes = deviceToken.bytes;
     NSString *pushToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x", ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]), ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
     return pushToken;
 }
 
 + (NSString *)devicePhoneName
 {
-    NSString *name = [NSString stringWithFormat:@"%@", [UIDevice currentDevice].name];
+    NSString *name = [NSString stringWithFormat:@"%@", UIDevice.currentDevice.name];
     return name;
 }
 
 + (NSString *)deviceSystemVersion
 {
-    NSString *version = [NSString stringWithFormat:@"%@ %@", [UIDevice currentDevice].systemName, [UIDevice currentDevice].systemVersion];
+    NSString *version = [NSString stringWithFormat:@"%@ %@", UIDevice.currentDevice.systemName, UIDevice.currentDevice.systemVersion];
     return version;
 }
 
 + (NSString *)deviceLanguage
 {
-    NSArray *languageArray = [NSLocale preferredLanguages];
-    return [languageArray objectAtIndex:0];
+    NSArray *languageArray = NSLocale.preferredLanguages;
+    return languageArray.firstObject;
 }
 
 + (NSString *)localeCountry
 {
-    NSLocale *locale = [NSLocale currentLocale];
-    NSString *localeIdentifier = [locale localizedStringForCountryCode:locale.countryCode];
+    NSString *localeIdentifier = [NSLocale.currentLocale localizedStringForCountryCode:NSLocale.currentLocale.countryCode];
     return localeIdentifier;
 }
 
 + (NSString *)deviceIDFV
 {
-    NSString *idfv = [UIDevice currentDevice].identifierForVendor.UUIDString;
+    NSString *idfv = UIDevice.currentDevice.identifierForVendor.UUIDString;
     return idfv;
 }
 
@@ -272,11 +309,11 @@
     NSString *idfa = @"";
     if (@available(iOS 14, *)) {
         if (ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusAuthorized) {
-            idfa = [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+            idfa = ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
         }
     } else {
-        if ([ASIdentifierManager sharedManager].isAdvertisingTrackingEnabled) {
-            idfa = [ASIdentifierManager sharedManager].advertisingIdentifier.UUIDString;
+        if (ASIdentifierManager.sharedManager.isAdvertisingTrackingEnabled) {
+            idfa = ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
         }
     }
     return idfa;
@@ -284,15 +321,15 @@
 
 + (CGFloat)deviceBatteryLevel
 {
-    [UIDevice currentDevice].batteryMonitoringEnabled = YES;
-    CGFloat batteryLevel = [UIDevice currentDevice].batteryLevel;
+    UIDevice.currentDevice.batteryMonitoringEnabled = YES;
+    CGFloat batteryLevel = UIDevice.currentDevice.batteryLevel;
     return batteryLevel;
 }
 
 + (UIDeviceBatteryState)deviceBatteryState
 {
-    [UIDevice currentDevice].batteryMonitoringEnabled = YES;
-    UIDeviceBatteryState batteryState = [UIDevice currentDevice].batteryState;
+    UIDevice.currentDevice.batteryMonitoringEnabled = YES;
+    UIDeviceBatteryState batteryState = UIDevice.currentDevice.batteryState;
     return batteryState;
 }
 
@@ -301,14 +338,13 @@
     struct utsname systemInfo;
     uname(&systemInfo);
     NSString *deviceName = [NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding];
-    
     return [SSDeviceLibrary deviceModelWithDeviceName:deviceName];
 }
 
 + (NSDate *)deviceLatestRestartTime
 {
-    NSTimeInterval time = [[NSProcessInfo processInfo] systemUptime];
-    return [[NSDate alloc] initWithTimeIntervalSinceNow:(0 - time)];
+    NSTimeInterval time = NSProcessInfo.processInfo.systemUptime;
+    return [NSDate.alloc initWithTimeIntervalSinceNow:(0 - time)];
 }
 
 + (NSString *)deviceColorHexString
@@ -320,7 +356,5 @@
 {
     return [self _deviceColorWithKey:@"DeviceEnclosureColor"];
 }
-
-
 
 @end

@@ -25,11 +25,11 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)ss_navigationBarNoTTransparent;
 /**
- * 隐藏导航栏下划线
-*/
+ * 显示导航栏下划线
+ */
 - (void)ss_navigationBarShowUnderline;
 /**
- * 显示导航栏下划线
+ * 隐藏导航栏下划线
  */
 - (void)ss_navigationBarHiddenUnderline;
 

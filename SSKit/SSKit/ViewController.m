@@ -40,7 +40,6 @@
 //    [self ss_setNavigationTiTle:@"我的"];
     [self ss_navigationBarHiddenUnderline];
     [self ss_navigationBarImageBackButton:@"icon_back_black"];
-    
     self.view.backgroundColor = SSColorLightAndDark(UIColor.redBlood, UIColor.blueDoder);
     
 //    _location = [[CLLocationManager alloc] init];
@@ -56,7 +55,9 @@
 //    self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1000"]];
     
 //    self.text.text = [NSString stringWithFormat:@"%lu", (unsigned long)SSDeviceTool.deviceMemorySizeString];
-    self.text.text = SSDeviceTool.deviceDiskFreeSizeString;
+    self.text.text = SSDeviceTool.deviceDiskSizeString;
+    
+    NSLog(@"%@", NSBundle.mainBundle.infoDictionary);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
