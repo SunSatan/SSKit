@@ -49,19 +49,12 @@
     return (NSUInteger)result;
 }
 
-+ (NSString *)_deviceColorWithKey:(NSString *)key
++ (NSString *)_machineModelID
 {
-    UIDevice *device = UIDevice.currentDevice;
-    SEL selector = NSSelectorFromString(@"deviceInfoForKey:");
-    if (![device respondsToSelector:selector]) {
-        selector = NSSelectorFromString(@"_deviceInfoForKey:");
-    }
-    if ([device respondsToSelector:selector]) {
-        IMP imp = [device methodForSelector:selector];
-        NSString * (*func)(id, SEL, NSString *) = (void *)imp;
-        return func(device, selector, key);
-    }
-    return @"Un Known";
+    struct utsname systemInfo;
+    uname(&systemInfo);
+    NSString *deviceModelID  = [NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding];
+    return deviceModelID;
 }
 
 #pragma mark - CPU信息
@@ -137,7 +130,7 @@
 + (NSString *)deviceMemorySizeString
 {
     unsigned long long memorySize = self.deviceMemorySize;
-    return [NSString ss_MemoryUnit:memorySize decimal:0];
+    return [NSString ss_memoryUnit:memorySize];
 }
 
 + (unsigned long long)deviceMemoryFreeSize
@@ -155,7 +148,7 @@
 + (NSString *)deviceMemoryFreeSizeString
 {
     unsigned long long memoryFreeSize = self.deviceMemoryFreeSize;
-    return [NSString ss_MemoryUnit:memoryFreeSize decimal:1];
+    return [NSString ss_memoryUnit:memoryFreeSize];
 }
 
 + (unsigned long long)deviceMemoryUsedSize
@@ -165,7 +158,7 @@
 
 + (NSString *)deviceMemoryUsedSizeString
 {
-    return [NSString ss_MemoryUnit:self.deviceMemoryUsedSize decimal:1];
+    return [NSString ss_memoryUnit:self.deviceMemoryUsedSize];
 }
 
 + (unsigned long long)deviceDiskSize
@@ -181,7 +174,7 @@
 + (NSString *)deviceDiskSizeString
 {
     unsigned long long diskSize = self.deviceDiskSize;
-    return [NSString ss_MemoryUnit:diskSize decimal:0];
+    return [NSString ss_diskUnit:diskSize];
 }
 
 + (unsigned long long)deviceDiskFreeSize
@@ -197,7 +190,7 @@
 + (NSString *)deviceDiskFreeSizeString
 {
     unsigned long long diskFreeSize = self.deviceDiskFreeSize;
-    return [NSString ss_MemoryUnit:diskFreeSize decimal:2];
+    return [NSString ss_diskUnit:diskFreeSize];
 }
 
 + (unsigned long long)deviceDiskUsedSize
@@ -207,7 +200,7 @@
 
 + (NSString *)deviceDiskUsedSizeString
 {
-    return [NSString ss_MemoryUnit:self.deviceDiskUsedSize decimal:2];
+    return [NSString ss_diskUnit:self.deviceDiskUsedSize];
 }
 
 #pragma mark - fps参数
@@ -253,7 +246,7 @@
     return version;
 }
 
-+ (NSString *)currentAppVerion
++ (NSString *)currentAppVersion
 {
     NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
     return version;
@@ -335,10 +328,7 @@
 
 + (NSString *)deviceModel
 {
-    struct utsname systemInfo;
-    uname(&systemInfo);
-    NSString *deviceName = [NSString stringWithCString:systemInfo.machine encoding:NSASCIIStringEncoding];
-    return [SSDeviceLibrary deviceModelWithDeviceName:deviceName];
+    return [SSDeviceLibrary deviceModel:self._machineModelID];
 }
 
 + (NSDate *)deviceLatestRestartTime
@@ -347,14 +337,47 @@
     return [NSDate.alloc initWithTimeIntervalSinceNow:(0 - time)];
 }
 
-+ (NSString *)deviceColorHexString
+// 常见越狱文件
+const char *jailbreak_tool_pathes[] =
 {
-    return [self _deviceColorWithKey:@"DeviceColor"];
+    "/Applications/Cydia.app",
+    "/Library/MobileSubstrate/MobileSubstrate.dylib",
+    "/bin/bash",
+    "/usr/sbin/sshd",
+    "/etc/apt"
+};
+
+char *printEnv(void)
+{
+    char *env = getenv("DYLD_INSERT_LIBRARIES");
+    return env;
 }
 
-+ (NSString *)deviceEnclosureColorHexString
+/** 当前设备是否越狱 */
++ (BOOL)isJailbreak
 {
-    return [self _deviceColorWithKey:@"DeviceEnclosureColor"];
+    // 判断是否存在越狱文件
+    for (int i = 0; i < 5; i++) {
+        if ([NSFileManager.defaultManager fileExistsAtPath:[NSString stringWithUTF8String:jailbreak_tool_pathes[i]]]) {
+            return YES;
+        }
+    }
+    // 判断是否存在cydia应用
+    if([UIApplication.sharedApplication canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]) {
+        return YES;
+    }
+    
+    // 读取系统所有的应用名称
+    if ([NSFileManager.defaultManager fileExistsAtPath:@"/User/Applications/"]) {
+        return YES;
+    }
+    
+    // 读取环境变量
+    if(printEnv()) {
+        return YES;
+    }
+    
+    return NO;
 }
 
 @end

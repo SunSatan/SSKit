@@ -152,35 +152,67 @@
     return reversal;
 }
 
-+ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize
++ (NSString *)ss_memoryUnit:(unsigned long long)memorySize
 {
-    return [self ss_MemoryUnit:memorySize decimal:2];
+    return [self ss_memoryUnit:memorySize decimal:1];
 }
 
-+ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal
++ (NSString *)ss_memoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal
 {
     NSString *str = @"";
     NSString* format = [NSString stringWithFormat:@"%%.%ldlf", decimal];
-    if (memorySize < SS_TB && memorySize >= SS_GB) {
+    if (memorySize < SS_TB_1024 && memorySize >= SS_GB_1024) {
         format = [format stringByAppendingString:@" GB"];
-        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_GB];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_GB_1024];
     }
-    else if (memorySize < SS_GB && memorySize >= SS_MB) {
+    else if (memorySize < SS_GB_1024 && memorySize >= SS_MB_1024) {
         format = [format stringByAppendingString:@" MB"];
-        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_MB];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_MB_1024];
     }
-    else if (memorySize < SS_MB && memorySize >= SS_KB) {
+    else if (memorySize < SS_MB_1024 && memorySize >= SS_KB_1024) {
         format = [format stringByAppendingString:@" KB"];
-        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_KB];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_KB_1024];
     }
-    else if (memorySize < SS_KB) {
+    else if (memorySize < SS_KB_1024) {
         str = [NSString stringWithFormat:@"%llu B", memorySize];
     }
-    else if (memorySize > SS_TB) {
+    else if (memorySize > SS_TB_1024) {
         format = [format stringByAppendingString:@" TB"];
-        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_TB];
+        str = [NSString stringWithFormat:format, (memorySize*1.0)/SS_TB_1024];
     }
     return str;
 }
+
++ (NSString *)ss_diskUnit:(unsigned long long)diskSize
+{
+    return [self ss_diskUnit:diskSize decimal:2];
+}
+
++ (NSString *)ss_diskUnit:(unsigned long long)diskSize decimal:(NSUInteger)decimal
+{
+    NSString *str = @"";
+    NSString* format = [NSString stringWithFormat:@"%%.%ldlf", decimal];
+    if (diskSize < SS_TB_1000 && diskSize >= SS_GB_1000) {
+        format = [format stringByAppendingString:@" GB"];
+        str = [NSString stringWithFormat:format, (diskSize*1.0)/SS_GB_1000];
+    }
+    else if (diskSize < SS_GB_1000 && diskSize >= SS_MB_1000) {
+        format = [format stringByAppendingString:@" MB"];
+        str = [NSString stringWithFormat:format, (diskSize*1.0)/SS_MB_1000];
+    }
+    else if (diskSize < SS_MB_1000 && diskSize >= SS_KB_1000) {
+        format = [format stringByAppendingString:@" KB"];
+        str = [NSString stringWithFormat:format, (diskSize*1.0)/SS_KB_1000];
+    }
+    else if (diskSize < SS_KB_1000) {
+        str = [NSString stringWithFormat:@"%llu B", diskSize];
+    }
+    else if (diskSize > SS_TB_1000) {
+        format = [format stringByAppendingString:@" TB"];
+        str = [NSString stringWithFormat:format, (diskSize*1.0)/SS_TB_1000];
+    }
+    return str;
+}
+
 
 @end

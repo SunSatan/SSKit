@@ -108,4 +108,19 @@
     return safeAreaBottom;
 }
 
++ (NSInteger)maxFPS
+{
+    return UIScreen.mainScreen.maximumFramesPerSecond;
+}
+
++ (NSInteger)deviceScreenNativeWidth
+{
+    return UIScreen.mainScreen.nativeBounds.size.width;
+}
+
++ (NSInteger)deviceScreenNativeHeight
+{
+    return UIScreen.mainScreen.nativeBounds.size.height;
+}
+
 @end

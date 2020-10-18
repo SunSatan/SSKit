@@ -30,6 +30,11 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) CGFloat safeAreaTop;    //获取设备安全区域上边距
 @property (class, nonatomic, readonly) CGFloat safeAreaBottom; //获取设备安全区域下边距
 
+@property (class, nonatomic, readonly) NSInteger maxFPS; //设备支持的最高FPS
+
+@property (class, nonatomic, readonly) NSInteger deviceScreenNativeHeight; //设备支持的最高FPS
+@property (class, nonatomic, readonly) NSInteger deviceScreenNativeWidth; //设备支持的最高FPS
+
 @end
 
 NS_ASSUME_NONNULL_END

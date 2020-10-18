@@ -14,7 +14,7 @@ typedef void(^UsingBlock)(NSString *character, NSUInteger index);
 
 @interface NSString (SSCategory)
 
-/// 字符串清除字符
+// 字符串清除字符
 - (NSString *)ss_clearAllSpace;
 - (NSString *)ss_clearAllSpaceAndNewline;
 - (NSString *)ss_clearSpaceAtHeadAndTail;
@@ -24,8 +24,10 @@ typedef void(^UsingBlock)(NSString *character, NSUInteger index);
 /// 十六进制字符串 转 十进制int
 //- (NSUInteger)hexStringToInt;
 
-/// 中文转拼音（系统方法）
-/// @param capitalized 是否开启首字母大写
+/**
+ * 中文转拼音（系统方法）
+ * @param capitalized 是否开启首字母大写
+ */
 - (NSString *)ss_chineseTransformPinyinWithCapitalized:(BOOL)capitalized;
 
 - (BOOL)ss_validatedMobilePhone;  /*检验手机号*/
@@ -49,9 +51,13 @@ typedef void(^UsingBlock)(NSString *character, NSUInteger index);
 // 反转字符串
 - (NSString *)ss_reversal;
 
-//内存单位
-+ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize; //默认保留两位小数
-+ (NSString *)ss_MemoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal;
+//RAM内存单位
++ (NSString *)ss_memoryUnit:(unsigned long long)memorySize; //默认保留1位小数
++ (NSString *)ss_memoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal;
+
+//存储单位
++ (NSString *)ss_diskUnit:(unsigned long long)diskSize; //默认保留2位小数
++ (NSString *)ss_diskUnit:(unsigned long long)diskSize decimal:(NSUInteger)decimal;
 
 @end
 

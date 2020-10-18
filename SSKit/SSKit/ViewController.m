@@ -36,7 +36,7 @@
     // Do any additional setup after loading the view.
     NSLog(@"viewDidLoad");
     self.view.backgroundColor = UIColor.whiteColor;
-    self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.deviceLanguage];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.CPUModel];
 //    [self ss_setNavigationTiTle:@"我的"];
     [self ss_navigationBarHiddenUnderline];
     [self ss_navigationBarImageBackButton:@"icon_back_black"];
@@ -56,8 +56,11 @@
     
 //    self.text.text = [NSString stringWithFormat:@"%lu", (unsigned long)SSDeviceTool.deviceMemorySizeString];
     self.text.text = SSDeviceTool.deviceDiskSizeString;
-    
+    NSLog(@"%ld", UIScreen.mainScreen.maximumFramesPerSecond);
     NSLog(@"%@", NSBundle.mainBundle.infoDictionary);
+    NSLog(@"%@", UIDevice.currentDevice.localizedModel);
+//    NSString *language = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
+//    NSLog(@"%@", language);
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations

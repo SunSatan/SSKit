@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (class, nonatomic, readonly) NSString *deviceLanguage;
 /**
- * 获取当前地区国家：en_CN(中国)
+ * 获取当前地区国家：China mainland(中国大陆)
  */
 @property (class, nonatomic, readonly) NSString *localeCountry;
 /**
@@ -70,13 +70,9 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (class, nonatomic, readonly) NSDate *deviceLatestRestartTime;
 /**
- * 设备颜色
+ * 设备是否越狱
  */
-@property (class, nonatomic, readonly) NSString *deviceColorHexString;
-/**
- * 设备颜色
- */
-@property (class, nonatomic, readonly) NSString *deviceEnclosureColorHexString;
+@property (class, nonatomic, readonly) BOOL isJailbreak;
 
 @end
 
@@ -102,17 +98,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (class, nonatomic, readonly) NSString *currentAppName;
 /**
- * 获取设备当前安装本app版本号 Verion
+ * 获取设备当前安装本app版本号 Version
  */
-@property (class, nonatomic, readonly) NSString *currentAppVerion;
+@property (class, nonatomic, readonly) NSString *currentAppVersion;
 /**
  * 获取设备当前安装本app构建号 Build
  */
 @property (class, nonatomic, readonly) NSString *currentAppBuild;
-/**
- * app 包体积大小
- */
-@property (class, nonatomic, readonly) NSUInteger appDiskSize;
 
 @end
 
