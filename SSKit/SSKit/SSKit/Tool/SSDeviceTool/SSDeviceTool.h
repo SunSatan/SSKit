@@ -72,11 +72,33 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 设备是否越狱
  */
-@property (class, nonatomic, readonly) BOOL isJailbreak;
+@property (class, nonatomic, readonly)BOOL isJailbreak;
+/**
+ * 设备发售时间
+ */
+@property (class, nonatomic, readonly) NSString *deviceSaleTime;
+/**
+ * 设备内存类型
+ */
+@property (class, nonatomic, readonly) NSString *deviceMemType;
+/**
+ * 设备能更新的最新的系统
+ */
+@property (class, nonatomic, readonly) NSString *deviceLatestSystemVersion;
+/**
+ * 设备屏幕像素密度
+ */
+@property (class, nonatomic, readonly) NSString *screenPPI;
+/**
+ * 设备屏幕尺寸
+ */
+@property (class, nonatomic, readonly) NSString *screenSize;
+
+@property (class, nonatomic, readonly) NSString *screenAspectRatio;
 
 @end
 
-#pragma mark - 电池状态
+#pragma mark - 电池状态 √
 
 @interface SSDeviceTool (SSBattery)
 /**
@@ -90,7 +112,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-#pragma mark - app参数
+#pragma mark - app参数 √
 
 @interface SSDeviceTool (SSAppInfo)
 /**
@@ -129,13 +151,17 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 
 @interface SSDeviceTool (SSCPU)
 /**
- * cpu 名称
+ * soc 名称 √
  */
-@property (class, nonatomic, readonly) NSString *CPUModel;
+@property (class, nonatomic, readonly) NSString *deviceSoCName;
 /**
- * cpu 核心数
+ * cpu 核心数 √
  */
 @property (class, nonatomic, readonly) NSUInteger CPUCoresNumber;
+/**
+ * gpu 核心数
+ */
+@property (class, nonatomic, readonly) NSUInteger GPUCoresNumber;
 /**
  * cpu 最高频率
  */
@@ -145,7 +171,7 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSUInteger CPUCurrentFrequency;
 /**
- * cpu 架构: arm64 armv7
+ * cpu 架构: arm64 armv7 √
  */
 @property (class, nonatomic, readonly) NSString *CPUArchitecture;
 

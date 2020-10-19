@@ -7,6 +7,7 @@
 //
 
 #import "SSScreen.h"
+#import "SSDeviceLibrary.h"
 
 @implementation SSScreen
 
@@ -113,14 +114,21 @@
     return UIScreen.mainScreen.maximumFramesPerSecond;
 }
 
-+ (NSInteger)deviceScreenNativeWidth
++ (NSInteger)screenNativeWidth
 {
     return UIScreen.mainScreen.nativeBounds.size.width;
 }
 
-+ (NSInteger)deviceScreenNativeHeight
++ (NSInteger)screenNativeHeight
 {
     return UIScreen.mainScreen.nativeBounds.size.height;
 }
+
++ (NSString *)screenRes
+{
+    return [NSString stringWithFormat:@"%ld x %ld", self.screenNativeWidth, self.screenNativeHeight];
+}
+
+
 
 @end

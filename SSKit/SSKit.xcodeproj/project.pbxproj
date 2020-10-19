@@ -200,11 +200,11 @@
 		54BDA1472534748000094633 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				54BDA1542534748000094633 /* NSString */,
 				54BDA1482534748000094633 /* UIImage */,
 				54BDA14B2534748000094633 /* UIWindow */,
 				54BDA14E2534748000094633 /* UIApplication */,
 				54BDA1512534748000094633 /* UIColor */,
-				54BDA1542534748000094633 /* NSString */,
 				54BDA1572534748000094633 /* UIViewController */,
 				54BDA15A2534748000094633 /* UITableView */,
 				54BDA15F2534748000094633 /* AppDelegate */,
@@ -269,10 +269,10 @@
 		54BDA15A2534748000094633 /* UITableView */ = {
 			isa = PBXGroup;
 			children = (
-				54BDA15B2534748000094633 /* UITableViewCell+SSSectionCorner.h */,
-				54BDA15D2534748000094633 /* UITableViewCell+SSSectionCorner.m */,
 				54BDA15C2534748000094633 /* UITableView+SSCategory.h */,
 				54BDA15E2534748000094633 /* UITableView+SSCategory.m */,
+				54BDA15B2534748000094633 /* UITableViewCell+SSSectionCorner.h */,
+				54BDA15D2534748000094633 /* UITableViewCell+SSSectionCorner.m */,
 			);
 			path = UITableView;
 			sourceTree = "<group>";

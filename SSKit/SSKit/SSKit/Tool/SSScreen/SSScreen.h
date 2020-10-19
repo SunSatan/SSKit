@@ -12,28 +12,38 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface SSScreen : NSObject
-
-@property (class, nonatomic, readonly) CGRect  deviceScreenBounds; //获取设备屏幕Bounds
-@property (class, nonatomic, readonly) CGFloat deviceScreenWidth;  //获取设备屏幕宽度
-@property (class, nonatomic, readonly) CGFloat deviceScreenHeight; //获取设备屏幕高度
-
-@property (class, nonatomic, readonly) CGFloat statusBarHeight; //获取设备状态栏高度
-
-@property (class, nonatomic, readonly) CGFloat navigationBarHeight;     //获取设备导航栏高度
-@property (class, nonatomic, readonly) CGFloat navigationToolBarHeight; //获取设备导航工具栏高度
-
-@property (class, nonatomic, readonly) CGFloat tabBarHeight; //获取设备标签栏高度
-
-@property (class, nonatomic, readonly) CGRect  safeAreaFrame;  //获取设备安全区域
-@property (class, nonatomic, readonly) CGFloat safeAreaLeft;   //获取设备安全区域左边距
-@property (class, nonatomic, readonly) CGFloat safeAreaRight;  //获取设备安全区域右边距
-@property (class, nonatomic, readonly) CGFloat safeAreaTop;    //获取设备安全区域上边距
-@property (class, nonatomic, readonly) CGFloat safeAreaBottom; //获取设备安全区域下边距
-
-@property (class, nonatomic, readonly) NSInteger maxFPS; //设备支持的最高FPS
-
-@property (class, nonatomic, readonly) NSInteger deviceScreenNativeHeight; //设备支持的最高FPS
-@property (class, nonatomic, readonly) NSInteger deviceScreenNativeWidth; //设备支持的最高FPS
+/// 设备屏幕Bounds
+@property (class, nonatomic, readonly) CGRect  deviceScreenBounds;
+/// 设备屏幕宽度
+@property (class, nonatomic, readonly) CGFloat deviceScreenWidth;
+/// 设备屏幕高度
+@property (class, nonatomic, readonly) CGFloat deviceScreenHeight;
+/// 设备状态栏高度
+@property (class, nonatomic, readonly) CGFloat statusBarHeight;
+/// 设备导航栏高度
+@property (class, nonatomic, readonly) CGFloat navigationBarHeight;
+/// 设备导航工具栏高度
+@property (class, nonatomic, readonly) CGFloat navigationToolBarHeight;
+/// 设备标签栏高度
+@property (class, nonatomic, readonly) CGFloat tabBarHeight;
+/// 设备安全区域
+@property (class, nonatomic, readonly) CGRect  safeAreaFrame;
+/// 设备安全区域左边距
+@property (class, nonatomic, readonly) CGFloat safeAreaLeft;
+/// 设备安全区域右边距
+@property (class, nonatomic, readonly) CGFloat safeAreaRight;
+/// 设备安全区域上边距
+@property (class, nonatomic, readonly) CGFloat safeAreaTop;
+/// 获取设备安全区域下边距
+@property (class, nonatomic, readonly) CGFloat safeAreaBottom;
+/// 设备支持的最高FPS
+@property (class, nonatomic, readonly) NSInteger maxFPS;
+/// 屏幕原生高
+@property (class, nonatomic, readonly) NSInteger screenNativeHeight;
+/// 屏幕原生宽
+@property (class, nonatomic, readonly) NSInteger screenNativeWidth;
+/// 屏幕分辨率
+@property (class, nonatomic, readonly) NSString *screenRes;
 
 @end
 

@@ -64,9 +64,9 @@
     return [self _systemInfo:HW_NCPU];
 }
 
-+ (NSString *)CPUModel
++ (NSString *)deviceSoCName
 {
-    return nil;
+    return [SSDeviceLibrary deviceSoCName:self._machineModelID];
 }
 
 + (NSUInteger)CPUMaxFrequency
@@ -335,6 +335,36 @@
 {
     NSTimeInterval time = NSProcessInfo.processInfo.systemUptime;
     return [NSDate.alloc initWithTimeIntervalSinceNow:(0 - time)];
+}
+
++ (NSString *)deviceSaleTime
+{
+    return [SSDeviceLibrary deviceSaleTime:self._machineModelID];
+}
+
++ (NSString *)deviceMemType
+{
+    return [SSDeviceLibrary deviceMemType:self._machineModelID];
+}
+
++ (NSString *)deviceLatestSystemVersion
+{
+    return [SSDeviceLibrary deviceLatestOSVersion:self._machineModelID];
+}
+
++ (NSString *)screenPPI
+{
+    return [SSDeviceLibrary devicePPI:self._machineModelID];
+}
+
++ (NSString *)screenSize
+{
+    return [SSDeviceLibrary deviceScreenSize:self._machineModelID];
+}
+
++ (NSString *)screenAspectRatio
+{
+    return [SSDeviceLibrary deviceAspectRatio:self.screenSize];
 }
 
 // 常见越狱文件
