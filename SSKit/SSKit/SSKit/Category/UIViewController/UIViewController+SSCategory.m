@@ -115,6 +115,30 @@
     self.navigationItem.leftBarButtonItem = leftButtonItem;
 }
 
+#pragma mark - load ViewController
+
++ (instancetype)ss_loadFromMainStoryboard:(NSString *)StoryboardID
+{
+    return [self ss_loadFromStoryboard:@"Main" StoryboardID:StoryboardID];
+}
+
++ (instancetype)ss_loadFromStoryboard:(NSString *)StoryboardName
+                         StoryboardID:(NSString *)StoryboardID
+{
+    UIStoryboard *storyboard = [UIStoryboard storyboardWithName:StoryboardName bundle:nil];
+    return [storyboard instantiateViewControllerWithIdentifier:StoryboardID];
+}
+
++ (instancetype)ss_xib
+{
+    return [self ss_loadFromXib:NSStringFromClass(self.class)];
+}
+
++ (instancetype)ss_loadFromXib:(NSString *)xibName
+{
+    return [[self.class alloc] initWithNibName:xibName bundle:nil];
+}
+
 #pragma mark - Current Display ViewController
 
 + (UIViewController *)currentDisplayViewController

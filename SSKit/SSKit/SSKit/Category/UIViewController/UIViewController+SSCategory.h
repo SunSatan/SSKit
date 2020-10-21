@@ -16,6 +16,26 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (class, nonatomic, readonly) UIViewController *currentDisplayViewController;
 
+#pragma mark - load ViewController
+
+/**
+ * 设置导航栏透明(包括隐藏下划线)
+ */
++ (instancetype)ss_xib;
+/**
+ * 设置导航栏透明(包括隐藏下划线)
+ */
++ (instancetype)ss_loadFromXib:(NSString *)xibName;
+/**
+ * 设置导航栏透明(包括隐藏下划线)
+ */
++ (instancetype)ss_loadFromMainStoryboard:(NSString *)StoryboardID;
+/**
+ * 设置导航栏透明(包括隐藏下划线)
+ */
++ (instancetype)ss_loadFromStoryboard:(NSString *)StoryboardName
+                         StoryboardID:(NSString *)StoryboardID;
+
 /**
  * 设置导航栏透明(包括隐藏下划线)
  */
