@@ -93,7 +93,9 @@ NS_ASSUME_NONNULL_BEGIN
  * 设备屏幕尺寸
  */
 @property (class, nonatomic, readonly) NSString *screenSize;
-
+/**
+ * 设备屏幕宽高比
+ */
 @property (class, nonatomic, readonly) NSString *screenAspectRatio;
 
 @end
@@ -155,6 +157,13 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSString *deviceSoCName;
 /**
+ * 当前 app 对 cpu 的占用率
+ */
+@property (class, nonatomic, readonly) CGFloat CPUUsage;
+@property (class, nonatomic, readonly) NSString *CPUUsageString;
+
+@property (class, nonatomic, readonly) int64_t memoryUsage;
+/**
  * cpu 核心数 √
  */
 @property (class, nonatomic, readonly) NSUInteger CPUCoresNumber;
@@ -163,9 +172,9 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSUInteger GPUCoresNumber;
 /**
- * cpu 最高频率
+ * cpu 核心频率
  */
-@property (class, nonatomic, readonly) NSUInteger CPUMaxFrequency;
+@property (class, nonatomic, readonly) CGFloat CPUFrequency;
 /**
  * cpu 当前频率
  */

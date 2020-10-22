@@ -15,6 +15,8 @@
 #import <MapKit/MapKit.h>
 
 #import <sys/mount.h>
+#import <mach/mach.h>
+#include <sys/sysctl.h>
 
 @interface ViewController () <CLLocationManagerDelegate>
 
@@ -36,7 +38,7 @@
     // Do any additional setup after loading the view.
     NSLog(@"viewDidLoad");
     self.view.backgroundColor = UIColor.whiteColor;
-    self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.CPUModel];
+    self.navigationItem.title = [NSString stringWithFormat:@"%@", SSDeviceTool.deviceDiskFreeSizeString];
 //    [self ss_setNavigationTiTle:@"我的"];
     [self ss_navigationBarHiddenUnderline];
     [self ss_navigationBarImageBackButton:@"icon_back_black"];
@@ -55,12 +57,24 @@
 //    self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1000"]];
     
 //    self.text.text = [NSString stringWithFormat:@"%lu", (unsigned long)SSDeviceTool.deviceMemorySizeString];
-    self.text.text = SSDeviceTool.deviceDiskSizeString;
-    NSLog(@"%ld", UIScreen.mainScreen.maximumFramesPerSecond);
-    NSLog(@"%@", NSBundle.mainBundle.infoDictionary);
-    NSLog(@"%@", UIDevice.currentDevice.localizedModel);
+//    self.text.text = [NSString stringWithFormat:@"%ld", SSDeviceTool.CPUFrequency];
+//    NSLog(@"%ld", UIScreen.mainScreen.maximumFramesPerSecond);
+//    NSLog(@"%@", NSBundle.mainBundle.infoDictionary);
+//    NSLog(@"%@", UIDevice.currentDevice.localizedModel);
 //    NSString *language = [[[NSBundle mainBundle] preferredLocalizations] objectAtIndex:0];
 //    NSLog(@"%@", language);
+//    NSLog(@"%lf", cpu_usage());
+//    NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+//        [self GetCpuUsage];
+//    }];
+    
+//    [self GetCpuUsage];
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+//    [self GetCpuUsage];
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
@@ -74,5 +88,7 @@
 {
     
 }
+
+
 
 @end
