@@ -28,7 +28,6 @@
 		54CCDC37252175C2007D137F /* SSMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC36252175C2007D137F /* SSMotion.m */; };
 		54CCE04325220768007D137F /* SSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE04225220768007D137F /* SSLocation.m */; };
 		54CCE0492522095C007D137F /* SSScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE0482522095C007D137F /* SSScreen.m */; };
-		54E0851D2541948B00C23840 /* CPUFreq.s in Sources */ = {isa = PBXBuildFile; fileRef = 54E0851C2541948B00C23840 /* CPUFreq.s */; };
 		E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = E330DC212517702A00C3C6EA /* SSAuthorization.m */; };
 		E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */; };
 		E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CE25164DC400DEA59B /* SSIndexTipsView.m */; };
@@ -84,7 +83,6 @@
 		54CCE04225220768007D137F /* SSLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSLocation.m; sourceTree = "<group>"; };
 		54CCE0472522095C007D137F /* SSScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSScreen.h; sourceTree = "<group>"; };
 		54CCE0482522095C007D137F /* SSScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSScreen.m; sourceTree = "<group>"; };
-		54E0851C2541948B00C23840 /* CPUFreq.s */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.asm; path = CPUFreq.s; sourceTree = "<group>"; };
 		E330DC202517702A00C3C6EA /* SSAuthorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSAuthorization.h; sourceTree = "<group>"; };
 		E330DC212517702A00C3C6EA /* SSAuthorization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSAuthorization.m; sourceTree = "<group>"; };
 		E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDeviceLibrary.h; sourceTree = "<group>"; };
@@ -377,7 +375,6 @@
 				E3702754251760CF006DC0D7 /* SSDeviceTool.m */,
 				E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */,
 				E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */,
-				54E0851C2541948B00C23840 /* CPUFreq.s */,
 			);
 			path = SSDeviceTool;
 			sourceTree = "<group>";
@@ -493,7 +490,6 @@
 				54CCE04325220768007D137F /* SSLocation.m in Sources */,
 				54BDA1692534748000094633 /* UITableView+SSCategory.m in Sources */,
 				54BDA1682534748000094633 /* UITableViewCell+SSSectionCorner.m in Sources */,
-				54E0851D2541948B00C23840 /* CPUFreq.s in Sources */,
 				E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */,
 				545642EC25132DC80093D78A /* AppDelegate.m in Sources */,
 				54CCE0492522095C007D137F /* SSScreen.m in Sources */,
@@ -649,6 +645,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2C4VMH22JU;
+				EXCLUDED_ARCHS = "armv7s armv7";
 				INFOPLIST_FILE = SSKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -656,6 +653,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SunSatan.SSKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -671,6 +669,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2C4VMH22JU;
+				EXCLUDED_ARCHS = "armv7s armv7";
 				INFOPLIST_FILE = SSKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -678,6 +677,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.SunSatan.SSKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

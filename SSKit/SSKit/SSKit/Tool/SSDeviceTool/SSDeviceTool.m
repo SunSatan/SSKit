@@ -23,16 +23,20 @@
 
 @interface SSDeviceTool ()
 
-@property (nonatomic, strong) CADisplayLink *link;
-@property (nonatomic, assign) NSTimeInterval countFPS;
-@property (nonatomic, assign) NSTimeInterval startTimestamp;
-@property (nonatomic, copy) FPSDispalyBlock FPSDispalyBlock;
+#pragma mark - fps
+@property (nonatomic, strong) CADisplayLink  *link;
+@property (nonatomic, assign) NSTimeInterval  countFPS;       //统计fps
+@property (nonatomic, assign) NSTimeInterval  startTimestamp; //每次循环开始的时间戳
+@property (nonatomic, copy)   FPSDispalyBlock FPSDispalyBlock;
 
-@property (nonatomic, strong) SSTimer *memoryTime;
+#pragma mark - 内存读取定时器
+@property (nonatomic, strong) SSTimer *memoryTimer;
 
 @end
 
 @implementation SSDeviceTool
+
+#pragma mark - dealloc
 
 - (void)dealloc
 {
@@ -49,7 +53,95 @@
     return (NSUInteger)result;
 }
 
-+ (NSString *)_machineModelID
++ (NSString *)pushTokenFromDeviceToken:(NSData *)deviceToken
+{
+    const unsigned *tokenBytes = deviceToken.bytes;
+    NSString *pushToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x", ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]), ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
+    return pushToken;
+}
+
+#pragma mark - app参数
+
++ (NSString *)appName
+{
+    NSString *name = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
+    return name;
+}
+
++ (NSString *)appVersion
+{
+    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
+    return version;
+}
+
++ (NSString *)appBuild
+{
+    NSString *build = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
+    return build;
+}
+
+#pragma mark - fps
+
+- (void)startCalculateFPS:(FPSDispalyBlock)FPSDispalyBlock
+{
+    if (_link) return;
+    
+    _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(ticktack:)];
+    [_link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
+    
+    self.FPSDispalyBlock = FPSDispalyBlock;
+}
+
+- (void)endCalculateFPS
+{
+    [_link invalidate];
+    _link = nil;
+}
+
+- (void)ticktack:(CADisplayLink *)link
+{
+    if (_startTimestamp == 0)
+        _startTimestamp = link.timestamp; //记下开始时间戳
+    
+    _countFPS++;
+    NSTimeInterval seconds = _link.timestamp - _startTimestamp;
+    
+    if (seconds < 1)
+        return;   //统计一秒内的帧数
+    
+    //返回数据
+    CGFloat FPS = floor(_countFPS / seconds);
+    NSString *FPSString = [NSString stringWithFormat:@"%.0f FPS", round(FPS)];
+    if (self.FPSDispalyBlock) self.FPSDispalyBlock(FPS, FPSString);
+    //开始下一轮
+    _countFPS = 0;
+    _startTimestamp = link.timestamp;
+}
+
+#pragma mark - 电池
+
++ (CGFloat)batteryLevel
+{
+    UIDevice.currentDevice.batteryMonitoringEnabled = YES;
+    CGFloat batteryLevel = UIDevice.currentDevice.batteryLevel;
+    return batteryLevel;
+}
+
++ (UIDeviceBatteryState)batteryState
+{
+    UIDevice.currentDevice.batteryMonitoringEnabled = YES;
+    UIDeviceBatteryState batteryState = UIDevice.currentDevice.batteryState;
+    return batteryState;
+}
+
++ (NSString *)batteryMah
+{
+    return [SSDeviceLibrary deviceBatteryMah:self.machineModelID];
+}
+
+#pragma mark - 设备参数
+
++ (NSString *)machineModelID
 {
     struct utsname systemInfo;
     uname(&systemInfo);
@@ -57,9 +149,175 @@
     return deviceModelID;
 }
 
++ (NSString *)deviceModel
+{
+    return [SSDeviceLibrary deviceModel:self.machineModelID];
+}
+
++ (NSString *)systemName
+{
+    return UIDevice.currentDevice.systemName;
+}
+
++ (NSString *)systemVersion
+{
+    return UIDevice.currentDevice.systemVersion;
+}
+
++ (NSString *)systemNameAndVersion
+{
+    NSString *version = [NSString stringWithFormat:@"%@ %@", UIDevice.currentDevice.systemName, UIDevice.currentDevice.systemVersion];
+    return version;
+}
+
++ (NSString *)deviceName
+{
+    return UIDevice.currentDevice.name;
+}
+
++ (NSString *)idfv
+{
+    NSString *idfv = UIDevice.currentDevice.identifierForVendor.UUIDString;
+    return idfv;
+}
+
++ (NSString *)idfa
+{
+    NSString *idfa = @"";
+    if (@available(iOS 14, *)) {
+        if (ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusAuthorized) {
+            idfa = ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
+        }
+    } else {
+        if (ASIdentifierManager.sharedManager.isAdvertisingTrackingEnabled) {
+            idfa = ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
+        }
+    }
+    return idfa;
+}
+
++ (NSString *)language
+{
+    NSArray *languageArray = NSLocale.preferredLanguages;
+    return languageArray.firstObject;
+}
+
++ (NSString *)localeCountry
+{
+    NSString *localeIdentifier = [NSLocale.currentLocale localizedStringForCountryCode:NSLocale.currentLocale.countryCode];
+    return localeIdentifier;
+}
+
++ (NSDate *)latestRestartTime
+{
+    NSTimeInterval time = NSProcessInfo.processInfo.systemUptime;
+    return [NSDate.alloc initWithTimeIntervalSinceNow:(0 - time)];
+}
+
++ (NSString *)saleTime
+{
+    return [SSDeviceLibrary deviceSaleTime:self.machineModelID];
+}
+
+
+
++ (NSString *)latestSystemVersion
+{
+    return [SSDeviceLibrary deviceLatestOSVersion:self.machineModelID];
+}
+
++ (NSString *)screenPPI
+{
+    return [SSDeviceLibrary devicePPI:self.machineModelID];
+}
+
++ (NSString *)screenSize
+{
+    return [SSDeviceLibrary deviceScreenSize:self.machineModelID];
+}
+
++ (NSString *)screenAspectRatio
+{
+    return [SSDeviceLibrary deviceAspectRatio:self.screenSize];
+}
+
+// 常见越狱文件
+const char *jailbreak_tool_pathes[] =
+{
+    "/Applications/Cydia.app",
+    "/Library/MobileSubstrate/MobileSubstrate.dylib",
+    "/bin/bash",
+    "/usr/sbin/sshd",
+    "/etc/apt"
+};
+
+char *printEnv(void)
+{
+    char *env = getenv("DYLD_INSERT_LIBRARIES");
+    return env;
+}
+
+/** 当前设备是否越狱 */
++ (BOOL)isJailbreak
+{
+    // 判断是否存在越狱文件
+    for (int i = 0; i < 5; i++) {
+        if ([NSFileManager.defaultManager fileExistsAtPath:[NSString stringWithUTF8String:jailbreak_tool_pathes[i]]]) {
+            return YES;
+        }
+    }
+    // 判断是否存在cydia应用
+    if([UIApplication.sharedApplication canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]) {
+        return YES;
+    }
+    // 读取系统所有的应用名称
+    if ([NSFileManager.defaultManager fileExistsAtPath:@"/User/Applications/"]) {
+        return YES;
+    }
+    // 读取环境变量
+    if(printEnv()) {
+        return YES;
+    }
+    return NO;
+}
+
 #pragma mark - CPU信息
 
++ (NSString *)SocName
+{
+    return [SSDeviceLibrary deviceSoCName:self.machineModelID];
+}
+
 + (CGFloat)CPUUsage
+{
+    kern_return_t kr;
+    mach_msg_type_number_t count;
+    static host_cpu_load_info_data_t previous_info = {0, 0, 0, 0};
+    host_cpu_load_info_data_t info;
+    
+    count = HOST_CPU_LOAD_INFO_COUNT;
+    
+    kr = host_statistics(mach_host_self(), HOST_CPU_LOAD_INFO, (host_info_t)&info, &count);
+    if (kr != KERN_SUCCESS) {
+        return -1;
+    }
+    
+    natural_t user   = info.cpu_ticks[CPU_STATE_USER] - previous_info.cpu_ticks[CPU_STATE_USER];
+    natural_t nice   = info.cpu_ticks[CPU_STATE_NICE] - previous_info.cpu_ticks[CPU_STATE_NICE];
+    natural_t system = info.cpu_ticks[CPU_STATE_SYSTEM] - previous_info.cpu_ticks[CPU_STATE_SYSTEM];
+    natural_t idle   = info.cpu_ticks[CPU_STATE_IDLE] - previous_info.cpu_ticks[CPU_STATE_IDLE];
+    natural_t total  = user + nice + system + idle;
+    previous_info    = info;
+    
+    return (user + nice + system) * 100.0 / total;
+}
+
++ (NSString *)CPUUsageString
+{
+    return [NSString stringWithFormat:@"%.1lf%%", self.CPUUsage];
+}
+
++ (CGFloat)appCPUUsage
 {
     kern_return_t kr;
     task_info_data_t tinfo;
@@ -121,7 +379,35 @@
     return tot_cpu;
 }
 
-+ (int64_t)memoryUsage {
++ (NSString *)appCPUUsageString
+{
+    return [NSString stringWithFormat:@"%.1lf%%", self.appCPUUsage];
+}
+
++ (NSUInteger)CPUCoresNumber
+{
+    return [self _systemInfo:HW_NCPU];
+}
+
++ (NSUInteger)GPUCoresNumber
+{
+    return [self _systemInfo:HW_NCPU];
+}
+
++ (NSString *)CPUArchitecture
+{
+    return [NSBundle.mainBundle.infoDictionary[@"UIRequiredDeviceCapabilities"] firstObject];
+}
+
+#pragma mark - 内存、硬盘信息
+
++ (NSString *)memoryType
+{
+    return [SSDeviceLibrary deviceMemType:self.machineModelID];
+}
+
++ (int64_t)appMemoryUsage
+{
     int64_t memoryUsageInByte = 0;
     task_vm_info_data_t vmInfo;
     mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
@@ -132,44 +418,27 @@
     return memoryUsageInByte;
 }
 
-+ (NSString *)CPUUsageString
++ (NSString *)appMemoryUsageString
 {
-    return [NSString stringWithFormat:@"%.1lf", self.CPUUsage];
+    return [NSString stringWithFormat:@"%lld%%", self.appMemoryUsage];
 }
 
-+ (NSUInteger)CPUCoresNumber
++ (CGFloat)memoryUsage
 {
-    return [self _systemInfo:HW_NCPU];
+    
 }
 
-+ (NSString *)deviceSoCName
++ (NSString *)memoryUsageString
 {
-    return [SSDeviceLibrary deviceSoCName:self._machineModelID];
+    
 }
-
-+ (NSUInteger)CPUMaxFrequency
-{
-    return 0;
-}
-
-+ (NSUInteger)CPUCurrentFrequency
-{
-    return 0;
-}
-
-+ (NSString *)CPUArchitecture
-{
-    return [NSBundle.mainBundle.infoDictionary[@"UIRequiredDeviceCapabilities"] firstObject];
-}
-
-#pragma mark - 内存、硬盘信息
 
 - (void)startMemoryWithTimeInterval:(NSTimeInterval)timeInterval
 {
-    if (self.memoryTime) return;
+    if (_memoryTimer) return;
     
     __weak typeof(self) selfWeak = self;
-    self.memoryTime = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
+    _memoryTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
         __strong typeof(self) self = selfWeak;
         
         if (self.memorySizeTimeBlock)
@@ -244,7 +513,6 @@
     //方法1
 //    NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
 //    NSInteger size =  [fattributes objectForKey:NSFileSystemSize];
-    
     struct statfs buf;
     unsigned long long freeSpace = -1;
     if (statfs("/var", &buf) >= 0) {
@@ -261,7 +529,6 @@
 
 + (unsigned long long)deviceDiskFreeSize
 {
-    
     //方法1
 //    NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
 //    NSInteger size =  [fattributes objectForKey:NSFileSystemFreeSize];
@@ -287,213 +554,6 @@
 + (NSString *)deviceDiskUsedSizeString
 {
     return [NSString ss_diskUnit:self.deviceDiskUsedSize];
-}
-
-#pragma mark - fps参数
-
-- (void)startCalculateFPS:(FPSDispalyBlock)FPSDispalyBlock
-{
-    if (_link) return;
-    
-    _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(ticktack:)];
-    [_link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
-    
-    self.FPSDispalyBlock = FPSDispalyBlock;
-}
-
-- (void)endCalculateFPS
-{
-    [_link invalidate];
-    _link = nil;
-}
-
-- (void)ticktack:(CADisplayLink *)link
-{
-    if (_startTimestamp == 0) _startTimestamp = link.timestamp; //记下开始时间戳
-    
-    _countFPS++;
-    
-    NSTimeInterval seconds = _link.timestamp - _startTimestamp;
-    if (seconds < 1)  return;
-    
-    _startTimestamp = link.timestamp;
-    CGFloat FPS = floor(_countFPS / seconds);
-    NSString *FPSString = [NSString stringWithFormat:@"%.0f FPS", round(FPS)];
-    _countFPS = 0;
-    
-    if (self.FPSDispalyBlock) self.FPSDispalyBlock(FPS, FPSString);
-}
-
-#pragma mark - app参数
-
-+ (NSString *)currentAppName
-{
-    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleName"];
-    return version;
-}
-
-+ (NSString *)currentAppVersion
-{
-    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleShortVersionString"];
-    return version;
-}
-
-+ (NSString *)currentAppBuild
-{
-    NSString *version = NSBundle.mainBundle.infoDictionary[@"CFBundleVersion"];
-    return version;
-}
-
-#pragma mark - 设备参数
-
-+ (NSString *)pushTokenForDeviceToken:(NSData *)deviceToken
-{
-    const unsigned *tokenBytes = deviceToken.bytes;
-    NSString *pushToken = [NSString stringWithFormat:@"%08x%08x%08x%08x%08x%08x%08x%08x", ntohl(tokenBytes[0]), ntohl(tokenBytes[1]), ntohl(tokenBytes[2]), ntohl(tokenBytes[3]), ntohl(tokenBytes[4]), ntohl(tokenBytes[5]), ntohl(tokenBytes[6]), ntohl(tokenBytes[7])];
-    return pushToken;
-}
-
-+ (NSString *)devicePhoneName
-{
-    NSString *name = [NSString stringWithFormat:@"%@", UIDevice.currentDevice.name];
-    return name;
-}
-
-+ (NSString *)deviceSystemVersion
-{
-    NSString *version = [NSString stringWithFormat:@"%@ %@", UIDevice.currentDevice.systemName, UIDevice.currentDevice.systemVersion];
-    return version;
-}
-
-+ (NSString *)deviceLanguage
-{
-    NSArray *languageArray = NSLocale.preferredLanguages;
-    return languageArray.firstObject;
-}
-
-+ (NSString *)localeCountry
-{
-    NSString *localeIdentifier = [NSLocale.currentLocale localizedStringForCountryCode:NSLocale.currentLocale.countryCode];
-    return localeIdentifier;
-}
-
-+ (NSString *)deviceIDFV
-{
-    NSString *idfv = UIDevice.currentDevice.identifierForVendor.UUIDString;
-    return idfv;
-}
-
-+ (NSString *)deviceIDFA
-{
-    NSString *idfa = @"";
-    if (@available(iOS 14, *)) {
-        if (ATTrackingManager.trackingAuthorizationStatus == ATTrackingManagerAuthorizationStatusAuthorized) {
-            idfa = ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
-        }
-    } else {
-        if (ASIdentifierManager.sharedManager.isAdvertisingTrackingEnabled) {
-            idfa = ASIdentifierManager.sharedManager.advertisingIdentifier.UUIDString;
-        }
-    }
-    return idfa;
-}
-
-+ (CGFloat)deviceBatteryLevel
-{
-    UIDevice.currentDevice.batteryMonitoringEnabled = YES;
-    CGFloat batteryLevel = UIDevice.currentDevice.batteryLevel;
-    return batteryLevel;
-}
-
-+ (UIDeviceBatteryState)deviceBatteryState
-{
-    UIDevice.currentDevice.batteryMonitoringEnabled = YES;
-    UIDeviceBatteryState batteryState = UIDevice.currentDevice.batteryState;
-    return batteryState;
-}
-
-+ (NSString *)deviceModel
-{
-    return [SSDeviceLibrary deviceModel:self._machineModelID];
-}
-
-+ (NSDate *)deviceLatestRestartTime
-{
-    NSTimeInterval time = NSProcessInfo.processInfo.systemUptime;
-    return [NSDate.alloc initWithTimeIntervalSinceNow:(0 - time)];
-}
-
-+ (NSString *)deviceSaleTime
-{
-    return [SSDeviceLibrary deviceSaleTime:self._machineModelID];
-}
-
-+ (NSString *)deviceMemType
-{
-    return [SSDeviceLibrary deviceMemType:self._machineModelID];
-}
-
-+ (NSString *)deviceLatestSystemVersion
-{
-    return [SSDeviceLibrary deviceLatestOSVersion:self._machineModelID];
-}
-
-+ (NSString *)screenPPI
-{
-    return [SSDeviceLibrary devicePPI:self._machineModelID];
-}
-
-+ (NSString *)screenSize
-{
-    return [SSDeviceLibrary deviceScreenSize:self._machineModelID];
-}
-
-+ (NSString *)screenAspectRatio
-{
-    return [SSDeviceLibrary deviceAspectRatio:self.screenSize];
-}
-
-// 常见越狱文件
-const char *jailbreak_tool_pathes[] =
-{
-    "/Applications/Cydia.app",
-    "/Library/MobileSubstrate/MobileSubstrate.dylib",
-    "/bin/bash",
-    "/usr/sbin/sshd",
-    "/etc/apt"
-};
-
-char *printEnv(void)
-{
-    char *env = getenv("DYLD_INSERT_LIBRARIES");
-    return env;
-}
-
-/** 当前设备是否越狱 */
-+ (BOOL)isJailbreak
-{
-    // 判断是否存在越狱文件
-    for (int i = 0; i < 5; i++) {
-        if ([NSFileManager.defaultManager fileExistsAtPath:[NSString stringWithUTF8String:jailbreak_tool_pathes[i]]]) {
-            return YES;
-        }
-    }
-    // 判断是否存在cydia应用
-    if([UIApplication.sharedApplication canOpenURL:[NSURL URLWithString:@"cydia://package/com.example.package"]]) {
-        return YES;
-    }
-    
-    // 读取系统所有的应用名称
-    if ([NSFileManager.defaultManager fileExistsAtPath:@"/User/Applications/"]) {
-        return YES;
-    }
-    
-    // 读取环境变量
-    if(printEnv()) {
-        return YES;
-    }
-    
-    return NO;
 }
 
 @end

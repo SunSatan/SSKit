@@ -13,44 +13,55 @@ NS_ASSUME_NONNULL_BEGIN
 @interface SSDeviceLibrary : NSObject
 /**
  * 设备名称 √
- * @param modelID 设备的 model id
+ * @param modelID 设备的机器 model id
  */
-+ (NSString *)deviceModel:(NSString *)modelID;
++ (NSString *)deviceModelWithMachineModelID:(NSString *)modelID;
 /**
  * 设备发售时间 √
- * @param modelID 设备的 model id
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)deviceSaleTime:(NSString *)modelID;
++ (NSString *)saleTimeWithDevice:(NSString *)deviceModel;
 /**
- * 设备 Soc 型号 √
- * @param modelID 设备的 model id
+ * 设备 SoC 型号
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)deviceSoCName:(NSString *)modelID;
++ (NSString *)SoCNameWithDevice:(NSString *)deviceModel;
 /**
- * 设备 RAM 类型 √
- * @param modelID 设备的 model id
+ * 设备 RAM 类型
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)deviceMemType:(NSString *)modelID;
++ (NSString *)memoryTypeWithDevice:(NSString *)deviceModel;
 /**
- * 设备屏幕像素密度 PPI √
- * @param modelID 设备的 model id
+ * 设备屏幕像素密度 PPI
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)devicePPI:(NSString *)modelID;
++ (NSString *)ppiWithDevice:(NSString *)deviceModel;
 /**
- * 设备屏幕尺寸 √
- * @param modelID 设备的 model id
+ * 设备屏幕尺寸
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)deviceScreenSize:(NSString *)modelID;
++ (NSString *)screenSizeWithDevice:(NSString *)deviceModel;
 /**
- * 设备能更新最高的iOS版本 √
- * @param modelID 设备的 model id
+ * 设备能更新最高的 iOS 版本
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)deviceLatestOSVersion:(NSString *)modelID;
++ (NSString *)latestOSVersionWithDevice:(NSString *)deviceModel;
 /**
  * 设备宽高比
- * @param screenSize 屏幕尺寸
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
  */
-+ (NSString *)deviceAspectRatio:(NSString *)screenSize;
++ (NSString *)aspectRatioWithDevice:(NSString *)deviceModel;
+/**
+ * 设备 GPU 核心数
+ * @param deviceModel 设备的名称，例如: iPhone 11 Pro Max
+ */
++ (NSString *)GPUCoresNumberWithDevice:(NSString *)deviceModel;
+/**
+ * 设备 CPU 核心频率
+ * @param SoCName 设备的 soc 名字
+ * @param showMHz 频率单位显示 MHz，默认显示为 GHz
+ */
++ (NSString *)CPUFrequencyWithSoC:(NSString *)SoCName showMHz:(BOOL)showMHz;
 
 @end
 
