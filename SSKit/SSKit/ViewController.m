@@ -38,11 +38,34 @@
     // Do any additional setup after loading the view.
     NSLog(@"viewDidLoad");
     self.view.backgroundColor = UIColor.whiteColor;
-    self.navigationItem.title = SSDeviceTool.batteryMah;
+    self.navigationItem.title = SSDeviceTool.CPUUsageString;
 //    [self ss_setNavigationTiTle:@"我的"];
     [self ss_navigationBarHiddenUnderline];
     [self ss_navigationBarImageBackButton:@"icon_back_black"];
     self.view.backgroundColor = SSColorLightAndDark(UIColor.redBlood, UIColor.blueDoder);
+    
+    _tool = SSDeviceTool.new;
+    @weakify;
+//    _tool.CPUUsageStringTimeBlock = ^(NSString * _Nonnull usageString) {
+//        selfWeak.navigationItem.title = usageString;
+//    };
+    [_tool startCPUUsageBlockWithTimeInterval:1
+                                CPUUsageBlock:^(NSString * _Nonnull usageString) {
+        selfWeak.navigationItem.title = usageString;
+    }];
+    
+//    [_tool startCalculateFPS:^(CGFloat FPS, NSString * _Nonnull FPSString) {
+//        selfWeak.navigationItem.title = FPSString;
+//        NSLog(@"111");
+//    }];
+    
+    
+//    _tool.memoryFreeSizeStringTimeBlock = ^(NSString * _Nonnull sizeString) {
+//        selfWeak.navigationItem.title = sizeString;
+//    };
+//    [_tool startMemoryBlockWithTimeInterval:1];
+    
+    
     
 //    _location = [[CLLocationManager alloc] init];
 //    _location.desiredAccuracy = kCLLocationAccuracyBest;

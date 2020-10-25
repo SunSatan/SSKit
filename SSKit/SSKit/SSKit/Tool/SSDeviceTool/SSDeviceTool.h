@@ -26,9 +26,15 @@ NS_ASSUME_NONNULL_BEGIN
 //
 //@end
 
+typedef void(^UsageBlock)(CGFloat usage);
+typedef void(^UsageStringBlock)(NSString *usageString);
+
+typedef void(^SizeBlock)(unsigned long long size);
+typedef void(^SizeStringBlock)(NSString *sizeString);
+
 @interface SSDeviceTool : NSObject
 /**
- * 将 deviceToken 转换成 pushToken
+ * 将 deviceToken 转换成 pushToken √
  */
 + (NSString *)pushTokenFromDeviceToken:(NSData *)deviceToken;
 
@@ -38,15 +44,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDeviceTool (SSAppInfo)
 /**
- * 获取当前安装本app名称 Display Name
+ * 获取当前安装本app名称 Display Name √
  */
 @property (class, nonatomic, readonly) NSString *appName;
 /**
- * 获取设备当前安装本app版本号 Version
+ * 获取设备当前安装本app版本号 Version √
  */
 @property (class, nonatomic, readonly) NSString *appVersion;
 /**
- * 获取设备当前安装本app构建号 Build
+ * 获取设备当前安装本app构建号 Build √
  */
 @property (class, nonatomic, readonly) NSString *appBuild;
 
@@ -65,7 +71,7 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 /**
  * 关闭统计FPS
  */
-- (void)endCalculateFPS;
+//- (void)endCalculateFPS;
 
 @end
 
@@ -73,11 +79,11 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 
 @interface SSDeviceTool (SSBattery)
 /**
- * 设备电量百分比
+ * 设备电量百分比 √
  */
 @property (class, nonatomic, readonly) CGFloat batteryLevel;
 /**
- * 设备充电状态
+ * 设备充电状态 √
  */
 @property (class, nonatomic, readonly) UIDeviceBatteryState batteryState;
 
@@ -93,27 +99,27 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
 
 @interface SSDeviceTool (SSDeviceInfo)
 /**
- * 获取机器型号：iPhone13,4
+ * 获取机器型号：iPhone13,4 √
  */
 @property (class, nonatomic, readonly) NSString *machineModelID;
 /**
- * 获取设备型号：iPhone 6S、iPhone X
+ * 获取设备型号：iPhone 6S、iPhone X √
  */
 @property (class, nonatomic, readonly) NSString *deviceModel;
 /**
- * 获取设备型号：iOS
+ * 获取设备型号：iOS √
  */
 @property (class, nonatomic, readonly) NSString *systemName;
 /**
- * 获取设备型号：13.3.1
+ * 获取设备型号：13.3.1 √
  */
 @property (class, nonatomic, readonly) NSString *systemVersion;
 /**
- * 获取设备系统版本：iOS 13.3.1
+ * 获取设备系统版本：iOS 13.3.1 √
  */
 @property (class, nonatomic, readonly) NSString *systemNameAndVersion;
 /**
- * 获取设备名称：SunSatan
+ * 获取设备名称：SunSatan √
  */
 @property (class, nonatomic, readonly) NSString *deviceName;
 /**
@@ -125,11 +131,11 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSString *idfa;
 /**
- * 获取当前设备语言：zh-Hans-CN(简体中文)
+ * 获取当前设备语言：zh-Hans-CN(简体中文) √
  */
 @property (class, nonatomic, readonly) NSString *language;
 /**
- * 获取当前地区国家：China mainland(中国大陆)
+ * 获取当前地区国家：China mainland(中国大陆) √
  */
 @property (class, nonatomic, readonly) NSString *localeCountry;
 /**
@@ -157,19 +163,19 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSString *screenAspectRatio;
 /**
- * 设备 SIM 卡支持
+ * 设备 SIM 卡支持 √
  */
 @property (class, nonatomic, readonly) NSString *SIMCard;
 /**
- * 设备显示屏类型
+ * 设备显示屏类型 √
  */
 @property (class, nonatomic, readonly) NSString *displayScreen;
 /**
- * 设备尺寸
+ * 设备尺寸 √
  */
 @property (class, nonatomic, readonly) NSString *deviceSize;
 /**
- * 设备重量
+ * 设备重量 √
  */
 @property (class, nonatomic, readonly) NSString *deviceWeight;
 /**
@@ -187,17 +193,22 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSString *SocName;
 /**
- * cpu 总占用率 √
+ * cpu 总占用率
  */
 @property (class, nonatomic, readonly) CGFloat CPUUsage;
 @property (class, nonatomic, readonly) NSString *CPUUsageString;
+- (void)startCPUUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
+                             CPUUsageBlock:(UsageBlock)CPUUsageBlock;
+- (void)startCPUUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
+                             CPUUsageBlock:(UsageStringBlock)CPUUsageBlock;
 /**
- * 当前 app 对 cpu 的占用率 √
+ * 当前 app 对 cpu 的占用率
  */
 @property (class, nonatomic, readonly) CGFloat appCPUUsage;
 @property (class, nonatomic, readonly) NSString *appCPUUsageString;
+
 /**
- * cpu 核心数 √
+ * cpu 核心数
  */
 @property (class, nonatomic, readonly) NSUInteger CPUCoresNumber;
 @property (class, nonatomic, readonly) NSUInteger CPUFrequency;
@@ -206,57 +217,51 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSUInteger GPUCoresNumber;
 /**
- * cpu 架构: arm64 armv7 √
+ * cpu 架构: arm64 armv7
  */
 @property (class, nonatomic, readonly) NSString *CPUArchitecture;
 
 @end
 
-#pragma mark - 内存、硬盘信息 √
+#pragma mark - 内存、硬盘信息
 
 @interface SSDeviceTool (SSMemory)
-
-typedef void(^SizeBlock)(unsigned long long size);
-typedef void(^SizeStringBlock)(NSString *sizeString);
-
-/**
- * 开启定时返回内存、存储数据
- * @param timeInterval 调用Block的时间间隔
- */
-- (void)startMemoryWithTimeInterval:(NSTimeInterval)timeInterval;
-
 /**
  * 设备内存类型
  */
 @property (class, nonatomic, readonly) NSString *memoryType;
 /**
- * 当前 app 对 内存的占用率 √
+ * 当前 app 对 内存的占用率
  */
 @property (class, nonatomic, readonly) int64_t appMemoryUsage;
 @property (class, nonatomic, readonly) NSString *appMemoryUsageString;
+@property (nonatomic, copy) memoryUsageBlock appMemoryUsageTimeBlock;
+@property (nonatomic, copy) memoryUsageStringBlock appMemoryUsageStringTimeBlock;
 /**
- * 内存总占用率 √
+ * 内存总占用率
  */
 @property (class, nonatomic, readonly) CGFloat memoryUsage;
 @property (class, nonatomic, readonly) NSString *memoryUsageString;
+@property (nonatomic, copy) memoryUsageBlock memoryUsageTimeBlock;
+@property (nonatomic, copy) memoryUsageStringBlock memoryUsageStringTimeBlock;
 
 /**
- * 设备运存(RAM)总大小
+ * 设备内存(RAM)总大小
  */
-@property (class, nonatomic, readonly) unsigned long long deviceMemorySize;
-@property (class, nonatomic, readonly) NSString *deviceMemorySizeString;
+@property (class, nonatomic, readonly) unsigned long long memorySize;
+@property (class, nonatomic, readonly) NSString *memorySizeString;
 /**
- * 设备运存(RAM)空闲大小
+ * 设备内存(RAM)空闲大小
  */
-@property (class, nonatomic, readonly) unsigned long long deviceMemoryFreeSize;
-@property (class, nonatomic, readonly) NSString *deviceMemoryFreeSizeString;
+@property (class, nonatomic, readonly) unsigned long long memoryFreeSize;
+@property (class, nonatomic, readonly) NSString *memoryFreeSizeString;
 @property (nonatomic, copy) SizeBlock memoryFreeSizeTimeBlock;
 @property (nonatomic, copy) SizeStringBlock memoryFreeSizeStringTimeBlock;
 /**
- * 设备运存(RAM)已使用大小
+ * 设备内存(RAM)已使用大小
  */
-@property (class, nonatomic, readonly) unsigned long long deviceMemoryUsedSize;
-@property (class, nonatomic, readonly) NSString *deviceMemoryUsedSizeString;
+@property (class, nonatomic, readonly) unsigned long long memoryUsedSize;
+@property (class, nonatomic, readonly) NSString *memoryUsedSizeString;
 @property (nonatomic, copy) SizeBlock memoryUsedSizeTimeBlock;
 @property (nonatomic, copy) SizeStringBlock memoryUsedSizeStringTimeBlock;
 
@@ -266,18 +271,18 @@ typedef void(^SizeStringBlock)(NSString *sizeString);
 /**
  * 设备存储(Disk)总大小
  */
-@property (class, nonatomic, readonly) unsigned long long deviceDiskSize;
-@property (class, nonatomic, readonly) NSString *deviceDiskSizeString;
+@property (class, nonatomic, readonly) unsigned long long diskSize;
+@property (class, nonatomic, readonly) NSString *diskSizeString;
 /**
  * 设备存储(Disk)空闲大小
  */
-@property (class, nonatomic, readonly) unsigned long long deviceDiskFreeSize;
-@property (class, nonatomic, readonly) NSString *deviceDiskFreeSizeString;
+@property (class, nonatomic, readonly) unsigned long long diskFreeSize;
+@property (class, nonatomic, readonly) NSString *diskFreeSizeString;
 /**
  * 设备存储(Disk)已使用大小
  */
-@property (class, nonatomic, readonly) unsigned long long deviceDiskUsedSize;
-@property (class, nonatomic, readonly) NSString *deviceDiskUsedSizeString;
+@property (class, nonatomic, readonly) unsigned long long diskUsedSize;
+@property (class, nonatomic, readonly) NSString *diskUsedSizeString;
 
 @end
 

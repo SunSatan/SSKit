@@ -10,6 +10,7 @@
 #import "SSDeviceLibrary.h"
 #import "NSString+SSCategory.h"
 #import "SSTimer.h"
+#import "SSWeakProxy.h"
 
 #import <AdSupport/AdSupport.h>
 #import <AppTrackingTransparency/AppTrackingTransparency.h>
@@ -31,6 +32,7 @@
 
 #pragma mark - 内存读取定时器
 @property (nonatomic, strong) SSTimer *memoryTimer;
+@property (nonatomic, strong) SSTimer *memoryUsageTimer;
 
 @end
 
@@ -85,18 +87,18 @@
 - (void)startCalculateFPS:(FPSDispalyBlock)FPSDispalyBlock
 {
     if (_link) return;
-    
-    _link = [CADisplayLink displayLinkWithTarget:self selector:@selector(ticktack:)];
+    SSWeakProxy *proxy = [SSWeakProxy proxyWithTarget:self];
+    _link = [CADisplayLink displayLinkWithTarget:proxy selector:@selector(ticktack:)];
     [_link addToRunLoop:NSRunLoop.mainRunLoop forMode:NSRunLoopCommonModes];
     
     self.FPSDispalyBlock = FPSDispalyBlock;
 }
 
-- (void)endCalculateFPS
-{
-    [_link invalidate];
-    _link = nil;
-}
+//- (void)endCalculateFPS
+//{
+//    [_link invalidate];
+//    _link = nil;
+//}
 
 - (void)ticktack:(CADisplayLink *)link
 {
@@ -110,7 +112,7 @@
         return;   //统计一秒内的帧数
     
     //返回数据
-    CGFloat FPS = floor(_countFPS / seconds);
+    CGFloat FPS = ceil(_countFPS / seconds);
     NSString *FPSString = [NSString stringWithFormat:@"%.0f FPS", round(FPS)];
     if (self.FPSDispalyBlock) self.FPSDispalyBlock(FPS, FPSString);
     //开始下一轮
@@ -325,9 +327,39 @@ char *printEnv(void)
     return (user + nice + system) * 100.0 / total;
 }
 
+- (void)startCPUUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
+                             CPUUsageBlock:(UsageBlock)CPUUsageBlock
+{
+    static SSTimer *timer;
+    
+    if (timer) {
+        [timer cleanTimer];
+    }
+    
+    timer = [SSTimer scheduledTimerWithTimeInterval:timeInterval target:self repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (CPUUsageBlock)
+            CPUUsageBlock(self.class.CPUUsage);
+    }];
+}
+
 + (NSString *)CPUUsageString
 {
     return [NSString stringWithFormat:@"%.1lf%%", self.CPUUsage];
+}
+
+- (void)startCPUUsageStringBlockWithTimeInterval:(NSTimeInterval)timeInterval
+                             CPUUsageStringBlock:(UsageStringBlock)CPUUsageStringBlock
+{
+    static SSTimer *timer;
+    
+    if (timer) {
+        [timer cleanTimer];
+    }
+    
+    timer = [SSTimer scheduledTimerWithTimeInterval:timeInterval target:self repeats:YES block:^(NSTimer * _Nonnull timer) {
+        if (CPUUsageStringBlock)
+            CPUUsageStringBlock(self.class.CPUUsageString);
+    }];
 }
 
 + (CGFloat)appCPUUsage
@@ -419,6 +451,46 @@ char *printEnv(void)
 
 #pragma mark - 内存、硬盘信息
 
+- (void)startMemoryBlockWithTimeInterval:(NSTimeInterval)timeInterval
+{
+    if (_memoryTimer) return;
+    
+    __weak typeof(self) selfWeak = self;
+    _memoryTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
+        __strong typeof(self) self = selfWeak;
+        
+        if (self.memoryFreeSizeTimeBlock)
+            self.memoryFreeSizeTimeBlock(self.class.memoryFreeSize);
+        if (self.memoryFreeSizeStringTimeBlock)
+            self.memoryFreeSizeStringTimeBlock(self.class.memoryFreeSizeString);
+        
+        if (self.memoryUsedSizeTimeBlock)
+            self.memoryUsedSizeTimeBlock(self.class.memoryUsedSize);
+        if (self.memoryUsedSizeStringTimeBlock)
+            self.memoryUsedSizeStringTimeBlock(self.class.memoryUsedSizeString);
+    }];
+}
+
+- (void)startUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
+{
+    if (_memoryUsageTimer) return;
+    
+    __weak typeof(self) selfWeak = self;
+    _memoryUsageTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
+        __strong typeof(self) self = selfWeak;
+        
+        if (self.appMemoryUsageTimeBlock)
+            self.appMemoryUsageTimeBlock(self.class.appMemoryUsage);
+        if (self.appMemoryUsageStringTimeBlock)
+            self.appMemoryUsageStringTimeBlock(self.class.appMemoryUsageString);
+        
+        if (self.memoryUsageTimeBlock)
+            self.memoryUsageTimeBlock(self.class.memoryUsage);
+        if (self.memoryUsageStringTimeBlock)
+            self.memoryUsageStringTimeBlock(self.class.memoryUsageString);
+    }];
+}
+
 + (NSString *)memoryType
 {
     return [SSDeviceLibrary memoryTypeWithDevice:self.deviceModel];
@@ -443,7 +515,8 @@ char *printEnv(void)
 
 + (CGFloat)memoryUsage
 {
-    return 1 - (self.deviceMemoryFreeSize / self.deviceMemorySize * 1.0);
+    CGFloat memory = (self.memoryUsedSize / self.memorySize * 1.0);
+    return memory;
 }
 
 + (NSString *)memoryUsageString
@@ -451,37 +524,18 @@ char *printEnv(void)
     return [NSString stringWithFormat:@"%.1lf%%", self.memoryUsage];
 }
 
-- (void)startMemoryWithTimeInterval:(NSTimeInterval)timeInterval
-{
-    if (_memoryTimer) return;
-    
-    __weak typeof(self) selfWeak = self;
-    _memoryTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
-        __strong typeof(self) self = selfWeak;
-        
-        if (self.memoryFreeSizeTimeBlock)
-            self.memoryFreeSizeTimeBlock(self.class.deviceMemoryFreeSize);
-        if (self.memoryFreeSizeStringTimeBlock)
-            self.memoryFreeSizeStringTimeBlock(self.class.deviceMemoryFreeSizeString);
-        if (self.memoryUsedSizeTimeBlock)
-            self.memoryUsedSizeTimeBlock(self.class.deviceMemoryUsedSize);
-        if (self.memoryUsedSizeStringTimeBlock)
-            self.memoryUsedSizeStringTimeBlock(self.class.deviceMemoryUsedSizeString);
-    }];
-}
-
-+ (unsigned long long)deviceMemorySize
++ (unsigned long long)memorySize
 {
     return NSProcessInfo.processInfo.physicalMemory;
 }
 
-+ (NSString *)deviceMemorySizeString
++ (NSString *)memorySizeString
 {
-    unsigned long long memorySize = self.deviceMemorySize;
+    unsigned long long memorySize = self.memorySize;
     return [NSString ss_memoryUnit:memorySize];
 }
 
-+ (unsigned long long)deviceMemoryFreeSize
++ (unsigned long long)memoryFreeSize
 {
     vm_statistics_data_t vmStats;
     mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
@@ -493,23 +547,23 @@ char *printEnv(void)
     return ((vm_page_size * (vmStats.free_count +vmStats.inactive_count)));
 }
 
-+ (NSString *)deviceMemoryFreeSizeString
++ (NSString *)memoryFreeSizeString
 {
-    unsigned long long memoryFreeSize = self.deviceMemoryFreeSize;
+    unsigned long long memoryFreeSize = self.memoryFreeSize;
     return [NSString ss_memoryUnit:memoryFreeSize];
 }
 
-+ (unsigned long long)deviceMemoryUsedSize
++ (unsigned long long)memoryUsedSize
 {
-    return self.deviceMemorySize - self.deviceMemoryFreeSize;
+    return self.memorySize - self.memoryFreeSize;
 }
 
-+ (NSString *)deviceMemoryUsedSizeString
++ (NSString *)memoryUsedSizeString
 {
-    return [NSString ss_memoryUnit:self.deviceMemoryUsedSize];
+    return [NSString ss_memoryUnit:self.memoryUsedSize];
 }
 
-+ (unsigned long long)deviceDiskSize
++ (unsigned long long)diskSize
 {
     //方法1
 //    NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
@@ -522,13 +576,13 @@ char *printEnv(void)
     return freeSpace;
 }
 
-+ (NSString *)deviceDiskSizeString
++ (NSString *)diskSizeString
 {
-    unsigned long long diskSize = self.deviceDiskSize;
+    unsigned long long diskSize = self.diskSize;
     return [NSString ss_diskUnit:diskSize];
 }
 
-+ (unsigned long long)deviceDiskFreeSize
++ (unsigned long long)diskFreeSize
 {
     //方法1
 //    NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
@@ -541,20 +595,20 @@ char *printEnv(void)
     return freeSpace;
 }
 
-+ (NSString *)deviceDiskFreeSizeString
++ (NSString *)diskFreeSizeString
 {
-    unsigned long long diskFreeSize = self.deviceDiskFreeSize;
+    unsigned long long diskFreeSize = self.diskFreeSize;
     return [NSString ss_diskUnit:diskFreeSize];
 }
 
-+ (unsigned long long)deviceDiskUsedSize
++ (unsigned long long)diskUsedSize
 {
-    return self.deviceDiskSize - self.deviceDiskFreeSize;
+    return self.diskSize - self.diskFreeSize;
 }
 
-+ (NSString *)deviceDiskUsedSizeString
++ (NSString *)diskUsedSizeString
 {
-    return [NSString ss_diskUnit:self.deviceDiskUsedSize];
+    return [NSString ss_diskUnit:self.diskUsedSize];
 }
 
 @end
