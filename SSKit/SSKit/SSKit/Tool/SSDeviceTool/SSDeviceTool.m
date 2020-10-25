@@ -2,7 +2,7 @@
 //  SSDeviceTool.m
 //  SSDeviceTool
 //
-//  Created by muzhi on 2020/3/25.
+//  Created by SunSatan on 2020/3/25.
 //  Copyright © 2020 SunSatan. All rights reserved.
 //
 
@@ -134,11 +134,6 @@
     return batteryState;
 }
 
-+ (NSString *)batteryMah
-{
-    return [SSDeviceLibrary deviceBatteryMah:self.machineModelID];
-}
-
 #pragma mark - 设备参数
 
 + (NSString *)machineModelID
@@ -151,7 +146,7 @@
 
 + (NSString *)deviceModel
 {
-    return [SSDeviceLibrary deviceModel:self.machineModelID];
+    return [SSDeviceLibrary deviceModelWithMachineModelID:self.machineModelID];
 }
 
 + (NSString *)systemName
@@ -216,29 +211,47 @@
 
 + (NSString *)saleTime
 {
-    return [SSDeviceLibrary deviceSaleTime:self.machineModelID];
+    return [SSDeviceLibrary saleTimeWithDevice:self.deviceModel];
 }
-
-
 
 + (NSString *)latestSystemVersion
 {
-    return [SSDeviceLibrary deviceLatestOSVersion:self.machineModelID];
+    return [SSDeviceLibrary latestOSVersionWithDevice:self.deviceModel];
 }
 
 + (NSString *)screenPPI
 {
-    return [SSDeviceLibrary devicePPI:self.machineModelID];
+    return [NSString stringWithFormat:@"%ld ppi", [SSDeviceLibrary ppiWithDevice:self.deviceModel]];
 }
 
 + (NSString *)screenSize
 {
-    return [SSDeviceLibrary deviceScreenSize:self.machineModelID];
+    return [NSString stringWithFormat:@"%ld\"", [SSDeviceLibrary screenSizeWithDevice:self.deviceModel]];
 }
 
 + (NSString *)screenAspectRatio
 {
-    return [SSDeviceLibrary deviceAspectRatio:self.screenSize];
+    return [SSDeviceLibrary aspectRatioWithScreenSize:[SSDeviceLibrary screenSizeWithDevice:self.deviceModel]];
+}
+
++ (NSString *)SIMCard
+{
+    return [SSDeviceLibrary SIMCardWithDevice:self.deviceModel];
+}
+
++ (NSString *)displayScreen
+{
+    return [SSDeviceLibrary displayScreenWithDevice:self.deviceModel];
+}
+
++ (NSString *)deviceSize
+{
+    return [SSDeviceLibrary deviceSizeWithDevice:self.deviceModel];
+}
+
++ (NSString *)deviceWeight
+{
+    return [NSString stringWithFormat:@"%ld g", [SSDeviceLibrary deviceWeightWithDevice:self.deviceModel]];
 }
 
 // 常见越狱文件
@@ -285,7 +298,7 @@ char *printEnv(void)
 
 + (NSString *)SocName
 {
-    return [SSDeviceLibrary deviceSoCName:self.machineModelID];
+    return [SSDeviceLibrary SoCNameWithDevice:self.deviceModel];
 }
 
 + (CGFloat)CPUUsage
@@ -299,7 +312,7 @@ char *printEnv(void)
     
     kr = host_statistics(mach_host_self(), HOST_CPU_LOAD_INFO, (host_info_t)&info, &count);
     if (kr != KERN_SUCCESS) {
-        return -1;
+        return 0;
     }
     
     natural_t user   = info.cpu_ticks[CPU_STATE_USER] - previous_info.cpu_ticks[CPU_STATE_USER];
@@ -389,9 +402,14 @@ char *printEnv(void)
     return [self _systemInfo:HW_NCPU];
 }
 
++ (NSUInteger)CPUFrequency
+{
+    return [SSDeviceLibrary CPUFrequencyWithSoC:self.SocName];
+}
+
 + (NSUInteger)GPUCoresNumber
 {
-    return [self _systemInfo:HW_NCPU];
+    return [SSDeviceLibrary GPUCoresNumberWithSoC:self.SocName];
 }
 
 + (NSString *)CPUArchitecture
@@ -403,7 +421,7 @@ char *printEnv(void)
 
 + (NSString *)memoryType
 {
-    return [SSDeviceLibrary deviceMemType:self.machineModelID];
+    return [SSDeviceLibrary memoryTypeWithDevice:self.deviceModel];
 }
 
 + (int64_t)appMemoryUsage
@@ -425,12 +443,12 @@ char *printEnv(void)
 
 + (CGFloat)memoryUsage
 {
-    
+    return 1 - (self.deviceMemoryFreeSize / self.deviceMemorySize * 1.0);
 }
 
 + (NSString *)memoryUsageString
 {
-    
+    return [NSString stringWithFormat:@"%.1lf%%", self.memoryUsage];
 }
 
 - (void)startMemoryWithTimeInterval:(NSTimeInterval)timeInterval
@@ -441,10 +459,6 @@ char *printEnv(void)
     _memoryTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
         __strong typeof(self) self = selfWeak;
         
-        if (self.memorySizeTimeBlock)
-            self.memorySizeTimeBlock(self.class.deviceMemorySize);
-        if (self.memorySizeStringTimeBlock)
-            self.memorySizeStringTimeBlock(self.class.deviceMemorySizeString);
         if (self.memoryFreeSizeTimeBlock)
             self.memoryFreeSizeTimeBlock(self.class.deviceMemoryFreeSize);
         if (self.memoryFreeSizeStringTimeBlock)
@@ -453,19 +467,6 @@ char *printEnv(void)
             self.memoryUsedSizeTimeBlock(self.class.deviceMemoryUsedSize);
         if (self.memoryUsedSizeStringTimeBlock)
             self.memoryUsedSizeStringTimeBlock(self.class.deviceMemoryUsedSizeString);
-        
-        if (self.diskSizeTimeBlock)
-            self.diskSizeTimeBlock(self.class.deviceDiskSize);
-        if (self.diskSizeStringTimeBlock)
-            self.diskSizeStringTimeBlock(self.class.deviceDiskSizeString);
-        if (self.diskFreeSizeTimeBlock)
-            self.diskFreeSizeTimeBlock(self.class.deviceDiskFreeSize);
-        if (self.diskFreeSizeStringTimeBlock)
-            self.diskFreeSizeStringTimeBlock(self.class.deviceDiskFreeSizeString);
-        if (self.diskUsedSizeTimeBlock)
-            self.diskUsedSizeTimeBlock(self.class.deviceDiskUsedSize);
-        if (self.diskUsedSizeStringTimeBlock)
-            self.diskUsedSizeStringTimeBlock(self.class.deviceDiskUsedSizeString);
     }];
 }
 

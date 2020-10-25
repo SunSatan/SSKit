@@ -46,6 +46,7 @@
 #import "SSLocation.h"
 #import "SSMorseCode.h"
 #import "SSSystemConvert.h"
+#import "SSWeakProxy.h"
 
 #endif /* SSKit_h */
 

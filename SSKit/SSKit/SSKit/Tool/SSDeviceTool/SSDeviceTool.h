@@ -2,14 +2,12 @@
 //  SSDeviceTool.h
 //  SSDeviceTool
 //
-//  Created by muzhi on 2020/3/25.
+//  Created by SunSatan on 2020/3/25.
 //  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -82,10 +80,6 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  * 设备充电状态
  */
 @property (class, nonatomic, readonly) UIDeviceBatteryState batteryState;
-/**
- * 设备电池的额定容量
- */
-@property (class, nonatomic, readonly) NSString *batteryMah;
 
 /*
  <key>com.apple.power.battery.CycleCount</key> 电池循环次数
@@ -163,6 +157,22 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSString *screenAspectRatio;
 /**
+ * 设备 SIM 卡支持
+ */
+@property (class, nonatomic, readonly) NSString *SIMCard;
+/**
+ * 设备显示屏类型
+ */
+@property (class, nonatomic, readonly) NSString *displayScreen;
+/**
+ * 设备尺寸
+ */
+@property (class, nonatomic, readonly) NSString *deviceSize;
+/**
+ * 设备重量
+ */
+@property (class, nonatomic, readonly) NSString *deviceWeight;
+/**
  * 设备是否越狱 √
  */
 @property (class, nonatomic, readonly) BOOL isJailbreak;
@@ -190,6 +200,7 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  * cpu 核心数 √
  */
 @property (class, nonatomic, readonly) NSUInteger CPUCoresNumber;
+@property (class, nonatomic, readonly) NSUInteger CPUFrequency;
 /**
  * gpu 核心数
  */
@@ -234,8 +245,6 @@ typedef void(^SizeStringBlock)(NSString *sizeString);
  */
 @property (class, nonatomic, readonly) unsigned long long deviceMemorySize;
 @property (class, nonatomic, readonly) NSString *deviceMemorySizeString;
-@property (nonatomic, copy) SizeBlock memorySizeTimeBlock;
-@property (nonatomic, copy) SizeStringBlock memorySizeStringTimeBlock;
 /**
  * 设备运存(RAM)空闲大小
  */
@@ -251,28 +260,24 @@ typedef void(^SizeStringBlock)(NSString *sizeString);
 @property (nonatomic, copy) SizeBlock memoryUsedSizeTimeBlock;
 @property (nonatomic, copy) SizeStringBlock memoryUsedSizeStringTimeBlock;
 
+@end
 
+@interface SSDeviceTool (SSDisk)
 /**
  * 设备存储(Disk)总大小
  */
 @property (class, nonatomic, readonly) unsigned long long deviceDiskSize;
 @property (class, nonatomic, readonly) NSString *deviceDiskSizeString;
-@property (nonatomic, copy) SizeBlock diskSizeTimeBlock;
-@property (nonatomic, copy) SizeStringBlock diskSizeStringTimeBlock;
 /**
  * 设备存储(Disk)空闲大小
  */
 @property (class, nonatomic, readonly) unsigned long long deviceDiskFreeSize;
 @property (class, nonatomic, readonly) NSString *deviceDiskFreeSizeString;
-@property (nonatomic, copy) SizeBlock diskFreeSizeTimeBlock;
-@property (nonatomic, copy) SizeStringBlock diskFreeSizeStringTimeBlock;
 /**
  * 设备存储(Disk)已使用大小
  */
 @property (class, nonatomic, readonly) unsigned long long deviceDiskUsedSize;
 @property (class, nonatomic, readonly) NSString *deviceDiskUsedSizeString;
-@property (nonatomic, copy) SizeBlock diskUsedSizeTimeBlock;
-@property (nonatomic, copy) SizeStringBlock diskUsedSizeStringTimeBlock;
 
 @end
 

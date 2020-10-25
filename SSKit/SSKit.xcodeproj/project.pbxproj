@@ -34,6 +34,7 @@
 		E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CF25164DC400DEA59B /* SSIndexBar.m */; };
 		E358C3D725164E1300DEA59B /* SSContacts.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3D325164E1300DEA59B /* SSContacts.m */; };
 		E3702756251760D0006DC0D7 /* SSDeviceTool.m in Sources */ = {isa = PBXBuildFile; fileRef = E3702754251760CF006DC0D7 /* SSDeviceTool.m */; };
+		E39F945725456CFF00050446 /* SSWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = E39F945625456CFF00050446 /* SSWeakProxy.m */; };
 		E3D38D9A25165A2700670EEB /* SSReusablePool.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D38D9825165A2700670EEB /* SSReusablePool.m */; };
 		E3D38D9E25165AB800670EEB /* SSDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D38D9D25165AB800670EEB /* SSDateHelper.m */; };
 		E3D38DA425165C2000670EEB /* SSTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = E3D38DA325165C2000670EEB /* SSTimer.m */; };
@@ -95,6 +96,8 @@
 		E358C3D625164E1300DEA59B /* SSContacts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSContacts.h; sourceTree = "<group>"; };
 		E3702754251760CF006DC0D7 /* SSDeviceTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSDeviceTool.m; sourceTree = "<group>"; };
 		E3702755251760D0006DC0D7 /* SSDeviceTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDeviceTool.h; sourceTree = "<group>"; };
+		E39F945525456CFF00050446 /* SSWeakProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSWeakProxy.h; sourceTree = "<group>"; };
+		E39F945625456CFF00050446 /* SSWeakProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSWeakProxy.m; sourceTree = "<group>"; };
 		E3D38D9825165A2700670EEB /* SSReusablePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSReusablePool.m; sourceTree = "<group>"; };
 		E3D38D9925165A2700670EEB /* SSReusablePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSReusablePool.h; sourceTree = "<group>"; };
 		E3D38D9C25165AB800670EEB /* SSDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSDateHelper.h; sourceTree = "<group>"; };
@@ -353,6 +356,7 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				E39F945425456CDF00050446 /* SSWeakProxy */,
 				5460360925359D0B00D9D836 /* SSSystemConvert */,
 				54B5C1B62522D86F000BD6AF /* SSMorseCode */,
 				54CCE04625220947007D137F /* SSScreen */,
@@ -377,6 +381,15 @@
 				E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */,
 			);
 			path = SSDeviceTool;
+			sourceTree = "<group>";
+		};
+		E39F945425456CDF00050446 /* SSWeakProxy */ = {
+			isa = PBXGroup;
+			children = (
+				E39F945525456CFF00050446 /* SSWeakProxy.h */,
+				E39F945625456CFF00050446 /* SSWeakProxy.m */,
+			);
+			path = SSWeakProxy;
 			sourceTree = "<group>";
 		};
 		E3D38D9725165A2700670EEB /* SSReusablePool */ = {
@@ -498,6 +511,7 @@
 				54BDA1622534748000094633 /* UIImage+SSImageCategory.m in Sources */,
 				54BDA16A2534748000094633 /* AppDelegate+SSBackgroundTask.m in Sources */,
 				E3D38DA425165C2000670EEB /* SSTimer.m in Sources */,
+				E39F945725456CFF00050446 /* SSWeakProxy.m in Sources */,
 				54BDA1632534748000094633 /* UIWindow+SSCategory.m in Sources */,
 				E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */,
 				E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */,

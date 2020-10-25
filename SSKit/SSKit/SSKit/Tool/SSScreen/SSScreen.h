@@ -38,12 +38,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) CGFloat safeAreaBottom;
 /// 设备支持的最高FPS
 @property (class, nonatomic, readonly) NSInteger maxFPS;
-/// 屏幕原生高
-@property (class, nonatomic, readonly) NSInteger screenNativeHeight;
-/// 屏幕原生宽
-@property (class, nonatomic, readonly) NSInteger screenNativeWidth;
 /// 屏幕分辨率
 @property (class, nonatomic, readonly) NSString *screenRes;
+/// 屏幕分辨率的高
+@property (class, nonatomic, readonly) NSInteger screenNativeHeight;
+/// 屏幕分辨率的宽
+@property (class, nonatomic, readonly) NSInteger screenNativeWidth;
+
 
 @end
 
