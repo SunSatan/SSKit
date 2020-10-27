@@ -25,6 +25,7 @@
 		54BDA1682534748000094633 /* UITableViewCell+SSSectionCorner.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA15D2534748000094633 /* UITableViewCell+SSSectionCorner.m */; };
 		54BDA1692534748000094633 /* UITableView+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA15E2534748000094633 /* UITableView+SSCategory.m */; };
 		54BDA16A2534748000094633 /* AppDelegate+SSBackgroundTask.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA1602534748000094633 /* AppDelegate+SSBackgroundTask.m */; };
+		54C797932548237F007DD4EB /* SSCompassView.m in Sources */ = {isa = PBXBuildFile; fileRef = 54C797922548237F007DD4EB /* SSCompassView.m */; };
 		54CCDC37252175C2007D137F /* SSMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC36252175C2007D137F /* SSMotion.m */; };
 		54CCE04325220768007D137F /* SSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE04225220768007D137F /* SSLocation.m */; };
 		54CCE0492522095C007D137F /* SSScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE0482522095C007D137F /* SSScreen.m */; };
@@ -78,6 +79,8 @@
 		54BDA15E2534748000094633 /* UITableView+SSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableView+SSCategory.m"; sourceTree = "<group>"; };
 		54BDA1602534748000094633 /* AppDelegate+SSBackgroundTask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+SSBackgroundTask.m"; sourceTree = "<group>"; };
 		54BDA1612534748000094633 /* AppDelegate+SSBackgroundTask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+SSBackgroundTask.h"; sourceTree = "<group>"; };
+		54C797912548237F007DD4EB /* SSCompassView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSCompassView.h; sourceTree = "<group>"; };
+		54C797922548237F007DD4EB /* SSCompassView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSCompassView.m; sourceTree = "<group>"; };
 		54CCDC35252175C2007D137F /* SSMotion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMotion.h; sourceTree = "<group>"; };
 		54CCDC36252175C2007D137F /* SSMotion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMotion.m; sourceTree = "<group>"; };
 		54CCE04125220768007D137F /* SSLocation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSLocation.h; sourceTree = "<group>"; };
@@ -289,6 +292,15 @@
 			path = AppDelegate;
 			sourceTree = "<group>";
 		};
+		54C7979025482339007DD4EB /* SSCompass */ = {
+			isa = PBXGroup;
+			children = (
+				54C797912548237F007DD4EB /* SSCompassView.h */,
+				54C797922548237F007DD4EB /* SSCompassView.m */,
+			);
+			path = SSCompass;
+			sourceTree = "<group>";
+		};
 		54CCDC34252175C2007D137F /* SSMotion */ = {
 			isa = PBXGroup;
 			children = (
@@ -348,6 +360,7 @@
 		E358C3D9251650FB00DEA59B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				54C7979025482339007DD4EB /* SSCompass */,
 				E358C3CB25164DC400DEA59B /* SSIndexBar */,
 			);
 			path = View;
@@ -490,6 +503,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E3D38D9E25165AB800670EEB /* SSDateHelper.m in Sources */,
+				54C797932548237F007DD4EB /* SSCompassView.m in Sources */,
 				E358C3D725164E1300DEA59B /* SSContacts.m in Sources */,
 				546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */,
 				E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */,

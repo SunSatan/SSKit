@@ -29,7 +29,7 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^UsageBlock)(CGFloat usage);
 typedef void(^UsageStringBlock)(NSString *usageString);
 
-typedef void(^SizeBlock)(unsigned long long size);
+typedef void(^SizeBlock)(uint64_t size);
 typedef void(^SizeStringBlock)(NSString *sizeString);
 
 @interface SSDeviceTool : NSObject
@@ -197,10 +197,6 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) CGFloat CPUUsage;
 @property (class, nonatomic, readonly) NSString *CPUUsageString;
-- (void)startCPUUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
-                             CPUUsageBlock:(UsageBlock)CPUUsageBlock;
-- (void)startCPUUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
-                             CPUUsageBlock:(UsageStringBlock)CPUUsageBlock;
 /**
  * 当前 app 对 cpu 的占用率
  */
@@ -231,57 +227,54 @@ typedef void(^FPSDispalyBlock)(CGFloat FPS, NSString *FPSString);
  */
 @property (class, nonatomic, readonly) NSString *memoryType;
 /**
- * 当前 app 对 内存的占用率
+ * 当前 app 使用的内存大小
  */
-@property (class, nonatomic, readonly) int64_t appMemoryUsage;
-@property (class, nonatomic, readonly) NSString *appMemoryUsageString;
-@property (nonatomic, copy) memoryUsageBlock appMemoryUsageTimeBlock;
-@property (nonatomic, copy) memoryUsageStringBlock appMemoryUsageStringTimeBlock;
+@property (class, nonatomic, readonly) uint64_t appMemoryUsedSize;
+@property (class, nonatomic, readonly) NSString *appMemoryUsedSizeString;
 /**
- * 内存总占用率
+ * 当前内存(RAM)总占用率（已使用率）
  */
 @property (class, nonatomic, readonly) CGFloat memoryUsage;
 @property (class, nonatomic, readonly) NSString *memoryUsageString;
-@property (nonatomic, copy) memoryUsageBlock memoryUsageTimeBlock;
-@property (nonatomic, copy) memoryUsageStringBlock memoryUsageStringTimeBlock;
 
 /**
- * 设备内存(RAM)总大小
+ * 设备内存(RAM)的总大小
  */
-@property (class, nonatomic, readonly) unsigned long long memorySize;
+@property (class, nonatomic, readonly) uint64_t memorySize;
 @property (class, nonatomic, readonly) NSString *memorySizeString;
 /**
- * 设备内存(RAM)空闲大小
+ * 设备内存(RAM)的空闲大小
  */
-@property (class, nonatomic, readonly) unsigned long long memoryFreeSize;
+@property (class, nonatomic, readonly) uint64_t memoryFreeSize;
 @property (class, nonatomic, readonly) NSString *memoryFreeSizeString;
-@property (nonatomic, copy) SizeBlock memoryFreeSizeTimeBlock;
-@property (nonatomic, copy) SizeStringBlock memoryFreeSizeStringTimeBlock;
 /**
- * 设备内存(RAM)已使用大小
+ * 设备内存(RAM)的已使用大小
  */
-@property (class, nonatomic, readonly) unsigned long long memoryUsedSize;
+@property (class, nonatomic, readonly) uint64_t memoryUsedSize;
 @property (class, nonatomic, readonly) NSString *memoryUsedSizeString;
-@property (nonatomic, copy) SizeBlock memoryUsedSizeTimeBlock;
-@property (nonatomic, copy) SizeStringBlock memoryUsedSizeStringTimeBlock;
 
 @end
 
 @interface SSDeviceTool (SSDisk)
 /**
+ * 当前存储(Disk)总占用率（已使用率）
+ */
+@property (class, nonatomic, readonly) CGFloat diskUsage;
+@property (class, nonatomic, readonly) NSString *diskUsageString;
+/**
  * 设备存储(Disk)总大小
  */
-@property (class, nonatomic, readonly) unsigned long long diskSize;
+@property (class, nonatomic, readonly) uint64_t diskSize;
 @property (class, nonatomic, readonly) NSString *diskSizeString;
 /**
  * 设备存储(Disk)空闲大小
  */
-@property (class, nonatomic, readonly) unsigned long long diskFreeSize;
+@property (class, nonatomic, readonly) uint64_t diskFreeSize;
 @property (class, nonatomic, readonly) NSString *diskFreeSizeString;
 /**
  * 设备存储(Disk)已使用大小
  */
-@property (class, nonatomic, readonly) unsigned long long diskUsedSize;
+@property (class, nonatomic, readonly) uint64_t diskUsedSize;
 @property (class, nonatomic, readonly) NSString *diskUsedSizeString;
 
 @end

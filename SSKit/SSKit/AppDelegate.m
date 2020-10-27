@@ -19,7 +19,7 @@
 @implementation AppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    sleep(2);
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[ViewController new]];
     
     self.window = [UIWindow ss_setRootViewController:nav];

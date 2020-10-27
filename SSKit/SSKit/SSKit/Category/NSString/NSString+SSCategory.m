@@ -43,13 +43,6 @@
     return temp;
 }
 
-//- (NSUInteger)hexStringToInt;
-//{
-//    unsigned int result;
-//    [[NSScanner scannerWithString:self] scanHexInt:&result];
-//    return (NSUInteger)result;
-//}
-
 - (NSString *)ss_chineseTransformPinyinWithCapitalized:(BOOL)capitalized
 {
     //中文转拼音，效率较低（数据量：300需要约0.2秒，1k需要约0.5秒，5k需要约2秒，1w需要约4.5秒）
@@ -152,12 +145,12 @@
     return reversal;
 }
 
-+ (NSString *)ss_memoryUnit:(unsigned long long)memorySize
++ (NSString *)ss_memoryUnit:(uint64_t)memorySize
 {
     return [self ss_memoryUnit:memorySize decimal:1];
 }
 
-+ (NSString *)ss_memoryUnit:(unsigned long long)memorySize decimal:(NSUInteger)decimal
++ (NSString *)ss_memoryUnit:(uint64_t)memorySize decimal:(NSUInteger)decimal
 {
     NSString *str = @"";
     NSString* format = [NSString stringWithFormat:@"%%.%ldlf", decimal];
@@ -183,12 +176,12 @@
     return str;
 }
 
-+ (NSString *)ss_diskUnit:(unsigned long long)diskSize
++ (NSString *)ss_diskUnit:(uint64_t)diskSize
 {
     return [self ss_diskUnit:diskSize decimal:2];
 }
 
-+ (NSString *)ss_diskUnit:(unsigned long long)diskSize decimal:(NSUInteger)decimal
++ (NSString *)ss_diskUnit:(uint64_t)diskSize decimal:(NSUInteger)decimal
 {
     NSString *str = @"";
     NSString* format = [NSString stringWithFormat:@"%%.%ldlf", decimal];

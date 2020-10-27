@@ -20,6 +20,9 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (NSString *)binaryFromDecimal:(NSInteger)decimal haveSigned:(BOOL)haveSigned;
 
+/// 十六进制字符串 转 十进制int
+//- (NSUInteger)hexStringToInt;
+
 @end
 
 NS_ASSUME_NONNULL_END

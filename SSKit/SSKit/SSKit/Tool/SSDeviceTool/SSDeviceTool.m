@@ -49,7 +49,7 @@
 
 + (NSUInteger)_systemInfo:(uint)typeSpecifier
 {
-    size_t size = sizeof(int);
+    size_t size = sizeof(NSUInteger);
     int result = 0 , mib[2] = {CTL_HW, typeSpecifier};
     sysctl(mib, 2, &result, &size, NULL, 0);
     return (NSUInteger)result;
@@ -449,74 +449,33 @@ char *printEnv(void)
     return [NSBundle.mainBundle.infoDictionary[@"UIRequiredDeviceCapabilities"] firstObject];
 }
 
-#pragma mark - 内存、硬盘信息
-
-- (void)startMemoryBlockWithTimeInterval:(NSTimeInterval)timeInterval
-{
-    if (_memoryTimer) return;
-    
-    __weak typeof(self) selfWeak = self;
-    _memoryTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
-        __strong typeof(self) self = selfWeak;
-        
-        if (self.memoryFreeSizeTimeBlock)
-            self.memoryFreeSizeTimeBlock(self.class.memoryFreeSize);
-        if (self.memoryFreeSizeStringTimeBlock)
-            self.memoryFreeSizeStringTimeBlock(self.class.memoryFreeSizeString);
-        
-        if (self.memoryUsedSizeTimeBlock)
-            self.memoryUsedSizeTimeBlock(self.class.memoryUsedSize);
-        if (self.memoryUsedSizeStringTimeBlock)
-            self.memoryUsedSizeStringTimeBlock(self.class.memoryUsedSizeString);
-    }];
-}
-
-- (void)startUsageBlockWithTimeInterval:(NSTimeInterval)timeInterval
-{
-    if (_memoryUsageTimer) return;
-    
-    __weak typeof(self) selfWeak = self;
-    _memoryUsageTimer = [SSTimer timerWithTimeInterval:timeInterval target:self repeats:YES runLoopMode:NSRunLoopCommonModes block:^(NSTimer * _Nonnull timer) {
-        __strong typeof(self) self = selfWeak;
-        
-        if (self.appMemoryUsageTimeBlock)
-            self.appMemoryUsageTimeBlock(self.class.appMemoryUsage);
-        if (self.appMemoryUsageStringTimeBlock)
-            self.appMemoryUsageStringTimeBlock(self.class.appMemoryUsageString);
-        
-        if (self.memoryUsageTimeBlock)
-            self.memoryUsageTimeBlock(self.class.memoryUsage);
-        if (self.memoryUsageStringTimeBlock)
-            self.memoryUsageStringTimeBlock(self.class.memoryUsageString);
-    }];
-}
+#pragma mark - 内存
 
 + (NSString *)memoryType
 {
     return [SSDeviceLibrary memoryTypeWithDevice:self.deviceModel];
 }
 
-+ (int64_t)appMemoryUsage
++ (uint64_t)appMemoryUsedSize
 {
     int64_t memoryUsageInByte = 0;
     task_vm_info_data_t vmInfo;
     mach_msg_type_number_t count = TASK_VM_INFO_COUNT;
     kern_return_t kernelReturn = task_info(mach_task_self(), TASK_VM_INFO, (task_info_t) &vmInfo, &count);
     if(kernelReturn == KERN_SUCCESS) {
-        memoryUsageInByte = (int64_t) vmInfo.phys_footprint;
+        memoryUsageInByte = (uint64_t) vmInfo.phys_footprint;
     }
     return memoryUsageInByte;
 }
 
-+ (NSString *)appMemoryUsageString
++ (NSString *)appMemoryUsedSizeString
 {
-    return [NSString stringWithFormat:@"%lld%%", self.appMemoryUsage];
+    return [NSString ss_memoryUnit:self.appMemoryUsedSize];
 }
 
 + (CGFloat)memoryUsage
 {
-    CGFloat memory = (self.memoryUsedSize / self.memorySize * 1.0);
-    return memory;
+    return (self.memoryUsedSize / (self.memorySize * 1.0));
 }
 
 + (NSString *)memoryUsageString
@@ -524,38 +483,35 @@ char *printEnv(void)
     return [NSString stringWithFormat:@"%.1lf%%", self.memoryUsage];
 }
 
-+ (unsigned long long)memorySize
++ (uint64_t)memorySize
 {
     return NSProcessInfo.processInfo.physicalMemory;
 }
 
 + (NSString *)memorySizeString
 {
-    unsigned long long memorySize = self.memorySize;
-    return [NSString ss_memoryUnit:memorySize];
+    return [NSString ss_memoryUnit:self.memorySize];
 }
 
-+ (unsigned long long)memoryFreeSize
++ (uint64_t)memoryFreeSize
 {
     vm_statistics_data_t vmStats;
     mach_msg_type_number_t infoCount = HOST_VM_INFO_COUNT;
     kern_return_t kernReturn = host_statistics(mach_host_self(), HOST_VM_INFO, (host_info_t)&vmStats, &infoCount);
     if (kernReturn != KERN_SUCCESS) {
-        return NSNotFound;
+        return 0;
     }
-    
-    return ((vm_page_size * (vmStats.free_count +vmStats.inactive_count)));
+    return (uint64_t)((vm_page_size * (vmStats.free_count +vmStats.inactive_count)));
 }
 
 + (NSString *)memoryFreeSizeString
 {
-    unsigned long long memoryFreeSize = self.memoryFreeSize;
-    return [NSString ss_memoryUnit:memoryFreeSize];
+    return [NSString ss_memoryUnit:self.memoryFreeSize];
 }
 
-+ (unsigned long long)memoryUsedSize
++ (uint64_t)memoryUsedSize
 {
-    return self.memorySize - self.memoryFreeSize;
+    return (self.memorySize - self.memoryFreeSize);
 }
 
 + (NSString *)memoryUsedSizeString
@@ -563,47 +519,57 @@ char *printEnv(void)
     return [NSString ss_memoryUnit:self.memoryUsedSize];
 }
 
-+ (unsigned long long)diskSize
+#pragma mark - 硬盘信息
+
++ (CGFloat)diskUsage
+{
+    return (self.diskUsedSize / (self.diskSize * 1.0));
+}
+
++ (NSString *)diskUsageString
+{
+    return [NSString stringWithFormat:@"%.1lf%%", self.diskUsage];
+}
+
++ (uint64_t)diskSize
 {
     //方法1
 //    NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
 //    NSInteger size =  [fattributes objectForKey:NSFileSystemSize];
     struct statfs buf;
-    unsigned long long freeSpace = -1;
+    uint64_t freeSpace = 0;
     if (statfs("/var", &buf) >= 0) {
-        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_blocks);
+        freeSpace = (uint64_t)(buf.f_bsize * buf.f_blocks);
     }
     return freeSpace;
 }
 
 + (NSString *)diskSizeString
 {
-    unsigned long long diskSize = self.diskSize;
-    return [NSString ss_diskUnit:diskSize];
+    return [NSString ss_diskUnit:self.diskSize];
 }
 
-+ (unsigned long long)diskFreeSize
++ (uint64_t)diskFreeSize
 {
     //方法1
 //    NSDictionary *fattributes = [[NSFileManager defaultManager] attributesOfFileSystemForPath:NSHomeDirectory() error:nil];
 //    NSInteger size =  [fattributes objectForKey:NSFileSystemFreeSize];
     struct statfs buf;
-    unsigned long long freeSpace = -1;
+    uint64_t freeSpace =0;
     if (statfs("/var", &buf) >= 0) {
-        freeSpace = (unsigned long long)(buf.f_bsize * buf.f_bavail);
+        freeSpace = (uint64_t)(buf.f_bsize * buf.f_bavail);
     }
     return freeSpace;
 }
 
 + (NSString *)diskFreeSizeString
 {
-    unsigned long long diskFreeSize = self.diskFreeSize;
-    return [NSString ss_diskUnit:diskFreeSize];
+    return [NSString ss_diskUnit:self.diskFreeSize];
 }
 
-+ (unsigned long long)diskUsedSize
++ (uint64_t)diskUsedSize
 {
-    return self.diskSize - self.diskFreeSize;
+    return (self.diskSize - self.diskFreeSize);
 }
 
 + (NSString *)diskUsedSizeString

@@ -12,7 +12,7 @@
 #pragma mark - 通用常量宏定义
 
 //版本判断
-#define iOS(x) available(iOS (x), *)
+#define iOS(x) @available(iOS (x), *)
 
 //强弱引用
 #define weakify   autoreleasepool{} __weak   typeof(self) selfWeak = self
@@ -50,9 +50,10 @@
 #define MainQueue   dispatch_get_main_queue()
 
 //沙盒路径
-#define PATH_OF_APP_HOME    NSHomeDirectory()
-#define PATH_OF_TEMPORARY        NSTemporaryDirectory()
-#define PATH_OF_DOCUMENT    [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+#define PATH_OF_APP_HOME  NSHomeDirectory()
+#define PATH_OF_TEMPORARY NSTemporaryDirectory()
+#define PATH_OF_DOCUMENT  [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject]
+#define PATH_OF_CACHE     [NSSearchPathForDirectoriesInDomains(NSCachesDirectory,   NSUserDomainMask, YES) firstObject]
 
 //定义通知
 #define NotificationCenter [NSNotificationCenter defaultCenter]

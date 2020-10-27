@@ -18,13 +18,26 @@
     binary = [binary ss_clearAllSpaceAndNewline];
     binary = [binary ss_reversal];
     NSArray *arr = [binary ss_stringCutApartToCharacter];
-    for (NSInteger i=arr.count-1; i>=0; i--) {
+    for (NSInteger i=0; i<arr.count; i++) {
         NSInteger x = [arr[i] integerValue];
-        if (x == 1) decimal += exp2(i);
+        if (slowpath(haveSigned && i == arr.count-1 && x)) {
+            decimal = 0 - decimal;
+            break;
+        }
+        if (x) {
+            decimal += exp2((i));
+        }
+        
     }
-    
     return decimal;
 }
+
+//- (NSUInteger)hexStringToInt;
+//{
+//    unsigned int result;
+//    [[NSScanner scannerWithString:self] scanHexInt:&result];
+//    return (NSUInteger)result;
+//}
 
 uint32_t ss_ipIntFromIpString(char *ipString)
 {

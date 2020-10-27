@@ -13,8 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 typedef void(^UsingBlock)(NSString *character, NSUInteger index);
 
 @interface NSString (SSCategory)
-/// 十六进制字符串 转 十进制int
-//- (NSUInteger)hexStringToInt;
 /**
  * base64 编码
  */
@@ -84,26 +82,26 @@ typedef void(^UsingBlock)(NSString *character, NSUInteger index);
  * RAM内存单位换算，默认保留1位小数
  * @param memorySize 内存大小，单位是B
  */
-+ (NSString *)ss_memoryUnit:(unsigned long long)memorySize;
++ (NSString *)ss_memoryUnit:(uint64_t)memorySize;
 /**
  * RAM内存单位
  * @param memorySize 内存大小，单位是B
  * @param decimal 小数保留位数
  */
-+ (NSString *)ss_memoryUnit:(unsigned long long)memorySize
++ (NSString *)ss_memoryUnit:(uint64_t)memorySize
                     decimal:(NSUInteger)decimal;
 
 /**
  * 存储单位换算，默认保留1位小数
  * @param diskSize 存储大小，单位是B
  */
-+ (NSString *)ss_diskUnit:(unsigned long long)diskSize;
++ (NSString *)ss_diskUnit:(uint64_t)diskSize;
 /**
  * 存储单位换算
  * @param diskSize 存储大小，单位是B
  * @param decimal 小数保留位数
  */
-+ (NSString *)ss_diskUnit:(unsigned long long)diskSize
++ (NSString *)ss_diskUnit:(uint64_t)diskSize
                   decimal:(NSUInteger)decimal;
 
 @end
