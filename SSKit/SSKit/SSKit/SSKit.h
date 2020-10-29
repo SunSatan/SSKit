@@ -18,12 +18,13 @@
 
 #pragma mark - Category
 
+#import "SSImageCategory.h"
+
 #import "UIWindow+SSCategory.h"
 #import "UIApplication+SSCategory.h"
 #import "UIViewController+SSCategory.h"
 #import "UIColor+SSCategory.h"
 #import "NSString+SSCategory.h"
-#import "UIImage+SSImageCategory.h"
 #import "AppDelegate+SSBackgroundTask.h"
 #import "UITableView+SSCategory.h"
 #import "UITableViewCell+SSSectionCorner.h"

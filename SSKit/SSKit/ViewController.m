@@ -24,6 +24,9 @@
 @property (nonatomic, strong) CLLocationManager *location;
 @property (nonatomic, strong) UILabel *text;
 
+@property (nonatomic, strong) UIImageView *imageView;
+
+
 @end
 
 @implementation ViewController
@@ -35,7 +38,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
+    
     NSLog(@"viewDidLoad");
     self.view.backgroundColor = UIColor.whiteColor;
     
@@ -56,6 +59,15 @@
     
     [self ss_navigationTitle:SSDeviceTool.diskFreeSizeString];
     self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1010" haveSigned:NO]];
+    
+//    _imageView = [UIImageView.alloc initWithFrame:self.view.bounds];
+//    [self.view addSubview:_imageView];
+    
+//    UIImage *itemImage = [UIImage imageNamed:@"添加"];
+//    itemImage = [itemImage ss_imageCropToRect:CGRectMake(0, 0, itemImage.size.width, itemImage.size.height)];
+//    [self saveImageToPhotosAlbum:itemImage];
+    
+    [[[UIImage alloc] initWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"IMG_1257" ofType:@"JPG"]] ss_imageCutApartForRow:2 column:3 resultImageSize:SS_1080P];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -69,6 +81,8 @@
         self.text.text = [NSString stringWithFormat:@"纬度：%.2f \n 经度：%.2f \n 海拔：%.2f \n 水平精度：%.2f \n 垂直精度：%.2f \n 航向：%.2f \n 航向精度：%.2f \n 速度：%.2f \n 速度精度：%.2f", location.coordinate.latitude, location.coordinate.longitude, location.altitude, location.horizontalAccuracy, location.verticalAccuracy, location.course, location.courseAccuracy, location.speed, location.speedAccuracy];
     }
 }
+
+
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

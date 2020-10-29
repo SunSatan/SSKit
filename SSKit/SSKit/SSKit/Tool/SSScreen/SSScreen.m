@@ -11,50 +11,50 @@
 
 @implementation SSScreen
 
-+ (CGRect)deviceScreenBounds
++ (CGRect)screenBounds
 {
-    return [UIScreen mainScreen].bounds;
+    return UIScreen.mainScreen.bounds;
 }
 
-+ (CGFloat)deviceScreenWidth
++ (CGFloat)screenWidth
 {
-    return [UIScreen mainScreen].bounds.size.width;
+    return UIScreen.mainScreen.bounds.size.width;
 }
 
-+ (CGFloat)deviceScreenHeight
++ (CGFloat)screenHeight
 {
-    return [UIScreen mainScreen].bounds.size.height;
+    return UIScreen.mainScreen.bounds.size.height;
 }
 
 + (CGFloat)statusBarHeight
 {
     CGFloat statusBarHeight = 0;
     if (@available(iOS 13.0, *)) {
-        UIStatusBarManager *statusBarManager = [UIApplication sharedApplication].windows.firstObject.windowScene.statusBarManager;
+        UIStatusBarManager *statusBarManager = UIApplication.sharedApplication.windows.firstObject.windowScene.statusBarManager;
         statusBarHeight = statusBarManager.statusBarFrame.size.height;
     } else {
-        statusBarHeight = [UIApplication sharedApplication].statusBarFrame.size.height;
+        statusBarHeight = UIApplication.sharedApplication.statusBarFrame.size.height;
     }
     return statusBarHeight;
 }
 
 + (CGFloat)navigationBarHeight
 {
-    UINavigationController *navigationController = [[UINavigationController alloc] init];
+    UINavigationController *navigationController = UINavigationController.alloc.init;
     CGFloat navigationBarHeight = navigationController.navigationBar.frame.size.height;
     return navigationBarHeight;
 }
 
 + (CGFloat)navigationToolBarHeight
 {
-    UINavigationController *navigationController = [[UINavigationController alloc] init];
+    UINavigationController *navigationController = UINavigationController.alloc.init;
     CGFloat toolBarHeight = navigationController.toolbar.frame.size.height;
     return toolBarHeight;
 }
 
 + (CGFloat)tabBarHeight
 {
-    UITabBarController *tabBarController = [[UITabBarController alloc] init];
+    UITabBarController *tabBarController = UITabBarController.alloc.init;
     CGFloat tabBarHeight = tabBarController.tabBar.frame.size.height;
     return tabBarHeight;
 }
@@ -63,7 +63,7 @@
 {
     CGRect safeAreaFrame = CGRectZero;
     if (@available(iOS 11.0, *)) {
-        UIViewController *vc = [[UIViewController alloc] init];
+        UIViewController *vc = UIViewController.alloc.init;
         safeAreaFrame = vc.view.safeAreaLayoutGuide.layoutFrame;
     }
     return safeAreaFrame;
@@ -73,7 +73,7 @@
 {
     CGFloat safeAreaLeft = 0;
     if (@available(iOS 11.0, *)) {
-        UIViewController *vc = [[UIViewController alloc] init];
+        UIViewController *vc = UIViewController.alloc.init;
         safeAreaLeft = vc.view.safeAreaInsets.left;
     }
     return safeAreaLeft;
@@ -83,7 +83,7 @@
 {
     CGFloat safeAreaRight = 0;
     if (@available(iOS 11.0, *)) {
-        UIViewController *vc = [[UIViewController alloc] init];
+        UIViewController *vc = UIViewController.alloc.init;
         safeAreaRight = vc.view.safeAreaInsets.right;
     }
     return safeAreaRight;
@@ -93,7 +93,7 @@
 {
     CGFloat safeAreaTop = 0;
     if (@available(iOS 11.0, *)) {
-        UIViewController *vc = [[UIViewController alloc] init];
+        UIViewController *vc = UIViewController.alloc.init;
         safeAreaTop = vc.view.safeAreaInsets.top;
     }
     return safeAreaTop;
@@ -103,7 +103,7 @@
 {
     CGFloat safeAreaBottom = 0 ;
     if (@available(iOS 11.0, *)) {
-        UIViewController *vc = [[UIViewController alloc] init];
+        UIViewController *vc = UIViewController.alloc.init;
         safeAreaBottom = vc.view.safeAreaInsets.bottom;
     }
     return safeAreaBottom;
@@ -112,6 +112,11 @@
 + (NSInteger)maxFPS
 {
     return UIScreen.mainScreen.maximumFramesPerSecond;
+}
+
++ (CGRect)screenNativeBounds
+{
+    return UIScreen.mainScreen.nativeBounds;
 }
 
 + (NSInteger)screenNativeWidth

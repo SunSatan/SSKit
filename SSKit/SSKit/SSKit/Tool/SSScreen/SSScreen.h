@@ -13,11 +13,11 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSScreen : NSObject
 /// 设备屏幕Bounds
-@property (class, nonatomic, readonly) CGRect  deviceScreenBounds;
+@property (class, nonatomic, readonly) CGRect  screenBounds;
 /// 设备屏幕宽度
-@property (class, nonatomic, readonly) CGFloat deviceScreenWidth;
+@property (class, nonatomic, readonly) CGFloat screenWidth;
 /// 设备屏幕高度
-@property (class, nonatomic, readonly) CGFloat deviceScreenHeight;
+@property (class, nonatomic, readonly) CGFloat screenHeight;
 /// 设备状态栏高度
 @property (class, nonatomic, readonly) CGFloat statusBarHeight;
 /// 设备导航栏高度
@@ -38,13 +38,14 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) CGFloat safeAreaBottom;
 /// 设备支持的最高FPS
 @property (class, nonatomic, readonly) NSInteger maxFPS;
-/// 屏幕分辨率
+/// 屏幕分辨率：1920x1080
 @property (class, nonatomic, readonly) NSString *screenRes;
+/// 屏幕分辨率 Bounds
+@property (class, nonatomic, readonly) CGRect screenNativeBounds;
 /// 屏幕分辨率的高
 @property (class, nonatomic, readonly) NSInteger screenNativeHeight;
 /// 屏幕分辨率的宽
 @property (class, nonatomic, readonly) NSInteger screenNativeWidth;
-
 
 @end
 

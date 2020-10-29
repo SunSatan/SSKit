@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5423676D254ABA2300F6FAC7 /* IMG_1257.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 5423676C254ABA2300F6FAC7 /* IMG_1257.JPG */; };
+		54236771254AC3C300F6FAC7 /* UIImage+ImageRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236770254AC3C300F6FAC7 /* UIImage+ImageRotate.m */; };
+		54236775254AC47000F6FAC7 /* UIImage+MostColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236774254AC47000F6FAC7 /* UIImage+MostColor.m */; };
+		54236779254AC4EE00F6FAC7 /* UIImage+Compress.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236778254AC4EE00F6FAC7 /* UIImage+Compress.m */; };
+		5423677D254AC63100F6FAC7 /* UIImage+QRCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423677C254AC63100F6FAC7 /* UIImage+QRCode.m */; };
+		54236781254AC71700F6FAC7 /* UIImage+SSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236780254AC71700F6FAC7 /* UIImage+SSImage.m */; };
+		54236786254AC94500F6FAC7 /* UIImage+Splicing.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236785254AC94500F6FAC7 /* UIImage+Splicing.m */; };
+		5423678B254AC99000F6FAC7 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423678A254AC99000F6FAC7 /* UIImage+Filter.m */; };
 		5423790B251AFDAE00C7F6FB /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5423790A251AFDAE00C7F6FB /* HealthKit.framework */; };
 		545642EC25132DC80093D78A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642EB25132DC80093D78A /* AppDelegate.m */; };
 		545642F225132DC80093D78A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642F125132DC80093D78A /* ViewController.m */; };
@@ -16,7 +24,6 @@
 		545642FD25132DCC0093D78A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642FC25132DCC0093D78A /* main.m */; };
 		546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */ = {isa = PBXBuildFile; fileRef = 546037132536C1E100D9D836 /* SSSystemConvert.m */; };
 		54B5C1B92522D87C000BD6AF /* SSMorseCode.m in Sources */ = {isa = PBXBuildFile; fileRef = 54B5C1B82522D87C000BD6AF /* SSMorseCode.m */; };
-		54BDA1622534748000094633 /* UIImage+SSImageCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA1492534748000094633 /* UIImage+SSImageCategory.m */; };
 		54BDA1632534748000094633 /* UIWindow+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA14C2534748000094633 /* UIWindow+SSCategory.m */; };
 		54BDA1642534748000094633 /* UIApplication+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA1502534748000094633 /* UIApplication+SSCategory.m */; };
 		54BDA1652534748000094633 /* UIColor+SSCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 54BDA1522534748000094633 /* UIColor+SSCategory.m */; };
@@ -42,6 +49,22 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5423676C254ABA2300F6FAC7 /* IMG_1257.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1257.JPG; sourceTree = "<group>"; };
+		5423676F254AC3C300F6FAC7 /* UIImage+ImageRotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageRotate.h"; sourceTree = "<group>"; };
+		54236770254AC3C300F6FAC7 /* UIImage+ImageRotate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageRotate.m"; sourceTree = "<group>"; };
+		54236773254AC47000F6FAC7 /* UIImage+MostColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+MostColor.h"; sourceTree = "<group>"; };
+		54236774254AC47000F6FAC7 /* UIImage+MostColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MostColor.m"; sourceTree = "<group>"; };
+		54236777254AC4EE00F6FAC7 /* UIImage+Compress.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Compress.h"; sourceTree = "<group>"; };
+		54236778254AC4EE00F6FAC7 /* UIImage+Compress.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Compress.m"; sourceTree = "<group>"; };
+		5423677B254AC63100F6FAC7 /* UIImage+QRCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+QRCode.h"; sourceTree = "<group>"; };
+		5423677C254AC63100F6FAC7 /* UIImage+QRCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QRCode.m"; sourceTree = "<group>"; };
+		5423677F254AC71700F6FAC7 /* UIImage+SSImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+SSImage.h"; sourceTree = "<group>"; };
+		54236780254AC71700F6FAC7 /* UIImage+SSImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SSImage.m"; sourceTree = "<group>"; };
+		54236783254AC8AB00F6FAC7 /* SSImageCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSImageCategory.h; sourceTree = "<group>"; };
+		54236784254AC94500F6FAC7 /* UIImage+Splicing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Splicing.h"; sourceTree = "<group>"; };
+		54236785254AC94500F6FAC7 /* UIImage+Splicing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Splicing.m"; sourceTree = "<group>"; };
+		54236789254AC98F00F6FAC7 /* UIImage+Filter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+Filter.h"; sourceTree = "<group>"; };
+		5423678A254AC99000F6FAC7 /* UIImage+Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filter.m"; sourceTree = "<group>"; };
 		54237908251AFDAE00C7F6FB /* SSKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SSKit.entitlements; sourceTree = "<group>"; };
 		5423790A251AFDAE00C7F6FB /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
 		545642E725132DC80093D78A /* SSKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,8 +84,6 @@
 		546C47EA2514A39300D422D6 /* SSKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSKit.h; sourceTree = "<group>"; };
 		54B5C1B72522D87C000BD6AF /* SSMorseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSMorseCode.h; sourceTree = "<group>"; };
 		54B5C1B82522D87C000BD6AF /* SSMorseCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSMorseCode.m; sourceTree = "<group>"; };
-		54BDA1492534748000094633 /* UIImage+SSImageCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SSImageCategory.m"; sourceTree = "<group>"; };
-		54BDA14A2534748000094633 /* UIImage+SSImageCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SSImageCategory.h"; sourceTree = "<group>"; };
 		54BDA14C2534748000094633 /* UIWindow+SSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+SSCategory.m"; sourceTree = "<group>"; };
 		54BDA14D2534748000094633 /* UIWindow+SSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+SSCategory.h"; sourceTree = "<group>"; };
 		54BDA14F2534748000094633 /* UIApplication+SSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+SSCategory.h"; sourceTree = "<group>"; };
@@ -159,6 +180,7 @@
 				545642F825132DCC0093D78A /* LaunchScreen.storyboard */,
 				545642FB25132DCC0093D78A /* Info.plist */,
 				545642FC25132DCC0093D78A /* main.m */,
+				5423676C254ABA2300F6FAC7 /* IMG_1257.JPG */,
 				54237908251AFDAE00C7F6FB /* SSKit.entitlements */,
 			);
 			path = SSKit;
@@ -221,8 +243,21 @@
 		54BDA1482534748000094633 /* UIImage */ = {
 			isa = PBXGroup;
 			children = (
-				54BDA14A2534748000094633 /* UIImage+SSImageCategory.h */,
-				54BDA1492534748000094633 /* UIImage+SSImageCategory.m */,
+				54236783254AC8AB00F6FAC7 /* SSImageCategory.h */,
+				5423677F254AC71700F6FAC7 /* UIImage+SSImage.h */,
+				54236780254AC71700F6FAC7 /* UIImage+SSImage.m */,
+				5423676F254AC3C300F6FAC7 /* UIImage+ImageRotate.h */,
+				54236770254AC3C300F6FAC7 /* UIImage+ImageRotate.m */,
+				54236773254AC47000F6FAC7 /* UIImage+MostColor.h */,
+				54236774254AC47000F6FAC7 /* UIImage+MostColor.m */,
+				54236777254AC4EE00F6FAC7 /* UIImage+Compress.h */,
+				54236778254AC4EE00F6FAC7 /* UIImage+Compress.m */,
+				5423677B254AC63100F6FAC7 /* UIImage+QRCode.h */,
+				5423677C254AC63100F6FAC7 /* UIImage+QRCode.m */,
+				54236784254AC94500F6FAC7 /* UIImage+Splicing.h */,
+				54236785254AC94500F6FAC7 /* UIImage+Splicing.m */,
+				54236789254AC98F00F6FAC7 /* UIImage+Filter.h */,
+				5423678A254AC99000F6FAC7 /* UIImage+Filter.m */,
 			);
 			path = UIImage;
 			sourceTree = "<group>";
@@ -491,6 +526,7 @@
 			files = (
 				545642FA25132DCC0093D78A /* LaunchScreen.storyboard in Resources */,
 				545642F725132DCC0093D78A /* Assets.xcassets in Resources */,
+				5423676D254ABA2300F6FAC7 /* IMG_1257.JPG in Resources */,
 				545642F525132DC80093D78A /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -506,9 +542,11 @@
 				54C797932548237F007DD4EB /* SSCompassView.m in Sources */,
 				E358C3D725164E1300DEA59B /* SSContacts.m in Sources */,
 				546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */,
+				54236781254AC71700F6FAC7 /* UIImage+SSImage.m in Sources */,
 				E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */,
 				54BDA1642534748000094633 /* UIApplication+SSCategory.m in Sources */,
 				54CCDC37252175C2007D137F /* SSMotion.m in Sources */,
+				54236786254AC94500F6FAC7 /* UIImage+Splicing.m in Sources */,
 				E3D38D9A25165A2700670EEB /* SSReusablePool.m in Sources */,
 				54BDA1672534748000094633 /* UIViewController+SSCategory.m in Sources */,
 				54BDA1662534748000094633 /* NSString+SSCategory.m in Sources */,
@@ -518,11 +556,15 @@
 				54BDA1692534748000094633 /* UITableView+SSCategory.m in Sources */,
 				54BDA1682534748000094633 /* UITableViewCell+SSSectionCorner.m in Sources */,
 				E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */,
+				54236775254AC47000F6FAC7 /* UIImage+MostColor.m in Sources */,
 				545642EC25132DC80093D78A /* AppDelegate.m in Sources */,
+				54236771254AC3C300F6FAC7 /* UIImage+ImageRotate.m in Sources */,
 				54CCE0492522095C007D137F /* SSScreen.m in Sources */,
+				54236779254AC4EE00F6FAC7 /* UIImage+Compress.m in Sources */,
+				5423677D254AC63100F6FAC7 /* UIImage+QRCode.m in Sources */,
 				E3702756251760D0006DC0D7 /* SSDeviceTool.m in Sources */,
 				545642FD25132DCC0093D78A /* main.m in Sources */,
-				54BDA1622534748000094633 /* UIImage+SSImageCategory.m in Sources */,
+				5423678B254AC99000F6FAC7 /* UIImage+Filter.m in Sources */,
 				54BDA16A2534748000094633 /* AppDelegate+SSBackgroundTask.m in Sources */,
 				E3D38DA425165C2000670EEB /* SSTimer.m in Sources */,
 				E39F945725456CFF00050446 /* SSWeakProxy.m in Sources */,
