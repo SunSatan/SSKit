@@ -2,8 +2,8 @@
 //  SSKit.h
 //  SSKit
 //
-//  Created by 孙铭健 on 2020/9/18.
-//  Copyright © 2020 孙铭健. All rights reserved.
+//  Created by SunSatan on 2020/9/18.
+//  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #ifndef SSKit_h

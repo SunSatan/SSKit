@@ -2,7 +2,7 @@
 //  UITableViewCell+SSSectionCorner.h
 //  widget
 //
-//  Created by 孙铭健 on 2020/9/25.
+//  Created by SunSatan on 2020/9/25.
 //
 
 #import <UIKit/UIKit.h>

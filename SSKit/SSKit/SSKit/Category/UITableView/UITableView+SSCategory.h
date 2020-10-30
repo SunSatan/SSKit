@@ -2,7 +2,7 @@
 //  UITableView+SSCategory.h
 //  widget
 //
-//  Created by 孙铭健 on 2020/9/27.
+//  Created by SunSatan on 2020/9/27.
 //
 
 #import <UIKit/UIKit.h>

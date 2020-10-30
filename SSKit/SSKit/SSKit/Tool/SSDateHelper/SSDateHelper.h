@@ -2,7 +2,7 @@
 //  SSDateHelper.h
 //  SSDateHelper
 //  日期助手，提供日期字符转换、日期计算、日期判断等功能。
-//  Created by 孙铭健 on 20/3/22.
+//  Created by SunSatan on 20/3/22.
 //  Copyright © 2020年 SunSatan. All rights reserved.
 //
 
@@ -56,7 +56,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 单例模式
 
-+ (instancetype)mainHelper;
++ (instancetype)main;
 
 @end
 

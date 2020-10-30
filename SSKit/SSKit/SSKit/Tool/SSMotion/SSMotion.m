@@ -2,7 +2,7 @@
 //  SSMotion.m
 //  widget
 //
-//  Created by 孙铭健 on 2020/9/25.
+//  Created by SunSatan on 2020/9/25.
 //
 
 #import "SSMotion.h"
@@ -14,6 +14,7 @@
 @interface SSMotion ()
 
 @property (nonatomic, strong) CMPedometer *pedometer;
+@property (nonatomic, strong) CMAltimeter *altimeter;
 
 @end
 
@@ -175,6 +176,22 @@
     }];
 }
 
+#pragma mark - 大气压
+
+- (void)startUpdatePressure:(void(^)(double pressure))update
+{
+    if (!CMAltimeter.isRelativeAltitudeAvailable) return;
+    
+    [_altimeter startRelativeAltitudeUpdatesToQueue:NSOperationQueue.mainQueue withHandler:^(CMAltitudeData * _Nullable altitudeData, NSError * _Nullable error) {
+        update ? update(altitudeData.pressure.doubleValue) : nil;
+    }];
+}
+
+- (void)stopUpdateAltitude {
+    [_altimeter stopRelativeAltitudeUpdates];
+    NSLog(@"气压数据停止更新!");
+}
+
 #pragma mark - 单例
 
 static SSMotion * _main;
@@ -184,7 +201,8 @@ static SSMotion * _main;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _main = [[super allocWithZone:nil] init];
-        _main.pedometer = [CMPedometer new];
+        _main.pedometer = CMPedometer.new;
+        _main.altimeter = CMAltimeter.new;
     });
     
     return _main;

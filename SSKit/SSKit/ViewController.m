@@ -2,8 +2,8 @@
 //  ViewController.m
 //  SSKit
 //
-//  Created by 孙铭健 on 2020/9/17.
-//  Copyright © 2020 孙铭健. All rights reserved.
+//  Created by SunSatan on 2020/9/17.
+//  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #import "ViewController.h"
@@ -14,9 +14,7 @@
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
-#import <sys/mount.h>
-#import <mach/mach.h>
-#include <sys/sysctl.h>
+#import "SSCompassView.h"
 
 @interface ViewController () <CLLocationManagerDelegate>
 
@@ -26,6 +24,8 @@
 
 @property (nonatomic, strong) UIImageView *imageView;
 
+@property (nonatomic, strong) SSCompassView *compassView;
+@property (nonatomic, assign) bool isroot;
 
 @end
 
@@ -33,6 +33,7 @@
 
 - (void)dealloc
 {
+//    [SSMotion.main stopUpdateAltitude];
     NSLog(@"ViewController -> dealloc");
 }
 
@@ -46,34 +47,34 @@
     [self ss_navigationBarImageBackButton:@"icon_back_black"];
     self.view.backgroundColor = SSColorLightAndDark(UIColor.redBlood, UIColor.blueDoder);
     
-//    _location = [[CLLocationManager alloc] init];
-//    _location.desiredAccuracy = kCLLocationAccuracyBest;
-//    _location.delegate = self;
-//    [_location requestAlwaysAuthorization];
-//    [_location startUpdatingLocation];
-    
     self.text = [[UILabel alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.text];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.numberOfLines = 0;
     
-    [self ss_navigationTitle:SSDeviceTool.diskFreeSizeString];
-    self.text.text = [NSString stringWithFormat:@"%ld", [SSSystemConvert decimalFromBinary:@"1010" haveSigned:NO]];
-    
-//    _imageView = [UIImageView.alloc initWithFrame:self.view.bounds];
-//    [self.view addSubview:_imageView];
-    
-//    UIImage *itemImage = [UIImage imageNamed:@"添加"];
-//    itemImage = [itemImage ss_imageCropToRect:CGRectMake(0, 0, itemImage.size.width, itemImage.size.height)];
-//    [self saveImageToPhotosAlbum:itemImage];
-    
-//    [[[UIImage alloc] initWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"IMG_1257" ofType:@"JPG"]] ss_imageCutApartForRow:2 column:3 resultImageSize:SS_1080P];
-    
-//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:1] ss_imageSaveToPhotosAlbum];
-//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:2] ss_imageSaveToPhotosAlbum];
-//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:3] ss_imageSaveToPhotosAlbum];
-//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:4] ss_imageSaveToPhotosAlbum];
-//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:5] ss_imageSaveToPhotosAlbum];
+    if (_isroot) {
+        @weakify;
+//        [SSMotion.main startUpdatePressure:^(double pressure) {
+//            @strongify;
+//            NSLog(@"=====");
+//            self.text.text = [NSString stringWithFormat:@"%.2lf kPa", pressure];
+//        }];
+        
+        SSLocation.share.target = self;
+        [SSLocation.share startUpdatingLocation];
+        SSLocation.share.altitudeDataBack = ^(double altitude) {
+            @strongify;
+            NSLog(@"-----");
+            self.text.text = [NSString stringWithFormat:@"%.2lfm 海拔", altitude];
+        };
+    }
+//    _compassView = [SSCompassView.alloc initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 30, self.view.frame.size.width - 30)];
+//    _compassView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
+//    [self.view addSubview:_compassView];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
     
 }
 
@@ -82,18 +83,13 @@
     
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray<CLLocation *> *)locations
-{
-    for (CLLocation *location in locations) {
-        self.text.text = [NSString stringWithFormat:@"纬度：%.2f \n 经度：%.2f \n 海拔：%.2f \n 水平精度：%.2f \n 垂直精度：%.2f \n 航向：%.2f \n 航向精度：%.2f \n 速度：%.2f \n 速度精度：%.2f", location.coordinate.latitude, location.coordinate.longitude, location.altitude, location.horizontalAccuracy, location.verticalAccuracy, location.course, location.courseAccuracy, location.speed, location.speedAccuracy];
-    }
-}
-
-
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
+    ViewController *vc = ViewController.new;
+    vc.isroot = YES;
     
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 @end

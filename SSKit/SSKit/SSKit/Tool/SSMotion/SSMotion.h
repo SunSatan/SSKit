@@ -2,7 +2,7 @@
 //  SSMotion.h
 //  widget
 //
-//  Created by 孙铭健 on 2020/9/25.
+//  Created by SunSatan on 2020/9/25.
 //
 
 #import <Foundation/Foundation.h>
@@ -11,9 +11,15 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define SSMotionMain SSMotion.main
 
+@class SSWeakProxy;
+
 @interface SSMotion : NSObject <NSCopying>
 
 + (instancetype)main;
+
+// 会不断更新数据，需要配对使用关闭
+- (void)startUpdatePressure:(void(^)(double pressure))update;
+- (void)stopUpdateAltitude;
 
 // 同步方法，主线程返回数据
 - (NSUInteger)stepCountSumToday;

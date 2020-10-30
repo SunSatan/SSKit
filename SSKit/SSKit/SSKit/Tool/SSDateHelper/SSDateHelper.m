@@ -2,7 +2,7 @@
 //  SSDateHelper.m
 //  SSDateHelper
 //
-//  Created by 孙铭健 on 20/3/22.
+//  Created by SunSatan on 20/3/22.
 //  Copyright © 2020年 SunSatan. All rights reserved.
 //
 
@@ -61,7 +61,7 @@ static char * const kEarthlyBranches[] = {
 
 static SSDateHelper *_mainHelper = nil;
 
-+ (instancetype)mainHelper
++ (instancetype)main
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
@@ -74,7 +74,7 @@ static SSDateHelper *_mainHelper = nil;
 
 + (instancetype)allocWithZone:(struct _NSZone *)zone
 {
-    return [self mainHelper];
+    return [self main];
 }
 
 - (id)copyWithZone:(struct _NSZone *)zone

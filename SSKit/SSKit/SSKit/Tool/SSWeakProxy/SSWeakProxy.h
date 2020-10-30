@@ -3,7 +3,7 @@
 //  SSKit
 //
 //  Created by SunSatan on 2020/10/25.
-//  Copyright © 2020 孙铭健. All rights reserved.
+//  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
