@@ -35,9 +35,7 @@
 {
     //按比例限制图片大小，以6s的R9处理器:
     //360p耗时可以在0.5秒以内，720p在3秒以内，1080p在5秒以内
-    CGFloat scaleHeight = 360 / self.size.height;
-    CGFloat scaleWidth  = 360 / self.size.width;
-    CGFloat scale = MIN(scaleHeight, scaleWidth);
+    CGFloat scale = ss_minScale(self.size, CGSizeMake(360, 360));
     CGSize thumbSize = CGSizeMake(self.size.width * scale, self.size.height * scale);
     
     int bitmapInfo = kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast;
@@ -95,7 +93,10 @@
     CGContextRelease(context);
     CGColorSpaceRelease(colorSpace);
     
-    return [UIColor colorWithRed:mostRed/255.0f green:mostGreen/255.0f blue:mostBlue/255.0f alpha:mostAlpha/255.0f];
+    return [UIColor colorWithRed:mostRed   /255.0f
+                           green:mostGreen /255.0f
+                            blue:mostBlue  /255.0f
+                           alpha:mostAlpha /255.0f];
 }
 
 @end

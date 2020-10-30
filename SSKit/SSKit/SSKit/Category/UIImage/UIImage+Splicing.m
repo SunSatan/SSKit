@@ -22,7 +22,7 @@
                 resultImageSize:(CGSize)resultImageSize
 {
     UIImage *image = self.copy;
-    CGFloat scale = SSMinScale(rect.size, resultImageSize);
+    CGFloat scale = ss_minScale(rect.size, resultImageSize);
     CGRect drawRect = CGRectMake(-rect.origin.x, -rect.origin.y,
                                  rect.size.width  * widthScale,
                                  rect.size.height * heightScale);
@@ -35,6 +35,17 @@
     UIGraphicsEndImageContext();
     
     return resultImage;
+}
+
+- (NSArray<UIImage *> *)ss_imageCutApartToSquareForRow:(NSUInteger)row
+                                                column:(NSUInteger)column
+                                       resultImageSize:(CGSize)resultImageSize
+{
+    UIImage *temp = self.copy;
+    
+    CGFloat side = MIN(self.size.width, self.size.height);
+    
+    return [temp ss_imageCutApartForRow:row column:column resultImageSize:resultImageSize];
 }
 
 - (NSArray<UIImage *> *)ss_imageCutApartForRow:(NSUInteger)row

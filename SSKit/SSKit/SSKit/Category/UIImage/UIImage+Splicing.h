@@ -37,6 +37,15 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray<UIImage *> *)ss_imageCutApartForRow:(NSUInteger)row
                                         column:(NSUInteger)column
                                resultImageSize:(CGSize)resultImageSize;
+/**
+ * 将一张图片分割成N行M列的正方形
+ * @param row 几排、行
+ * @param column 几列
+ * @param resultImageSize 结果图片的分辨率
+ */
+- (NSArray<UIImage *> *)ss_imageCutApartToSquareForRow:(NSUInteger)row
+                                                column:(NSUInteger)column
+                                       resultImageSize:(CGSize)resultImageSize;
 
 @end
 

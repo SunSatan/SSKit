@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface UIImage (SSImage)
 /**
- * 获取 size 变成 toSize 中，宽和高之间的最小比例
+ * 获取 size 变成 toSize 中，toSize/size 中宽和高之间的最小比例
  * @param size 原 size
  * @param toSize 将要变成的size
  */

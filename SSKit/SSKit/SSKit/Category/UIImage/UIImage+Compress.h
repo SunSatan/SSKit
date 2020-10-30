@@ -15,7 +15,7 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 图片压缩
 
 /**
- * 压缩图片质量到最小值，有损。
+ * 压缩图片质量到最小值，有损压缩，谨慎使用。
  */
 - (NSData *)ss_imageCompressMinQuality;
 /**
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSData *)ss_imageCompressSizeToMaximum:(NSUInteger)maximum;
 /**
- * 推荐：混合方式压缩图片质量到指定的最大值之内。
+ * 推荐：混合方式压缩图片质量到指定的最大值之内，有损。
  * 先压缩图片质量，再压缩图片尺寸。
  * @param maximum 图片质量最大值
  */
@@ -40,20 +40,34 @@ NS_ASSUME_NONNULL_BEGIN
 #pragma mark - 缩放图片尺寸
 
 /**
- * 通过比例缩放图片尺寸
+ * 通过比例缩放图片尺寸，图片放大会模糊。
  * @param scale 缩放比例
  */
 - (UIImage *)ss_imageScale:(CGFloat)scale;
 /**
- * 指定图片尺寸进行适应宽高比缩放
+ * 指定图片尺寸进行适应宽高比缩放，图片放大会模糊。
  * @param size 指定尺寸
  */
 - (UIImage *)ss_imageScaleFitToSize:(CGSize)size;
 /**
- * 指定图片尺寸进行填充缩放
+ * 指定图片尺寸进行填充缩放，图片放大会模糊。
  * @param size 指定尺寸
  */
 - (UIImage *)ss_imageScaleFillToSize:(CGSize)size;
+
+#pragma mark - 图片放大增强
+
+/**
+ * 图片以指定比例进行增强，提高分辨率却使图片更清晰，默认最小为原图的size
+ * @param scale 指定比例
+ */
+- (UIImage *)ss_imageBoostToScale:(CGFloat)scale;
+/**
+ * 图片以指定分辨率进行增强，提高分辨率却使图片更清晰，默认最小为原图的比例
+ * @param size 指定尺寸
+ */
+- (UIImage *)ss_imageBoostToSize:(CGSize)size;
+
 
 @end
 

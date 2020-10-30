@@ -24,11 +24,13 @@
     CGFloat compression = 1;
     NSData *data = UIImageJPEGRepresentation(self, compression);
     
-    if (data.length < maximum)
-        return data;
+    if (data.length <= maximum) return data; //原大小本就小于指定大小，无需压缩
     
-    CGFloat max = 1, min = 0;//二分法
-    CGFloat ratio = 0.8;     //认为图片质量在[maximum*0.8, maximum]是合理的
+    NSData *dataMin = [self ss_imageCompressMinQuality];
+    if (dataMin.length >= maximum) return dataMin; //压到最小仍大于指定大小，压缩无意义
+    
+    CGFloat max = 1, min = 0;  //二分法
+    CGFloat ratio = 0.8;       //认为图片质量在[maximum*0.8, maximum]是合理的
     for (int i=0; i<6; i++) {  //最多二分6次，精度：1/2^6=0.016
         compression = (max + min) / 2.0;
         data = UIImageJPEGRepresentation(self, compression);
@@ -56,7 +58,7 @@
         CGFloat ratio = (CGFloat) maximum / data.length;
         CGSize size = CGSizeMake((NSUInteger)(resultImage.size.width * sqrtf(ratio)),
                                  (NSUInteger)(resultImage.size.height * sqrtf(ratio)));
-        UIGraphicsBeginImageContext(size);
+        UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
         [resultImage drawInRect:CGRectMake(0, 0, size.width, size.height)];
         resultImage = UIGraphicsGetImageFromCurrentImageContext();
         UIGraphicsEndImageContext();
@@ -81,7 +83,8 @@
 {
     NSUInteger imageWidth  = self.size.width * scale;
     NSUInteger imageHeight = self.size.height * scale;
-    UIGraphicsBeginImageContext(CGSizeMake(imageWidth, imageHeight));
+    CGSize size = CGSizeMake(imageWidth, imageHeight);
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
     [self drawInRect:CGRectMake(0, 0, imageWidth, imageHeight)];
     UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -90,7 +93,7 @@
 
 - (UIImage *)ss_imageScaleFillToSize:(CGSize)size
 {
-    UIGraphicsBeginImageContext(CGSizeMake(size.width, size.height));
+    UIGraphicsBeginImageContextWithOptions(size, NO, self.scale);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -99,7 +102,31 @@
 
 - (UIImage *)ss_imageScaleFitToSize:(CGSize)size
 {
-    return [self ss_imageScale:SSMinScale(self.size, size)];
+    return [self ss_imageScale:ss_minScale(self.size, size)];
 }
+
+- (UIImage *)ss_imageBoostToSize:(CGSize)size
+{
+    CGFloat scale = ss_minScale(self.size, size);
+    scale = MAX(self.scale, scale);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, scale);
+    [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
+
+- (UIImage *)ss_imageBoostToScale:(CGFloat)scale
+{
+    scale = MAX(self.scale, scale);
+    UIGraphicsBeginImageContextWithOptions(self.size, NO, scale);
+    [self drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+    UIImage *resultImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return resultImage;
+}
+
 
 @end

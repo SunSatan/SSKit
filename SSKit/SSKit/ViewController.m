@@ -67,7 +67,14 @@
 //    itemImage = [itemImage ss_imageCropToRect:CGRectMake(0, 0, itemImage.size.width, itemImage.size.height)];
 //    [self saveImageToPhotosAlbum:itemImage];
     
-    [[[UIImage alloc] initWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"IMG_1257" ofType:@"JPG"]] ss_imageCutApartForRow:2 column:3 resultImageSize:SS_1080P];
+//    [[[UIImage alloc] initWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"IMG_1257" ofType:@"JPG"]] ss_imageCutApartForRow:2 column:3 resultImageSize:SS_1080P];
+    
+//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:1] ss_imageSaveToPhotosAlbum];
+//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:2] ss_imageSaveToPhotosAlbum];
+//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:3] ss_imageSaveToPhotosAlbum];
+//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:4] ss_imageSaveToPhotosAlbum];
+//    [[SSImageNamed(@"icon_3") ss_imageBoostToScale:5] ss_imageSaveToPhotosAlbum];
+    
 }
 
 - (void)viewDidAppear:(BOOL)animated
