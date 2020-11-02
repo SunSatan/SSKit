@@ -18,7 +18,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (instancetype)main;
 
 // 会不断更新数据，需要配对使用关闭
-- (void)startUpdatePressure:(void(^)(double pressure))update;
+- (void)startUpdatePressure:(void(^)(double pressure))updateBlock;
 - (void)stopUpdateAltitude;
 
 // 同步方法，主线程返回数据

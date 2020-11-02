@@ -26,6 +26,14 @@ NS_ASSUME_NONNULL_BEGIN
 //
 //@end
 
+// com.apple.power.battery.CycleCount 电池循环次数 com.apple.power.battery.cycle_count
+// com.apple.power.battery.design_capacity 原手机设计电池容量
+// com.apple.power.battery.MaximumCapacityPercent 电池健康度
+// com.apple.power.battery.raw_max_capacity        电池现今容量
+// com.apple.power.battery.nominal_charge_capacity 电池标准容量
+
+// com.apple.power.battery.MaximumQmax
+
 typedef void(^UsageBlock)(CGFloat usage);
 typedef void(^UsageStringBlock)(NSString *usageString);
 

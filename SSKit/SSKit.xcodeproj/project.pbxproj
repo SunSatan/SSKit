@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5415BB0C25500D9E00AA210C /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 5415BB0B25500D9E00AA210C /* XMLReader.m */; };
+		5415BB0F25500EAF00AA210C /* log.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5415BB0E25500EAF00AA210C /* log.plist */; };
+		5415BB122550184500AA210C /* log.ips in Resources */ = {isa = PBXBuildFile; fileRef = 5415BB112550184500AA210C /* log.ips */; };
 		5423676D254ABA2300F6FAC7 /* IMG_1257.JPG in Resources */ = {isa = PBXBuildFile; fileRef = 5423676C254ABA2300F6FAC7 /* IMG_1257.JPG */; };
 		54236771254AC3C300F6FAC7 /* UIImage+ImageRotate.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236770254AC3C300F6FAC7 /* UIImage+ImageRotate.m */; };
 		54236775254AC47000F6FAC7 /* UIImage+MostColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236774254AC47000F6FAC7 /* UIImage+MostColor.m */; };
@@ -36,6 +39,7 @@
 		54CCDC37252175C2007D137F /* SSMotion.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCDC36252175C2007D137F /* SSMotion.m */; };
 		54CCE04325220768007D137F /* SSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE04225220768007D137F /* SSLocation.m */; };
 		54CCE0492522095C007D137F /* SSScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE0482522095C007D137F /* SSScreen.m */; };
+		54F69E5D254FAEB700749D86 /* SSDecibel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F69E5C254FAEB700749D86 /* SSDecibel.m */; };
 		E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = E330DC212517702A00C3C6EA /* SSAuthorization.m */; };
 		E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */; };
 		E358C3D025164DC400DEA59B /* SSIndexTipsView.m in Sources */ = {isa = PBXBuildFile; fileRef = E358C3CE25164DC400DEA59B /* SSIndexTipsView.m */; };
@@ -49,6 +53,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5415BB0A25500D9D00AA210C /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		5415BB0B25500D9E00AA210C /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		5415BB0E25500EAF00AA210C /* log.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = log.plist; sourceTree = "<group>"; };
+		5415BB112550184500AA210C /* log.ips */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = log.ips; sourceTree = "<group>"; };
 		5423676C254ABA2300F6FAC7 /* IMG_1257.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = IMG_1257.JPG; sourceTree = "<group>"; };
 		5423676F254AC3C300F6FAC7 /* UIImage+ImageRotate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageRotate.h"; sourceTree = "<group>"; };
 		54236770254AC3C300F6FAC7 /* UIImage+ImageRotate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageRotate.m"; sourceTree = "<group>"; };
@@ -108,6 +116,8 @@
 		54CCE04225220768007D137F /* SSLocation.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSLocation.m; sourceTree = "<group>"; };
 		54CCE0472522095C007D137F /* SSScreen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSScreen.h; sourceTree = "<group>"; };
 		54CCE0482522095C007D137F /* SSScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSScreen.m; sourceTree = "<group>"; };
+		54F69E5B254FAEB700749D86 /* SSDecibel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDecibel.h; sourceTree = "<group>"; };
+		54F69E5C254FAEB700749D86 /* SSDecibel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSDecibel.m; sourceTree = "<group>"; };
 		E330DC202517702A00C3C6EA /* SSAuthorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSAuthorization.h; sourceTree = "<group>"; };
 		E330DC212517702A00C3C6EA /* SSAuthorization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSAuthorization.m; sourceTree = "<group>"; };
 		E33479FC251B9A62009AE377 /* SSDeviceLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDeviceLibrary.h; sourceTree = "<group>"; };
@@ -175,6 +185,8 @@
 				545642EB25132DC80093D78A /* AppDelegate.m */,
 				545642F025132DC80093D78A /* ViewController.h */,
 				545642F125132DC80093D78A /* ViewController.m */,
+				5415BB0A25500D9D00AA210C /* XMLReader.h */,
+				5415BB0B25500D9E00AA210C /* XMLReader.m */,
 				545642F325132DC80093D78A /* Main.storyboard */,
 				545642F625132DCC0093D78A /* Assets.xcassets */,
 				545642F825132DCC0093D78A /* LaunchScreen.storyboard */,
@@ -182,6 +194,8 @@
 				545642FC25132DCC0093D78A /* main.m */,
 				5423676C254ABA2300F6FAC7 /* IMG_1257.JPG */,
 				54237908251AFDAE00C7F6FB /* SSKit.entitlements */,
+				5415BB0E25500EAF00AA210C /* log.plist */,
+				5415BB112550184500AA210C /* log.ips */,
 			);
 			path = SSKit;
 			sourceTree = "<group>";
@@ -363,6 +377,15 @@
 			path = SSScreen;
 			sourceTree = "<group>";
 		};
+		54F69E5F254FAED500749D86 /* SSDecibel */ = {
+			isa = PBXGroup;
+			children = (
+				54F69E5B254FAEB700749D86 /* SSDecibel.h */,
+				54F69E5C254FAEB700749D86 /* SSDecibel.m */,
+			);
+			path = SSDecibel;
+			sourceTree = "<group>";
+		};
 		E330DC1F2517701400C3C6EA /* SSAuthorization */ = {
 			isa = PBXGroup;
 			children = (
@@ -404,6 +427,7 @@
 		E358C3DA2516510200DEA59B /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				54F69E5F254FAED500749D86 /* SSDecibel */,
 				E39F945425456CDF00050446 /* SSWeakProxy */,
 				5460360925359D0B00D9D836 /* SSSystemConvert */,
 				54B5C1B62522D86F000BD6AF /* SSMorseCode */,
@@ -524,8 +548,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5415BB0F25500EAF00AA210C /* log.plist in Resources */,
 				545642FA25132DCC0093D78A /* LaunchScreen.storyboard in Resources */,
 				545642F725132DCC0093D78A /* Assets.xcassets in Resources */,
+				5415BB122550184500AA210C /* log.ips in Resources */,
 				5423676D254ABA2300F6FAC7 /* IMG_1257.JPG in Resources */,
 				545642F525132DC80093D78A /* Main.storyboard in Resources */,
 			);
@@ -571,6 +597,8 @@
 				54BDA1632534748000094633 /* UIWindow+SSCategory.m in Sources */,
 				E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */,
 				E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */,
+				54F69E5D254FAEB700749D86 /* SSDecibel.m in Sources */,
+				5415BB0C25500D9E00AA210C /* XMLReader.m in Sources */,
 				54BDA1652534748000094633 /* UIColor+SSCategory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

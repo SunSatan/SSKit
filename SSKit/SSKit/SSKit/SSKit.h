@@ -48,6 +48,7 @@
 #import "SSMorseCode.h"
 #import "SSSystemConvert.h"
 #import "SSWeakProxy.h"
+#import "SSDecibel.h"
 
 #endif /* SSKit_h */
 

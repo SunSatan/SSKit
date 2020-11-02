@@ -12,7 +12,9 @@
 #pragma mark - 通用常量宏定义
 
 //版本判断
-#define iOS(x) @available(iOS (x), *)
+#define Fun_iOS(x)   @available(iOS x, *)
+#define Class_iOS(x) API_AVAILABLE(ios(x), *)
+#define API_iOS(x)   API_AVAILABLE(ios(x), *)
 
 //强弱引用
 #define weakify   autoreleasepool{} __weak   typeof(self) selfWeak = self

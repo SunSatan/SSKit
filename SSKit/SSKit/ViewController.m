@@ -10,22 +10,26 @@
 #import "SSKit.h"
 #import <HealthKit/HealthKit.h>
 #import <CoreMotion/CoreMotion.h>
+#import <AVFoundation/AVFoundation.h>
 
 #import <CoreLocation/CoreLocation.h>
 #import <MapKit/MapKit.h>
 
 #import "SSCompassView.h"
+#import "XMLReader.h"
 
 @interface ViewController () <CLLocationManagerDelegate>
 
 @property (nonatomic, strong) SSDeviceTool *tool;
-@property (nonatomic, strong) CLLocationManager *location;
 @property (nonatomic, strong) UILabel *text;
 
 @property (nonatomic, strong) UIImageView *imageView;
 
 @property (nonatomic, strong) SSCompassView *compassView;
 @property (nonatomic, assign) bool isroot;
+@property (nonatomic, strong) SSLocation *location;
+
+@property (nonatomic, strong) SSDecibel *decibel;
 
 @end
 
@@ -54,23 +58,37 @@
     
     if (_isroot) {
         @weakify;
-//        [SSMotion.main startUpdatePressure:^(double pressure) {
-//            @strongify;
-//            NSLog(@"=====");
-//            self.text.text = [NSString stringWithFormat:@"%.2lf kPa", pressure];
-//        }];
+        //        [SSMotion.main startUpdatePressure:^(double pressure) {
+        //            @strongify;
+        //            NSLog(@"=====");
+        //            self.text.text = [NSString stringWithFormat:@"%.2lf kPa", pressure];
+        //        }];
         
-        SSLocation.share.target = self;
-        [SSLocation.share startUpdatingLocation];
-        SSLocation.share.altitudeDataBack = ^(double altitude) {
+        _decibel = SSDecibel.new;
+        [_decibel openRecord:^(NSUInteger db) {
             @strongify;
-            NSLog(@"-----");
-            self.text.text = [NSString stringWithFormat:@"%.2lfm 海拔", altitude];
-        };
+            self.text.text = [NSString stringWithFormat:@"%ld db", db];
+        }];
+        
+        //        _location = SSLocation.new;
+        //        [_location startUpdatingLocationWithTarget:self];
+        //        _location.altitudeDataBack = ^(double altitude) {
+        //            @strongify;
+        //            NSLog(@"-----");
+        //            self.text.text = [NSString stringWithFormat:@"%.2lfm 海拔", altitude];
+        //        };
+        //        _location.localeNameDataBack = ^(NSString * _Nonnull LocaleName) {
+        //            @strongify;
+        //            self.text.text = LocaleName;
+        //        };
     }
-//    _compassView = [SSCompassView.alloc initWithFrame:CGRectMake(0, 0, self.view.frame.size.width - 30, self.view.frame.size.width - 30)];
-//    _compassView.center = CGPointMake(self.view.frame.size.width/2, self.view.frame.size.height/2);
-//    [self.view addSubview:_compassView];
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"log" ofType:@"ips"];
+    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
+    NSString *str = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    NSDictionary *dic = [XMLReader dictionaryForXMLData:data options:XMLReaderOptionsProcessNamespaces error:&error];
+    NSLog(@"%@", dic);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -82,7 +100,6 @@
 {
     
 }
-
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

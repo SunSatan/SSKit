@@ -11,25 +11,20 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef void(^LonAndLatDataBack)(double lon, double lat);
-typedef void(^AltitudeDataBack)(double altitude);
+typedef void(^AltitudeDataBack) (double altitude);
+typedef void(^LocaleNameDataBack) (NSString *LocaleName);
 
 @interface SSLocation : NSObject
 
-+ (instancetype)share;
-
-///设置 target 可以自动关闭数据更新，不然就需要手动关闭数据自动更新。
-@property (nonatomic, weak) id target;
+/// 开启数据自动更新
+- (void)startUpdatingLocationWithTarget:(id)target;
 
 /// 经纬度数据更新回调，需要手动开启更新。
-@property (nonatomic, copy) LonAndLatDataBack lonAndLatDataBack;
+@property (nonatomic, copy) LonAndLatDataBack  lonAndLatDataBack;
 /// 海拔高度数据更新回调，需要手动开启更新。
-@property (nonatomic, copy) AltitudeDataBack  altitudeDataBack;
-
-/// 开启数据自动更新
-- (void)startUpdatingLocation;
-/// 关闭数据自动更新
-- (void)stopUpdatingLocation;
-
+@property (nonatomic, copy) AltitudeDataBack   altitudeDataBack;
+/// 定位位置具体名称更新回调，需要手动开启更新。准确到街道：中国四川省成都市武侯区吉庆四路。
+@property (nonatomic, copy) LocaleNameDataBack localeNameDataBack;
 
 @end
 

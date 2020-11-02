@@ -24,7 +24,7 @@
  zzzz: 功能描述，stringFromDate 或者 dateFromString
  */
 
-#define SSDateMainHelper SSDateHelper.mainHelper
+#define SSDateMainHelper SSDateHelper.main
 
 typedef NS_ENUM(NSUInteger, SSDateSubMode) {
     /** 

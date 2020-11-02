@@ -117,5 +117,15 @@
 	</array>
 	<key>kTCCServiceMediaLibrary</key>
 	<string>音乐权限</string>
+<key>CFBundleDocumentTypes</key>
+    <array>
+        <dict>
+            <key>LSItemContentTypes</key>
+            <array>
+                <string>public.item</string>
+                <string>public.content</string>
+            </array>
+        </dict>
+    </array>
 </dict>
 </plist>

@@ -178,12 +178,12 @@
 
 #pragma mark - 大气压
 
-- (void)startUpdatePressure:(void(^)(double pressure))update
+- (void)startUpdatePressure:(void(^)(double pressure))updateBlock
 {
     if (!CMAltimeter.isRelativeAltitudeAvailable) return;
     
     [_altimeter startRelativeAltitudeUpdatesToQueue:NSOperationQueue.mainQueue withHandler:^(CMAltitudeData * _Nullable altitudeData, NSError * _Nullable error) {
-        update ? update(altitudeData.pressure.doubleValue) : nil;
+        updateBlock ? updateBlock(altitudeData.pressure.doubleValue) : nil;
     }];
 }
 
