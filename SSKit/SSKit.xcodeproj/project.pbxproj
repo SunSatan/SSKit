@@ -19,6 +19,9 @@
 		54236786254AC94500F6FAC7 /* UIImage+Splicing.m in Sources */ = {isa = PBXBuildFile; fileRef = 54236785254AC94500F6FAC7 /* UIImage+Splicing.m */; };
 		5423678B254AC99000F6FAC7 /* UIImage+Filter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5423678A254AC99000F6FAC7 /* UIImage+Filter.m */; };
 		5423790B251AFDAE00C7F6FB /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5423790A251AFDAE00C7F6FB /* HealthKit.framework */; };
+		544080E82550ED1D00EAE899 /* GDataXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = 544080E72550ED1D00EAE899 /* GDataXMLNode.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		544080EB2550ED6100EAE899 /* libxml2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 544080EA2550ED6100EAE899 /* libxml2.tbd */; };
+		5442D6A7255127DD000B16B2 /* UIView+SSLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 5442D6A6255127DD000B16B2 /* UIView+SSLayout.m */; };
 		545642EC25132DC80093D78A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642EB25132DC80093D78A /* AppDelegate.m */; };
 		545642F225132DC80093D78A /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 545642F125132DC80093D78A /* ViewController.m */; };
 		545642F525132DC80093D78A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 545642F325132DC80093D78A /* Main.storyboard */; };
@@ -75,6 +78,11 @@
 		5423678A254AC99000F6FAC7 /* UIImage+Filter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Filter.m"; sourceTree = "<group>"; };
 		54237908251AFDAE00C7F6FB /* SSKit.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SSKit.entitlements; sourceTree = "<group>"; };
 		5423790A251AFDAE00C7F6FB /* HealthKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = HealthKit.framework; path = System/Library/Frameworks/HealthKit.framework; sourceTree = SDKROOT; };
+		544080E62550ED1D00EAE899 /* GDataXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GDataXMLNode.h; sourceTree = "<group>"; };
+		544080E72550ED1D00EAE899 /* GDataXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GDataXMLNode.m; sourceTree = "<group>"; };
+		544080EA2550ED6100EAE899 /* libxml2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libxml2.tbd; path = usr/lib/libxml2.tbd; sourceTree = SDKROOT; };
+		5442D6A5255127DD000B16B2 /* UIView+SSLayout.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIView+SSLayout.h"; sourceTree = "<group>"; };
+		5442D6A6255127DD000B16B2 /* UIView+SSLayout.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIView+SSLayout.m"; sourceTree = "<group>"; };
 		545642E725132DC80093D78A /* SSKit.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SSKit.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		545642EA25132DC80093D78A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		545642EB25132DC80093D78A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -145,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				544080EB2550ED6100EAE899 /* libxml2.tbd in Frameworks */,
 				5423790B251AFDAE00C7F6FB /* HealthKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -155,9 +164,19 @@
 		54237909251AFDAE00C7F6FB /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				544080EA2550ED6100EAE899 /* libxml2.tbd */,
 				5423790A251AFDAE00C7F6FB /* HealthKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5442D6A4255126F1000B16B2 /* UIView */ = {
+			isa = PBXGroup;
+			children = (
+				5442D6A5255127DD000B16B2 /* UIView+SSLayout.h */,
+				5442D6A6255127DD000B16B2 /* UIView+SSLayout.m */,
+			);
+			path = UIView;
 			sourceTree = "<group>";
 		};
 		545642DE25132DC80093D78A = {
@@ -185,6 +204,8 @@
 				545642EB25132DC80093D78A /* AppDelegate.m */,
 				545642F025132DC80093D78A /* ViewController.h */,
 				545642F125132DC80093D78A /* ViewController.m */,
+				544080E62550ED1D00EAE899 /* GDataXMLNode.h */,
+				544080E72550ED1D00EAE899 /* GDataXMLNode.m */,
 				5415BB0A25500D9D00AA210C /* XMLReader.h */,
 				5415BB0B25500D9E00AA210C /* XMLReader.m */,
 				545642F325132DC80093D78A /* Main.storyboard */,
@@ -242,6 +263,7 @@
 		54BDA1472534748000094633 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				5442D6A4255126F1000B16B2 /* UIView */,
 				54BDA1542534748000094633 /* NSString */,
 				54BDA1482534748000094633 /* UIImage */,
 				54BDA14B2534748000094633 /* UIWindow */,
@@ -566,6 +588,7 @@
 			files = (
 				E3D38D9E25165AB800670EEB /* SSDateHelper.m in Sources */,
 				54C797932548237F007DD4EB /* SSCompassView.m in Sources */,
+				5442D6A7255127DD000B16B2 /* UIView+SSLayout.m in Sources */,
 				E358C3D725164E1300DEA59B /* SSContacts.m in Sources */,
 				546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */,
 				54236781254AC71700F6FAC7 /* UIImage+SSImage.m in Sources */,
@@ -577,6 +600,7 @@
 				54BDA1672534748000094633 /* UIViewController+SSCategory.m in Sources */,
 				54BDA1662534748000094633 /* NSString+SSCategory.m in Sources */,
 				54B5C1B92522D87C000BD6AF /* SSMorseCode.m in Sources */,
+				544080E82550ED1D00EAE899 /* GDataXMLNode.m in Sources */,
 				545642F225132DC80093D78A /* ViewController.m in Sources */,
 				54CCE04325220768007D137F /* SSLocation.m in Sources */,
 				54BDA1692534748000094633 /* UITableView+SSCategory.m in Sources */,
@@ -744,6 +768,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2C4VMH22JU;
 				EXCLUDED_ARCHS = "armv7s armv7";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SSKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -768,6 +793,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 2C4VMH22JU;
 				EXCLUDED_ARCHS = "armv7s armv7";
+				HEADER_SEARCH_PATHS = /usr/include/libxml2;
 				INFOPLIST_FILE = SSKit/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (

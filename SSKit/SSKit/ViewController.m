@@ -86,6 +86,7 @@
     NSString *path = [[NSBundle mainBundle] pathForResource:@"log" ofType:@"ips"];
     NSData *data = [[NSData alloc] initWithContentsOfFile:path];
     NSString *str = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
+    
     NSError *error = nil;
     NSDictionary *dic = [XMLReader dictionaryForXMLData:data options:XMLReaderOptionsProcessNamespaces error:&error];
     NSLog(@"%@", dic);
