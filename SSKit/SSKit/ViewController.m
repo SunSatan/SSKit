@@ -69,7 +69,6 @@
             @strongify;
             self.text.text = [NSString stringWithFormat:@"%ld db", db];
         }];
-        
         //        _location = SSLocation.new;
         //        [_location startUpdatingLocationWithTarget:self];
         //        _location.altitudeDataBack = ^(double altitude) {
@@ -88,8 +87,6 @@
     NSString *str = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
     
     NSError *error = nil;
-    NSDictionary *dic = [XMLReader dictionaryForXMLData:data options:XMLReaderOptionsProcessNamespaces error:&error];
-    NSLog(@"%@", dic);
 }
 
 - (void)viewWillDisappear:(BOOL)animated
