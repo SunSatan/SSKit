@@ -77,9 +77,9 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
 
 #pragma mark - 图片保存
 
-- (void)ss_imageSaveToPhotosAlbum
+- (void)ss_saveToPhotosAlbumWithComplete:(void(^)(BOOL success))complete
 {
-    UIImageWriteToSavedPhotosAlbum(self, self, @selector(image:didFinishSavingWithError:contextInfo:), NULL);
+    UIImageWriteToSavedPhotosAlbum(self, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void * _Nullable)(complete));
 }
 
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo

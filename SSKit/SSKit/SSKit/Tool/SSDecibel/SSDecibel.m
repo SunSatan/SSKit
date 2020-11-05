@@ -28,30 +28,17 @@
         [_audioRecorder record];
         
         __weak typeof(self) selfWeak = self;
-        _timer = [NSTimer scheduledTimerWithTimeInterval:0.5 repeats:YES block:^(NSTimer * _Nonnull timer) {
+        _timer = [NSTimer scheduledTimerWithTimeInterval:0.3 repeats:YES block:^(NSTimer * _Nonnull timer) {
             __strong typeof(selfWeak) self = selfWeak;
             
             [self.audioRecorder updateMeters];
             float power = [self.audioRecorder averagePowerForChannel:0];
-            
             //***********有待优化**********//
-            NSLog(@"-----  %.0lf", power);
-            power = power + 160;
-            NSLog(@"=====  %.0lf", power);
-            int dB = 0;
-            if (power < 0.f) {
-                dB = 0;
-            } else if (power < 40.f) {
-                dB = (int)(power * 0.875);
-            } else if (power < 100.f) {
-                dB = (int)(power - 15);
-            } else if (power < 110.f) {
-                dB = (int)(power * 2.5 - 165);
-            } else {
-                dB = 110;
-            }
+            NSLog(@"-----  %.1lf", power);
+//            power = (power + 160) * 0.75/10; // [0, 120]
+            power = 20 * log10(5 * powf(10, (power/20))) + 50;
+            NSLog(@"=====  %.1lf", power);
             //***********有待优化**********//
-            
             if (updatePower) {
                 updatePower(power);
             }
@@ -67,13 +54,12 @@
     [AVAudioSession.sharedInstance setCategory:AVAudioSessionCategoryRecord error:nil];
     
     NSURL *url = [NSURL fileURLWithPath:@"/dev/null"];
-    NSDictionary *settings = @{AVSampleRateKey:@(44100),
+    NSDictionary *settings = @{AVSampleRateKey:@(8000),
                                AVNumberOfChannelsKey:@(2),
                                AVLinearPCMBitDepthKey:@(8),
-                               AVEncoderAudioQualityKey:@(AVAudioQualityMax),
+                               AVEncoderAudioQualityKey:@(AVAudioQualityHigh),
                                AVFormatIDKey:@(kAudioFormatAppleLossless),
-                               AVLinearPCMBitDepthKey:@(8),
-                               AVLinearPCMIsFloatKey:@(YES)
+                               AVLinearPCMIsFloatKey:@(NO)
     };
 
     _audioRecorder = [[AVAudioRecorder alloc] initWithURL:url settings:settings error:nil];
