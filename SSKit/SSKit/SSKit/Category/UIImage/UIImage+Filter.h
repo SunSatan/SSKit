@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  * 将图片转为灰度图
  */
-- (UIImage *)ss_imageGrayscale;
+- (UIImage *)ss_grayscale;
 
 @end
 

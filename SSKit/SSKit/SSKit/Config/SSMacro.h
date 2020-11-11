@@ -43,7 +43,7 @@
 
 //信号量
 #define SS_SEMAPHORE_CREATE(x) dispatch_semaphore_t semaphore = dispatch_semaphore_create((x))
-#define SS_SEMAPHORE_CREATE_0  dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)
+#define SS_SEMAPHORE_START     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0)
 #define SS_SEMAPHORE_SIGNAL    dispatch_semaphore_signal(semaphore)
 #define SS_SEMAPHORE_WAIT      dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
 

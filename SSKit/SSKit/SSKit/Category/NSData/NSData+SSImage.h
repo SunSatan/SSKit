@@ -10,7 +10,14 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SaveComplete)(BOOL success);
+
 @interface NSData (SSImage)
+/**
+ * 将图片的二进制文件（NSData）直接保存到相册。
+ * @param complete 保存完成后的回调
+ */
+- (void)ss_imageDataSaveToPhotosAlbumWithComplete:(SaveComplete)complete;
 
 @end
 

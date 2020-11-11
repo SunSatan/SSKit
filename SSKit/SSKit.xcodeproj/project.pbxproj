@@ -101,6 +101,7 @@
 		546C47EA2514A39300D422D6 /* SSKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSKit.h; sourceTree = "<group>"; };
 		54B5C1B72522D87C000BD6AF /* SSMorseCode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSMorseCode.h; sourceTree = "<group>"; };
 		54B5C1B82522D87C000BD6AF /* SSMorseCode.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSMorseCode.m; sourceTree = "<group>"; };
+		54B92E25255BDCB60073CAA4 /* SSDataCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDataCategory.h; sourceTree = "<group>"; };
 		54BDA14C2534748000094633 /* UIWindow+SSCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWindow+SSCategory.m"; sourceTree = "<group>"; };
 		54BDA14D2534748000094633 /* UIWindow+SSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWindow+SSCategory.h"; sourceTree = "<group>"; };
 		54BDA14F2534748000094633 /* UIApplication+SSCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIApplication+SSCategory.h"; sourceTree = "<group>"; };
@@ -406,6 +407,7 @@
 		54EFEE0B25555CF400A2E27B /* NSData */ = {
 			isa = PBXGroup;
 			children = (
+				54B92E25255BDCB60073CAA4 /* SSDataCategory.h */,
 				54EFEE0C25555D1400A2E27B /* NSData+SSImage.h */,
 				54EFEE0D25555D1400A2E27B /* NSData+SSImage.m */,
 			);

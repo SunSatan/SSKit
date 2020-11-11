@@ -37,6 +37,8 @@
     return resultImage;
 }
 
+
+
 - (NSArray<UIImage *> *)ss_imageCutApartToSquareForRow:(NSUInteger)row
                                                 column:(NSUInteger)column
                                        resultImageSize:(CGSize)resultImageSize
@@ -44,7 +46,6 @@
     UIImage *temp = self.copy;
     
     CGFloat side = MIN(self.size.width, self.size.height);
-    
     return [temp ss_imageCutApartForRow:row column:column resultImageSize:resultImageSize];
 }
 
@@ -66,7 +67,6 @@
                                                 widthScale:column
                                                heightScale:row
                                            resultImageSize:SS_1080P];
-            [itemImage ss_imageSaveToPhotosAlbum];
             [mutaArr addObject:itemImage];
         }
     }

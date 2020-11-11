@@ -10,6 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+typedef void(^SaveComplete)(BOOL success);
+
 @interface UIImage (SSImage)
 /**
  * 获取 size 变成 toSize 中，toSize/size 中宽和高之间的最小比例
@@ -19,13 +21,21 @@ NS_ASSUME_NONNULL_BEGIN
 CGFloat ss_minScale(CGSize size, CGSize toSize);
 /**
  * 将图片保存到相册
+ * @param complete 完成后回调
  */
-- (void)ss_imageSaveToPhotosAlbum;
+- (void)ss_saveToPhotosAlbumWithComplete:(SaveComplete)complete;
+/**
+ * 将图片的二进制数据保存到相册
+ * @param data 图片的二进制数据
+ * @param complete 完成后回调
+ */
++ (void)ss_saveDataToPhotosAlbum:(NSData *)data complete:(SaveComplete)complete;
+
 /**
  * 根据UIView生成相应的UIImage，size 一致
  * @param view 转为UIImage的view
  */
-+ (UIImage *)ss_imageWithView:(UIView *)view;
++ (UIImage *)ss_imageFormView:(UIView *)view;
 /**
  * 将模糊的 CIImage 转为高清的 UIImage
  * @param image 模糊的 CIImage
@@ -38,9 +48,9 @@ CGFloat ss_minScale(CGSize size, CGSize toSize);
  * @param baseImage 背景图
  * @param centerImageSize 中心图的大小
  */
-+ (UIImage *)ss_imageAddCenterImage:(UIImage *)centerImage
-                          baseImage:(UIImage *)baseImage
-                    centerImageSize:(CGSize)centerImageSize;
++ (UIImage *)ss_addCenterImage:(UIImage *)centerImage
+                     baseImage:(UIImage *)baseImage
+               centerImageSize:(CGSize)centerImageSize;
 
 @end
 

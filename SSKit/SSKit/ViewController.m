@@ -56,37 +56,27 @@
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.numberOfLines = 0;
     
-    if (_isroot) {
-        @weakify;
-        //        [SSMotion.main startUpdatePressure:^(double pressure) {
-        //            @strongify;
-        //            NSLog(@"=====");
-        //            self.text.text = [NSString stringWithFormat:@"%.2lf kPa", pressure];
-        //        }];
-        
-        _decibel = SSDecibel.new;
-        [_decibel openRecord:^(NSUInteger db) {
-            @strongify;
-            self.text.text = [NSString stringWithFormat:@"%ld db", db];
-        }];
-        //        _location = SSLocation.new;
-        //        [_location startUpdatingLocationWithTarget:self];
-        //        _location.altitudeDataBack = ^(double altitude) {
-        //            @strongify;
-        //            NSLog(@"-----");
-        //            self.text.text = [NSString stringWithFormat:@"%.2lfm 海拔", altitude];
-        //        };
-        //        _location.localeNameDataBack = ^(NSString * _Nonnull LocaleName) {
-        //            @strongify;
-        //            self.text.text = LocaleName;
-        //        };
-    }
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"log" ofType:@"ips"];
-    NSData *data = [[NSData alloc] initWithContentsOfFile:path];
-    NSString *str = [NSString.alloc initWithData:data encoding:NSUTF8StringEncoding];
+    NSData *data = [NSData dataWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"IMG_1257" ofType:@"JPG"]];
+    [data ss_imageDataSaveToPhotosAlbumWithComplete:^(BOOL success) {
+        if (success) {
+            NSLog(@"保存成功");
+        }
+        else {
+            NSLog(@"保存失败");
+        }
+    }];
     
-    NSError *error = nil;
+    
+//    UIImage *image = [UIImage imageWithData:data];
+//    [image ss_saveToPhotosAlbumWithComplete:^(BOOL success) {
+//        if (success) {
+//            NSLog(@"保存成功");
+//        }
+//        else {
+//            NSLog(@"保存失败");
+//        }
+//    }];
 }
 
 - (void)viewWillDisappear:(BOOL)animated

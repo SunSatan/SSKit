@@ -19,6 +19,7 @@
 #pragma mark - Category
 
 #import "SSImageCategory.h"
+#import "SSDataCategory.h"
 
 #import "UIWindow+SSCategory.h"
 #import "UIApplication+SSCategory.h"

@@ -11,7 +11,7 @@
 
 @implementation UIImage (Filter)
 
-- (UIImage *)ss_imageGrayscale
+- (UIImage *)ss_grayscale
 {
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceGray();
     CGContextRef context = CGBitmapContextCreate(NULL, self.size.width, self.size.height, 8, 0, colorSpace, kCGImageAlphaNone);

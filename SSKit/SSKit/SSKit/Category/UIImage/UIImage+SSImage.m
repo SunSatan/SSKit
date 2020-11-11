@@ -7,7 +7,9 @@
 //
 
 #import "UIImage+SSImage.h"
+
 #import "SSImageCategory.h"
+#import "SSDataCategory.h"
 
 @implementation UIImage (SSImage)
 
@@ -19,11 +21,31 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
     return scale;
 }
 
+#pragma mark - 图片保存
+
++ (void)ss_saveDataToPhotosAlbum:(NSData *)data complete:(SaveComplete)complete
+{
+    [data ss_imageDataSaveToPhotosAlbumWithComplete:complete];
+}
+
+- (void)ss_saveToPhotosAlbumWithComplete:(SaveComplete)complete
+{
+    UIImageWriteToSavedPhotosAlbum(self, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void * _Nullable)(complete));
+}
+
+- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
+{
+    SaveComplete complete = CFBridgingRelease(contextInfo);
+    if (complete) {
+        complete(!error);
+    }
+}
+
 #pragma mark - 图片生成
 
-+ (UIImage *)ss_imageWithView:(UIView *)view
++ (UIImage *)ss_imageFormView:(UIView *)view
 {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, 2);
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, UIImage.new.scale);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
@@ -32,8 +54,8 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
 
 + (UIImage *)ss_highDefinitionUIImageFromCIImage:(CIImage *)image imageSize:(CGSize)imageSize
 {
-    CGRect extent = CGRectIntegral(image.extent);//将图片的rect展开到包含其整数原点和大小。
-    CGFloat scale = MIN(imageSize.width/CGRectGetWidth(extent), imageSize.height/CGRectGetHeight(extent));//缩放比例
+    CGRect extent = CGRectIntegral(image.extent);// 将图片的rect展开到包含其整数原点和大小。
+    CGFloat scale = ss_minScale(extent.size, imageSize);// 缩放比例
     //宽高缩放
     CGFloat width  = CGRectGetWidth(extent) * scale;
     CGFloat height = CGRectGetHeight(extent) * scale;
@@ -75,22 +97,6 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
     return image;
 }
 
-#pragma mark - 图片保存
 
-- (void)ss_saveToPhotosAlbumWithComplete:(void(^)(BOOL success))complete
-{
-    UIImageWriteToSavedPhotosAlbum(self, self, @selector(image:didFinishSavingWithError:contextInfo:), (__bridge void * _Nullable)(complete));
-}
-
-- (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
-{
-    NSString *msg = nil ;
-    if(error){
-        msg = @"保存图片失败" ;
-    }else{
-        msg = @"保存图片成功" ;
-    }
-    NSLog(@"%@", msg);
-}
 
 @end

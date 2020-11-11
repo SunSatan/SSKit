@@ -15,6 +15,8 @@
 #define SSRadianToDegrees(radian) ((radian) * 180.0)/(M_PI)
 
 #define SS_360P  CGSizeMake(360, 360)
+#define SS_480P  CGSizeMake(480, 480)
+#define SS_600P  CGSizeMake(600, 600)
 #define SS_720P  CGSizeMake(720, 720)
 #define SS_1080P CGSizeMake(1080, 1080)
 #define SS_2K    CGSizeMake(1440, 1440)

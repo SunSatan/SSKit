@@ -26,7 +26,7 @@
 {
     if (!CMPedometer.isStepCountingAvailable) return 0;
     
-    SS_SEMAPHORE_CREATE_0;
+    SS_SEMAPHORE_START;
     __block NSUInteger _stepCount = 0;
     [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
         _stepCount = pedometerData.numberOfSteps.unsignedIntegerValue;
@@ -65,7 +65,7 @@
 {
     if (!CMPedometer.isStepCountingAvailable) return 0;
     
-    SS_SEMAPHORE_CREATE_0;
+    SS_SEMAPHORE_START;
     __block NSUInteger distance = 0;
     [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
         distance = pedometerData.distance.unsignedIntegerValue;
@@ -104,7 +104,7 @@
 {
     if (!CMPedometer.isStepCountingAvailable) return 0;
     
-    SS_SEMAPHORE_CREATE_0;
+    SS_SEMAPHORE_START;
     __block NSUInteger floorUpCount = 0;
     [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
         floorUpCount = pedometerData.floorsAscended.unsignedIntegerValue;
@@ -143,7 +143,7 @@
 {
     if (!CMPedometer.isStepCountingAvailable) return 0;
     
-    SS_SEMAPHORE_CREATE_0;
+    SS_SEMAPHORE_START;
     __block NSUInteger floorDownCount = 0;
     [self.pedometer queryPedometerDataFromDate:[SSDateMainHelper dayStartDateForDate:[NSDate date]] toDate:[NSDate date] withHandler:^(CMPedometerData * _Nullable pedometerData, NSError * _Nullable error) {
         floorDownCount = pedometerData.floorsDescended.unsignedIntegerValue;
