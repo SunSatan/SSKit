@@ -18,6 +18,10 @@ typedef void(^SaveComplete)(BOOL success);
  * @param complete 保存完成后的回调
  */
 - (void)ss_imageDataSaveToPhotosAlbumWithComplete:(SaveComplete)complete;
+/**
+ * 获取二进制大小：20 KB
+ */
+- (NSString *)ss_length;
 
 @end
 

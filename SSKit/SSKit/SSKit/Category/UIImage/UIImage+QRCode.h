@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
  * @param content 二维码内容
  * @param QRCodeSize 二维码大小
  */
-+ (UIImage *)ss_QRCodeWithContent:(NSString *)content QRCodeSize:(CGSize)QRCodeSize;
++ (UIImage *)ss_QRCodeWithContent:(NSString * __nullable)content QRCodeSize:(CGSize)QRCodeSize;
 /**
  * 创建一个中心有logo的二维码
  * @param content 二维码内容
@@ -24,9 +24,9 @@ NS_ASSUME_NONNULL_BEGIN
  * @param centerImage 中心logo图
  * @param centerImageSize 中心logo图的大小
  */
-+ (UIImage *)ss_QRCodeWithContent:(NSString *)content
++ (UIImage *)ss_QRCodeWithContent:(NSString * __nullable)content
                        QRCodeSize:(CGSize)QRCodeSize
-                      centerImage:(UIImage * __nullable)centerImage
+                      centerImage:(UIImage  * __nullable)centerImage
                   centerImageSize:(CGSize)centerImageSize;
 /**
  * 创建一个条形码

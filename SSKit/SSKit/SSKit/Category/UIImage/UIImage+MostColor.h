@@ -16,15 +16,15 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (UIColor *)ss_iamgeMostColor;
 /**
- * 获取图片最多的色值，去除透明色
+ * 获取图片最多的色值，不包括透明色
  */
 - (UIColor *)ss_iamgeMostColorExcludeTranslucent;
 /**
- * 获取图片最多的色值，去除白色和透明色
+ * 获取图片最多的色值，不包括白色和透明色
  */
 - (UIColor *)ss_iamgeMostColorExcludeWhiteAndTranslucent;
 /**
- * 获取图片最多的色值，可以去除指定颜色
+ * 获取图片最多的色值，可以去除指定颜色，包括透明色
  * @param color 去除的颜色
  */
 - (UIColor *)ss_iamgeMostColorExcludeColor:(UIColor * __nullable)color;

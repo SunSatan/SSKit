@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define SSApplication UIApplication.sharedApplication
 #define SSKeyWindow   UIApplication.sharedApplication.keyWindow
-#define SSRootViewController UIApplication.sharedApplication.keyWindow.rootViewController
+#define SSRootVC      UIApplication.sharedApplication.keyWindow.rootViewController
 
 @interface UIApplication (SSCategory)
 

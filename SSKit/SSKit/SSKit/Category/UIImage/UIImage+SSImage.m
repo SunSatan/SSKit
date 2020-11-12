@@ -45,6 +45,15 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
 
 + (UIImage *)ss_imageFormView:(UIView *)view
 {
+    if (!view) return nil;
+    CGSize size = CGSizeZero;
+    if ([view isKindOfClass:UIScrollView.class]) {
+        UIScrollView *scrollView = (UIScrollView *)view;
+        size = scrollView.contentSize;
+    }
+    else {
+        size = view.bounds.size;
+    }
     UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.opaque, UIImage.new.scale);
     [view.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
@@ -54,6 +63,8 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
 
 + (UIImage *)ss_highDefinitionUIImageFromCIImage:(CIImage *)image imageSize:(CGSize)imageSize
 {
+    if (!image) return nil;
+    
     CGRect extent = CGRectIntegral(image.extent);// 将图片的rect展开到包含其整数原点和大小。
     CGFloat scale = ss_minScale(extent.size, imageSize);// 缩放比例
     //宽高缩放
@@ -78,10 +89,12 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
     return highDefinitionImage;
 }
 
-+ (UIImage *)ss_imageAddCenterImage:(UIImage *)centerImage
-                          baseImage:(UIImage *)baseImage
-                    centerImageSize:(CGSize)centerImageSize
++ (UIImage *)ss_addCenterImage:(UIImage *)centerImage
+                     baseImage:(UIImage *)baseImage
+               centerImageSize:(CGSize)centerImageSize
 {
+    if (!centerImage || !baseImage) return nil;
+    
     CGSize imageSize = baseImage.size; //底图大小
     UIGraphicsBeginImageContext(imageSize);//开始绘制
     [baseImage drawInRect:CGRectMake(0, 0, imageSize.width, imageSize.height)];//绘制背景图
@@ -96,7 +109,5 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
     UIGraphicsEndImageContext();//结束绘制
     return image;
 }
-
-
 
 @end

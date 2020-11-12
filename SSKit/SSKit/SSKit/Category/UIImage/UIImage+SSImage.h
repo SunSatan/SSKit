@@ -29,8 +29,8 @@ CGFloat ss_minScale(CGSize size, CGSize toSize);
  * @param data 图片的二进制数据
  * @param complete 完成后回调
  */
-+ (void)ss_saveDataToPhotosAlbum:(NSData *)data complete:(SaveComplete)complete;
-
++ (void)ss_saveDataToPhotosAlbum:(NSData *)data
+                        complete:(SaveComplete)complete;
 /**
  * 根据UIView生成相应的UIImage，size 一致
  * @param view 转为UIImage的view
@@ -41,7 +41,8 @@ CGFloat ss_minScale(CGSize size, CGSize toSize);
  * @param image 模糊的 CIImage
  * @param imageSize 高清的 UIImage 的大小
  */
-+ (UIImage *)ss_highDefinitionUIImageFromCIImage:(CIImage *)image imageSize:(CGSize)imageSize;
++ (UIImage *)ss_highDefinitionUIImageFromCIImage:(CIImage *)image
+                                       imageSize:(CGSize)imageSize;
 /**
  * 给图片中心再添加一个图片
  * @param centerImage 中心图

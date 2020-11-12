@@ -7,9 +7,11 @@
 //
 
 #import "NSData+SSImage.h"
+#import "NSString+SSCategory.h"
+
 #import <Photos/Photos.h>
 
-static NSString *kJpgTempPath = @"Documents/ss_temp_image.JPG";
+static NSString *kJpgTempPath = @"tmp/ss_temp_image.JPG";
 
 @implementation NSData (SSImage)
 
@@ -33,6 +35,11 @@ static NSString *kJpgTempPath = @"Documents/ss_temp_image.JPG";
             complete(success);
         }
     }];
+}
+
+- (NSString *)ss_length
+{
+    return [NSString ss_diskUnit:self.length decimal:0];
 }
 
 @end

@@ -11,9 +11,9 @@
 
 @implementation UIImage (QRCode)
 
-+ (UIImage *)ss_QRCodeWithContent:(NSString *)content
++ (UIImage *)ss_QRCodeWithContent:(NSString * __nullable)content
                        QRCodeSize:(CGSize)QRCodeSize
-                      centerImage:(UIImage * __nullable)centerImage
+                      centerImage:(UIImage  * __nullable)centerImage
                   centerImageSize:(CGSize)centerImageSize
 {
     if (!content || content.length == 0) {
@@ -28,7 +28,7 @@
     CIImage *image = [filter outputImage];//生成二维码
     UIImage *qrCode = [self ss_highDefinitionUIImageFromCIImage:image imageSize:QRCodeSize];//转为高清图
     if (centerImage) {//添加中心logo
-        qrCode = [self ss_imageAddCenterImage:centerImage baseImage:qrCode centerImageSize:centerImageSize];
+        qrCode = [self ss_addCenterImage:centerImage baseImage:qrCode centerImageSize:centerImageSize];
     }
     return qrCode;
 }

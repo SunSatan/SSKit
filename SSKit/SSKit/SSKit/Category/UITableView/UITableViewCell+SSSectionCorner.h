@@ -10,7 +10,9 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableViewCell (SSSectionCorner)
-
+/**
+ * 修改下划线的颜色
+ */
 - (void)ss_separatorColor:(UIColor *)separatorColor;
 
 - (void)ss_separatorInset;

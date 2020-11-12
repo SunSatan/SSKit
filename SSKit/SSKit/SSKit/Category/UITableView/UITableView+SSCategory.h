@@ -10,14 +10,17 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface UITableView (SSCategory)
-
 /// 隐藏下划线
 - (void)ss_hiddenCellUnderline;
-
-// 添加 tableHeaderView
+/**
+ * 添加 tableView 的 HeaderView
+ * @param view HeaderView
+ */
 - (void)ss_addTableHeaderView:(UIView *)view;
-
-// 添加 tableFooterView
+/**
+ * 添加 tableView 的 FooterView
+ * @param view FooterView
+ */
 - (void)ss_addTableFooterView:(UIView *)view;
 
 @end

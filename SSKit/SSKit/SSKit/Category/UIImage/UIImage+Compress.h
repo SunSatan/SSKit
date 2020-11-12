@@ -13,7 +13,6 @@ NS_ASSUME_NONNULL_BEGIN
 @interface UIImage (Compress)
 
 #pragma mark - 图片压缩
-
 /**
  * 压缩图片质量到最小值，有损压缩，谨慎使用。
  */
@@ -38,7 +37,6 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSData *)ss_imageCompressToMaximum:(NSUInteger)maximum;
 
 #pragma mark - 缩放图片尺寸
-
 /**
  * 通过比例缩放图片尺寸，图片放大会模糊。
  * @param scale 缩放比例
@@ -56,14 +54,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (UIImage *)ss_imageScaleFillToSize:(CGSize)size;
 
 #pragma mark - 图片放大增强
-
 /**
- * 图片以指定比例进行增强，提高分辨率却使图片更清晰，默认最小为原图的size
+ * 图片以指定比例进行增强，提高分辨率却使图片更清晰，因为是增强不是缩放，所以默认最小为原图的size。
  * @param scale 指定比例
  */
 - (UIImage *)ss_imageBoostToScale:(CGFloat)scale;
 /**
- * 图片以指定分辨率进行增强，提高分辨率却使图片更清晰，默认最小为原图的比例
+ * 图片以指定分辨率进行增强，提高分辨率却使图片更清晰，因为是增强不是缩放，默认最小为原图的比例。
  * @param size 指定尺寸
  */
 - (UIImage *)ss_imageBoostToSize:(CGSize)size;
