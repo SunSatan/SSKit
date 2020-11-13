@@ -2,8 +2,8 @@
 //  UIView+SSLayout.m
 //  SSKit
 //
-//  Created by 孙铭健 on 2020/11/3.
-//  Copyright © 2020 孙铭健. All rights reserved.
+//  Created by SunSatan on 2020/11/3.
+//  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #import "UIView+SSLayout.h"
@@ -13,7 +13,6 @@
 /**
  * @dynamic告诉编译器属性的setter和getter方法都自己实现
  */
-
 @dynamic origin;
 @dynamic x;
 @dynamic y;

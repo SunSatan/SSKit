@@ -2,8 +2,8 @@
 //  NSData+SSImage.h
 //  SSKit
 //
-//  Created by 孙铭健 on 2020/11/6.
-//  Copyright © 2020 孙铭健. All rights reserved.
+//  Created by SunSatan on 2020/11/6.
+//  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -17,7 +17,7 @@ typedef void(^SaveComplete)(BOOL success);
  * 将图片的二进制文件（NSData）直接保存到相册。
  * @param complete 保存完成后的回调
  */
-- (void)ss_imageDataSaveToPhotosAlbumWithComplete:(SaveComplete)complete;
+- (void)ss_saveJPGToPhotosAlbumWithComplete:(SaveComplete)complete;
 /**
  * 获取二进制大小：20 KB
  */

@@ -55,33 +55,18 @@
     [self.view addSubview:self.text];
     self.text.textAlignment = NSTextAlignmentCenter;
     self.text.numberOfLines = 0;
-    NSHomeDirectory();
     
-    NSData *data = [NSData dataWithContentsOfFile:[NSBundle.mainBundle pathForResource:@"IMG_1257" ofType:@"JPG"]];
-    [data ss_imageDataSaveToPhotosAlbumWithComplete:^(BOOL success) {
-        if (success) {
-            NSLog(@"保存成功");
-        }
-        else {
-            NSLog(@"保存失败");
-        }
-    }];
-    
-    NSLog(@"%@", NSUserName());
-    NSLog(@"%@", NSFullUserName());
-    NSLog(@"%@", NSHomeDirectory());
-    NSLog(@"%@", NSTemporaryDirectory());
-    NSLog(@"%@", NSOpenStepRootDirectory());
-    
-//    UIImage *image = [UIImage imageWithData:data];
-//    [image ss_saveToPhotosAlbumWithComplete:^(BOOL success) {
-//        if (success) {
-//            NSLog(@"保存成功");
-//        }
-//        else {
-//            NSLog(@"保存失败");
-//        }
-//    }];
+    if (self.isroot) {
+        self.decibel = SSDecibel.new;
+        @weakify;
+        [self.decibel startCheckDecibelWithInterval:0.5
+                                      updateDecibel:^(NSUInteger db) {
+            @strongify;
+            NSLog(@"avg: %ld", self.decibel.avgDB);
+            NSLog(@"min: %ld", self.decibel.minDB);
+            NSLog(@"max: %ld", self.decibel.maxDB);
+        }];
+    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -98,7 +83,7 @@
 {
     ViewController *vc = ViewController.new;
     vc.isroot = YES;
-    
+    vc.view.backgroundColor = UIColor.blueSky;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

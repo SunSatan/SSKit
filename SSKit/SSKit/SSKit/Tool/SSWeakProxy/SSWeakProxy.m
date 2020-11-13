@@ -10,6 +10,11 @@
 
 @implementation SSWeakProxy
 
+- (void)dealloc
+{
+    NSLog(@"SSWeakProxy -> dealloc");
+}
+
 - (instancetype)initWithTarget:(id)target
 {
     _target = target;
@@ -18,7 +23,7 @@
 
 + (instancetype)proxyWithTarget:(id)target
 {
-    return [[SSWeakProxy alloc] initWithTarget:target];
+    return [SSWeakProxy.alloc initWithTarget:target];
 }
 
 - (id)forwardingTargetForSelector:(SEL)selector

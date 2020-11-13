@@ -27,7 +27,9 @@
     return YES;
 }
 
- - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
+- (BOOL)application:(UIApplication *)app
+            openURL:(NSURL *)url
+            options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
     NSString *path = url.relativeString;
     path = [path stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];

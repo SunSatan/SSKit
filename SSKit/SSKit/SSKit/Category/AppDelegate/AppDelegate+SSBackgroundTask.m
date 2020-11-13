@@ -56,7 +56,7 @@ static const void *timerKey = &timerKey;
 
 - (BOOL)isMultitaskingSupported
 {
-    return [[UIDevice currentDevice] isMultitaskingSupported];
+    return UIDevice.currentDevice.isMultitaskingSupported;
 }
 
 - (void)openTimeRemaining
@@ -65,7 +65,7 @@ static const void *timerKey = &timerKey;
     
     self.backgroundTimer = [NSTimer scheduledTimerWithTimeInterval:1 repeats:YES block:^(NSTimer * _Nonnull timer) {
         //应用程序在后台运行的最长剩余时间，一般30s
-        NSTimeInterval backgroundTimeRemaining = [[UIApplication sharedApplication] backgroundTimeRemaining];
+        NSTimeInterval backgroundTimeRemaining = UIApplication.sharedApplication.backgroundTimeRemaining;
         if (backgroundTimeRemaining == DBL_MAX){ //等于最大值则未定
             NSLog(@"Background Time Remaining is Undetermined");
         } else {

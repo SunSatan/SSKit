@@ -20,6 +20,7 @@
 
 #import "SSImageCategory.h"
 #import "SSDataCategory.h"
+#import "SSViewCategory.h"
 
 #import "UIWindow+SSCategory.h"
 #import "UIApplication+SSCategory.h"

@@ -52,7 +52,6 @@ NS_ASSUME_NONNULL_BEGIN
  * 隐藏导航栏下划线
  */
 - (void)ss_navigationBarHiddenUnderline;
-
 /**
  * 设置标题
  */

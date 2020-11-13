@@ -43,6 +43,7 @@
 		54CCE04325220768007D137F /* SSLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE04225220768007D137F /* SSLocation.m */; };
 		54CCE0492522095C007D137F /* SSScreen.m in Sources */ = {isa = PBXBuildFile; fileRef = 54CCE0482522095C007D137F /* SSScreen.m */; };
 		54EFEE0E25555D1400A2E27B /* NSData+SSImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 54EFEE0D25555D1400A2E27B /* NSData+SSImage.m */; };
+		54F0EDBC255E756100D41921 /* SSContactsGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F0EDBB255E756100D41921 /* SSContactsGroup.m */; };
 		54F69E5D254FAEB700749D86 /* SSDecibel.m in Sources */ = {isa = PBXBuildFile; fileRef = 54F69E5C254FAEB700749D86 /* SSDecibel.m */; };
 		E330DC222517702A00C3C6EA /* SSAuthorization.m in Sources */ = {isa = PBXBuildFile; fileRef = E330DC212517702A00C3C6EA /* SSAuthorization.m */; };
 		E33479FE251B9A62009AE377 /* SSDeviceLibrary.m in Sources */ = {isa = PBXBuildFile; fileRef = E33479FD251B9A62009AE377 /* SSDeviceLibrary.m */; };
@@ -128,6 +129,9 @@
 		54CCE0482522095C007D137F /* SSScreen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSScreen.m; sourceTree = "<group>"; };
 		54EFEE0C25555D1400A2E27B /* NSData+SSImage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSData+SSImage.h"; sourceTree = "<group>"; };
 		54EFEE0D25555D1400A2E27B /* NSData+SSImage.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSData+SSImage.m"; sourceTree = "<group>"; };
+		54F0EDBA255E756100D41921 /* SSContactsGroup.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSContactsGroup.h; sourceTree = "<group>"; };
+		54F0EDBB255E756100D41921 /* SSContactsGroup.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSContactsGroup.m; sourceTree = "<group>"; };
+		54F0EDC3255E7EA500D41921 /* SSViewCategory.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSViewCategory.h; sourceTree = "<group>"; };
 		54F69E5B254FAEB700749D86 /* SSDecibel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSDecibel.h; sourceTree = "<group>"; };
 		54F69E5C254FAEB700749D86 /* SSDecibel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SSDecibel.m; sourceTree = "<group>"; };
 		E330DC202517702A00C3C6EA /* SSAuthorization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SSAuthorization.h; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 		5442D6A4255126F1000B16B2 /* UIView */ = {
 			isa = PBXGroup;
 			children = (
+				54F0EDC3255E7EA500D41921 /* SSViewCategory.h */,
 				5442D6A5255127DD000B16B2 /* UIView+SSLayout.h */,
 				5442D6A6255127DD000B16B2 /* UIView+SSLayout.m */,
 			);
@@ -448,6 +453,8 @@
 			children = (
 				E358C3D625164E1300DEA59B /* SSContacts.h */,
 				E358C3D325164E1300DEA59B /* SSContacts.m */,
+				54F0EDBA255E756100D41921 /* SSContactsGroup.h */,
+				54F0EDBB255E756100D41921 /* SSContactsGroup.m */,
 			);
 			path = SSContacts;
 			sourceTree = "<group>";
@@ -607,6 +614,7 @@
 				E358C3D725164E1300DEA59B /* SSContacts.m in Sources */,
 				546037142536C1E100D9D836 /* SSSystemConvert.m in Sources */,
 				54236781254AC71700F6FAC7 /* UIImage+SSImage.m in Sources */,
+				54F0EDBC255E756100D41921 /* SSContactsGroup.m in Sources */,
 				E358C3D125164DC400DEA59B /* SSIndexBar.m in Sources */,
 				54BDA1642534748000094633 /* UIApplication+SSCategory.m in Sources */,
 				54CCDC37252175C2007D137F /* SSMotion.m in Sources */,

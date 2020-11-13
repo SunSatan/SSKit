@@ -40,7 +40,7 @@ static SSAuthorizationType kAuthorization;
 }
 
 /// 获取当前应用权限
-+ (SSAuthorizationType)currentAuthorization
++ (SSAuthorizationType)authorization
 {
     return kAuthorization;
 }

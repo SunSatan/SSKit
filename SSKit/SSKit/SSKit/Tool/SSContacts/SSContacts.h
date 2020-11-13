@@ -10,25 +10,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// 未做多音字区分
+static NSString * const SSContactsOtherCharacter = @"#";
 
-@interface SSContacts : NSObject // 联系人名字首字母分组排序
+@interface SSContacts : NSObject
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *phone;
 
-@property (nonatomic, strong, readonly) NSString *characterName;//名字拼音字母
-@property (nonatomic, strong, readonly) NSString *uppercaseFirstCharacter;//名字首字母大写（A～Z,#）
-/**
- * 获取所有联系人的首字母数组
- * @param array 联系人数组
- */
-+ (NSArray<NSString *> *)contactsSectionWithArray:(NSArray<SSContacts *> *)array;
-/**
- * 获取联系人分组并排序，二维数组
- * @param array 联系人数组
- */
-+ (NSArray<NSArray *> *)contactsGroupedAndSortedWithArray:(NSArray<SSContacts *> *)array;
+@property (nonatomic, strong, readonly) NSString *characterName; // 名字拼音字母，未做多音字区分
+@property (nonatomic, strong, readonly) NSString *uppercaseFirstCharacter; // 名字首字母大写（A～Z,otherCharacter）
 
 - (instancetype)initWithName:(NSString *)name;
 + (instancetype)contactsWithName:(NSString *)name;

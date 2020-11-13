@@ -2,8 +2,8 @@
 //  NSData+SSImage.m
 //  SSKit
 //
-//  Created by 孙铭健 on 2020/11/6.
-//  Copyright © 2020 孙铭健. All rights reserved.
+//  Created by SunSatan on 2020/11/6.
+//  Copyright © 2020 SunSatan. All rights reserved.
 //
 
 #import "NSData+SSImage.h"
@@ -15,7 +15,7 @@ static NSString *kJpgTempPath = @"tmp/ss_temp_image.JPG";
 
 @implementation NSData (SSImage)
 
-- (void)ss_imageDataSaveToPhotosAlbumWithComplete:(SaveComplete)complete
+- (void)ss_saveJPGToPhotosAlbumWithComplete:(SaveComplete)complete
 {
     // 因为图片压缩后得到的 NSData 无法直接保存到手机相册
     // 但是将 NSData 渲染成 UIImage 再保存，图片质量又会变很大，这等于没压缩

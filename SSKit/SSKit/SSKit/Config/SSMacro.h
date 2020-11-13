@@ -11,11 +11,6 @@
 
 #pragma mark - 通用常量宏定义
 
-//版本判断
-#define Fun_iOS(x)   @available(iOS x, *)
-#define Class_iOS(x) API_AVAILABLE(ios(x), *)
-#define API_iOS(x)   API_AVAILABLE(ios(x), *)
-
 //强弱引用
 #define weakify   autoreleasepool{} __weak   typeof(self) selfWeak = self
 #define strongify autoreleasepool{} __strong typeof(selfWeak) self = selfWeak;
@@ -48,8 +43,8 @@
 #define SS_SEMAPHORE_WAIT      dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER)
 
 //线程
-#define GlobalQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-#define MainQueue   dispatch_get_main_queue()
+#define SSGlobalQueue dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+#define SSMainQueue   dispatch_get_main_queue()
 
 //沙盒路径
 #define PATH_OF_APP_HOME  NSHomeDirectory()

@@ -25,7 +25,7 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
 
 + (void)ss_saveDataToPhotosAlbum:(NSData *)data complete:(SaveComplete)complete
 {
-    [data ss_imageDataSaveToPhotosAlbumWithComplete:complete];
+    [data ss_saveJPGToPhotosAlbumWithComplete:complete];
 }
 
 - (void)ss_saveToPhotosAlbumWithComplete:(SaveComplete)complete
@@ -36,9 +36,7 @@ CGFloat ss_minScale(CGSize size, CGSize toSize)
 - (void)image:(UIImage *)image didFinishSavingWithError:(NSError *)error contextInfo:(void *)contextInfo
 {
     SaveComplete complete = CFBridgingRelease(contextInfo);
-    if (complete) {
-        complete(!error);
-    }
+    if (complete) complete(!error);
 }
 
 #pragma mark - 图片生成
