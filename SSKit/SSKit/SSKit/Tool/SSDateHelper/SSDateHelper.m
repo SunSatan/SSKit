@@ -48,6 +48,22 @@ static char * const kEarthlyBranches[] = {
     "子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"
 };
 
+static char * const kCNWeek[] = {
+    "周天","周一","周二","周三","周四","周五","周六"
+};
+
+static char * const kCNWeekday[] = {
+    "星期天","星期一","星期二","星期三","星期四","星期五","星期六"
+};
+
+static char * const kENWeek[] = {
+    "Sun","Mon","Tue","Wed","Thur","Fri","Sat"
+};
+
+static char * const kENWeekday[] = {
+    "Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"
+};
+
 @interface SSDateHelper ()
 
 @property (atomic, strong) NSDateFormatter *dateFormatter;
@@ -194,6 +210,18 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
+- (NSString *)hl_YYYYMMDDHHMMSS_stringFromDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    self.dateFormatter.dateFormat = @"yyyy-MM-dd HH:mm:ss";
+    return [self.dateFormatter stringFromDate:date];
+}
+
 - (NSString *)cn_YMD_stringFromDate:(NSDate *)date
 {
     if (!date) {
@@ -229,6 +257,19 @@ static SSDateHelper *_mainHelper = nil;
     self.dateFormatter.dateFormat = @"y年M月d日 H:m:s";
     return [self.dateFormatter stringFromDate:date];
 }
+
+- (NSString *)cn_YMDHHMMSS_stringFromDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    self.dateFormatter.dateFormat = @"y年M月d日 HH:mm:ss";
+    return [self.dateFormatter stringFromDate:date];
+}
+
 
 - (NSString *)cn_MD_stringFromDate:(NSDate *)date
 {
@@ -290,7 +331,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)weekStringFromDate:(NSDate *)date
+- (NSString *)week_StringFromDate:(NSDate *)date
 {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
@@ -302,7 +343,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)weekdayStringFromDate:(NSDate *)date
+- (NSString *)weekday_StringFromDate:(NSDate *)date
 {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
@@ -312,6 +353,58 @@ static SSDateHelper *_mainHelper = nil;
     }
     self.dateFormatter.dateFormat = @"eeee";
     return [self.dateFormatter stringFromDate:date];
+}
+
+- (NSString *)cn_week_StringFromDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    
+    NSInteger weekday = [NSCalendar.currentCalendar component:NSCalendarUnitWeekday fromDate:date];
+    return [NSString stringWithFormat:@"%s", kCNWeek[weekday]];
+}
+
+- (NSString *)cn_weekday_StringFromDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    
+    NSInteger weekday = [NSCalendar.currentCalendar component:NSCalendarUnitWeekday fromDate:date];
+    return [NSString stringWithFormat:@"%s", kCNWeekday[weekday]];
+}
+
+- (NSString *)en_week_StringFromDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    
+    NSInteger weekday = [NSCalendar.currentCalendar component:NSCalendarUnitWeekday fromDate:date];
+    return [NSString stringWithFormat:@"%s", kENWeek[weekday]];
+}
+
+- (NSString *)en_weekday_StringFromDate:(NSDate *)date
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    
+    NSInteger weekday = [NSCalendar.currentCalendar component:NSCalendarUnitWeekday fromDate:date];
+    return [NSString stringWithFormat:@"%s", kENWeekday[weekday]];
 }
 
 #pragma mark - NSString 转为 NSDate
@@ -1064,7 +1157,7 @@ static SSDateHelper *_mainHelper = nil;
 
 #pragma mark - 日期拓展
 
-- (NSDate *)minuteLastDateForDate:(NSDate *)date
+- (NSDate *)minuteStartDateForDate:(NSDate *)date
 {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
@@ -1074,12 +1167,12 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDate *minuteLastDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDate *minuteLastDate = [NSCalendar.currentCalendar dateFromComponents:dateComp];
     return minuteLastDate;
 }
 
-- (NSDate *)hourLastDateForDate:(NSDate *)date
+- (NSDate *)hourStartDateForDate:(NSDate *)date
 {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
@@ -1089,8 +1182,8 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDate *hourLastDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDate *hourLastDate = [NSCalendar.currentCalendar dateFromComponents:dateComp];
     return hourLastDate;
 }
 
@@ -1104,8 +1197,8 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDate *dayStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDate *dayStartDate = [NSCalendar.currentCalendar dateFromComponents:dateComp];
     return dayStartDate;
 }
 
@@ -1117,7 +1210,7 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
     
     //weekday从1-7，1是周日，2是周一，以此类推
     static int const defaultArray[8] = {0, 0, 1, 2, 3, 4, 5, 6};
@@ -1370,52 +1463,6 @@ static SSDateHelper *_mainHelper = nil;
     return dateArray;
 }
 
-#pragma mark - 其他拓展
-
-- (NSString *)ss_timeDescriptionFromDate:(NSDate *)date showTime:(BOOL)isShowTime
-{
-    if (!date) {
-        [self PrintErrorMessagesWithSelector:_cmd
-                                   parameter:@"date"
-                                 returnValue:@"EmptyString"];
-        return kEmptyString;
-    }
-    
-    NSInteger daysCount = [self daysDifferenceForDate:[NSDate date]
-                                              subDate:date
-                                              subMode:SSDateSubModeRelative];
-    NSInteger weeksCount = [self weeksDifferenceForDate:[NSDate date]
-                                                subDate:date
-                                                subMode:SSDateWeekModeUsually];
-    NSInteger yearsCount = [self yearsDifferenceForDate:[NSDate date]
-                                                subDate:date
-                                                subMode:SSDateSubModeRelative];
-    
-    NSString *timeDescription = [self cn_MD_stringFromDate:date];
-    NSString *time = [self HHMM_stringFromDate:date];
-    
-    if ([self isTodayForDate:date]) {
-        timeDescription = @"今天";
-    }
-    else if (daysCount == 1) {
-        timeDescription = @"昨天";
-    }
-    else if (daysCount == 2) {
-        timeDescription = @"前天";
-    }
-    else if (weeksCount == 0) {
-        timeDescription = [self weekdayStringFromDate:date];
-    }
-    else if (yearsCount >= 1) {
-        timeDescription = [self cn_YMD_stringFromDate:date];
-    }
-    
-    if (isShowTime) {
-        timeDescription = [timeDescription stringByAppendingFormat:@" %@", time];
-    }
-    return timeDescription;
-}
-
 - (NSDate *)earliestDateFromDates:(NSArray<NSDate *> *)dateArray
 {
     if (!dateArray) {
@@ -1452,6 +1499,52 @@ static SSDateHelper *_mainHelper = nil;
     }];
     NSDate *latestDate = dates.lastObject;
     return latestDate;
+}
+
+#pragma mark - 其他拓展
+
+- (NSString *)ss_timeDescriptionFromDate:(NSDate *)date showTime:(BOOL)isShowTime
+{
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"EmptyString"];
+        return kEmptyString;
+    }
+    
+    NSInteger daysCount = [self daysDifferenceForDate:[NSDate date]
+                                              subDate:date
+                                              subMode:SSDateSubModeRelative];
+    NSInteger weeksCount = [self weeksDifferenceForDate:[NSDate date]
+                                                subDate:date
+                                                subMode:SSDateWeekModeUsually];
+    NSInteger yearsCount = [self yearsDifferenceForDate:[NSDate date]
+                                                subDate:date
+                                                subMode:SSDateSubModeRelative];
+    
+    NSString *timeDescription = [self cn_MD_stringFromDate:date];
+    NSString *time = [self HHMM_stringFromDate:date];
+    
+    if ([self isTodayForDate:date]) {
+        timeDescription = @"今天";
+    }
+    else if (daysCount == 1) {
+        timeDescription = @"昨天";
+    }
+    else if (daysCount == 2) {
+        timeDescription = @"前天";
+    }
+    else if (weeksCount == 0) {
+        timeDescription = [self cn_weekday_StringFromDate:date];
+    }
+    else if (yearsCount >= 1) {
+        timeDescription = [self cn_YMD_stringFromDate:date];
+    }
+    
+    if (isShowTime) {
+        timeDescription = [timeDescription stringByAppendingFormat:@" %@", time];
+    }
+    return timeDescription;
 }
 
 @end

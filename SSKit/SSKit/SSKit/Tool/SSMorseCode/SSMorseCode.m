@@ -47,27 +47,24 @@ static NSString *morseCode7;
 static NSString *morseCode8;
 static NSString *morseCode9;
 
-static NSString *morseCodeFullStop; // .
-static NSString *morseCodeColon; // :
-static NSString *morseCodeComma; // ,
-static NSString *morseCodeSemicolon; // ;
-static NSString *morseCodeQuestionMark; // ?
-static NSString *morseCodeEqual; // =
+static NSString *morseCodeFullStop;             // .
+static NSString *morseCodeColon;                // :
+static NSString *morseCodeComma;                // ,
+static NSString *morseCodeSemicolon;            // ;
+static NSString *morseCodeQuestionMark;         // ?
+static NSString *morseCodeEqual;                // =
 static NSString *morseCodeSingleQuotationmMark; // '
 static NSString *morseCodeDoubleQuotationMarks; // "
-static NSString *morseCodeLeftSlash;  // /
-static NSString *morseCodeExclamatoryMark; // !
-static NSString *morseCodeDash; // -
-static NSString *morseCodeUnderline; // _
-static NSString *morseCodeLeftBracket; // (
-static NSString *morseCodeRightbracket; // )
-static NSString *morseCodeDollar; // $
-static NSString *morseCodeAIter; // @
-
+static NSString *morseCodeLeftSlash;            // /
+static NSString *morseCodeExclamatoryMark;      // !
+static NSString *morseCodeDash;                 // -
+static NSString *morseCodeUnderline;            // _
+static NSString *morseCodeLeftBracket;          // (
+static NSString *morseCodeRightbracket;         // )
+static NSString *morseCodeDollar;               // $
+static NSString *morseCodeAIter;                // @
 
 @implementation SSMorseCode
-
-
 
 + (NSString *)morseCodeFromString:(NSString *)string
 {
@@ -104,7 +101,6 @@ static NSString *morseCodeAIter; // @
 
 + (NSDictionary *)morseCodeDecodeTable
 {
-    
     static NSDictionary *_morseCodeDecodeTable;
     if (!_morseCodeDecodeTable) {
         _morseCodeDecodeTable = @{morseCodeA:@"A",
@@ -249,7 +245,6 @@ static NSString *morseCodeAIter; // @
     }
     return _morseCodeEncodeTable;
 }
-
 
 + (void)createMorseCode
 {

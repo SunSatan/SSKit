@@ -47,23 +47,23 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - block
 
-// 因为需要target来自动释放，所以需要多传一个target
+// 因为需要target来控制自动释放，所以需要多传一个target
 
 + (SSTimer *)timerWithTimeInterval:(NSTimeInterval)timeInterval
                             target:(id)target
                            repeats:(BOOL)yesOrNo
-                             block:(void (^)(NSTimer *timer))block;
+                             block:(void(^)(NSTimer *timer))block;
 
 + (SSTimer *)timerWithTimeInterval:(NSTimeInterval)timeInterval
                             target:(id)target
                            repeats:(BOOL)yesOrNo
                        runLoopMode:(NSRunLoopMode)runLoopMode
-                             block:(void (^)(NSTimer *timer))block;
+                             block:(void(^)(NSTimer *timer))block;
 
 + (SSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                      target:(id)target
                                     repeats:(BOOL)yesOrNo
-                                      block:(void (^)(NSTimer *timer))block;
+                                      block:(void(^)(NSTimer *timer))block;
 
 @end
 

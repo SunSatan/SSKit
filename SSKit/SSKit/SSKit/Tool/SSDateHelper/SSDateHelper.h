@@ -28,13 +28,13 @@
 
 typedef NS_ENUM(NSUInteger, SSDateSubMode) {
     /** 
-     减法计算相对精确：只要不是同一年(一个月、一天、一小时、一分、一秒)就会返回差值，并不在乎两个日期是不是只相差一秒
+     减法计算相对精确：比如只要不是同一年(一个月、一天、一小时、一分、一秒)就会返回差值，并不在乎两个日期是不是只相差一秒
      例如：2020-01-01 和 2019-12-31 的年份差值为1或-1
      例如：2020-01-30 和 2020-02-02 的月份差值为1或-1
      */
     SSDateSubModeRelative,
     /**
-     减法计算精确到日：在计算天、时、分、秒的差值时与 SSDateSubModeRelative 效果相同
+     减法计算精确到日：比如在计算天、时、分、秒的差值时与 SSDateSubModeRelative 效果相同
      例如：2020-01-02 和 2019-01-03 的年份差值为0 
      例如：2020-01-02 和 2019-01-02 的年份差值为1或-1
      */
@@ -44,7 +44,7 @@ typedef NS_ENUM(NSUInteger, SSDateSubMode) {
 };
 
 typedef NS_ENUM(NSUInteger, SSDateWeekMode) {
-    /** 根据日历显示，认为每周开始第一天为周日 */
+    /** 根据日历惯例，认为每周开始第一天为周日 */
     SSDateWeekModeDefault,
     /** 根据我们惯例，认为每周开始第一天为周一 */
     SSDateWeekModeUsually
@@ -72,6 +72,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)hl_YMDHM_stringFromDate:(NSDate *)date;
 /// 返回格式为 y-M-d H:m:s (2019-4-1 15:32:7)
 - (NSString *)hl_YMDHMS_stringFromDate:(NSDate *)date;
+/// 返回格式为 yyyy-MM-dd HH:mm:ss (2019-04-01 09:02:07)
+- (NSString *)hl_YYYYMMDDHHMMSS_stringFromDate:(NSDate *)date;
 
 /// 返回格式为 y年M月d日 (2019年4月1日)
 - (NSString *)cn_YMD_stringFromDate:(NSDate *)date;
@@ -79,6 +81,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)cn_YMDHM_stringFromDate:(NSDate *)date;
 /// 返回格式为 y年M月d日 H:m:s (2019年4月1日 15:32:7)
 - (NSString *)cn_YMDHMS_stringFromDate:(NSDate *)date;
+/// 返回格式为 y年M月d日 HH:mm:ss (2019年4月1日 09:10:07)
+- (NSString *)cn_YMDHHMMSS_stringFromDate:(NSDate *)date;
 /// 返回格式为 M月d日 (4月1日)
 - (NSString *)cn_MD_stringFromDate:(NSDate *)date;
 
@@ -101,10 +105,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// 返回格式为 HH:mm:ss (15:32:7)
 - (NSString *)HHMMSS_stringFromDate:(NSDate *)date;
 
-/// 返回格式为 周日
-- (NSString *)weekStringFromDate:(NSDate *)date;
-/// 返回格式为 星期日
-- (NSString *)weekdayStringFromDate:(NSDate *)date;
+/// 返回格式为 周日 (根据手机系统语言)
+- (NSString *)week_StringFromDate:(NSDate *)date;
+/// 返回格式为 星期日 (根据手机系统语言)
+- (NSString *)weekday_StringFromDate:(NSDate *)date;
+/// 返回格式为 周日（指定中文)
+- (NSString *)cn_week_StringFromDate:(NSDate *)date;
+/// 返回格式为 星期日（指定中文)
+- (NSString *)cn_weekday_StringFromDate:(NSDate *)date;
+/// 返回格式为 Mon（指定英文)
+- (NSString *)en_week_StringFromDate:(NSDate *)date;
+/// 返回格式为 Monday（指定英文)
+- (NSString *)en_weekday_StringFromDate:(NSDate *)date;
 
 @end
 
@@ -182,7 +194,7 @@ NS_ASSUME_NONNULL_BEGIN
 - (BOOL)isTodayForDate:(NSDate *)date;
 
 /**
- 判断指定日期是否是闰年
+ 判断指定日期年份是否是闰年
 
  @param date 指定日期
  @return 当指定日期在闰年中时 yes，否则 no
@@ -227,7 +239,7 @@ NS_ASSUME_NONNULL_BEGIN
  判断指定日期是否比当前时间早，只比较年月日时分
 
  @param date 指定日期
- @return 只有指定日期早于当前时间时 yes，否则等于早于都是 no
+ @return 只有指定日期早于当前时间时 yes，否则等于晚于都是 no
  */
 - (BOOL)isEarlierThanPresentTimeForDate:(NSDate *)date;
 
@@ -411,16 +423,51 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface SSDateHelper (DayExpansion)
 
-- (NSDate *)minuteLastDateForDate:(NSDate *)date;
+/**
+ 回到 date 分钟开始的时间: 2020-4-1 11:12:56 -> 2020-4-1 11:12:00
 
-- (NSDate *)hourLastDateForDate:(NSDate *)date;
+ @param date 指定日期
+ @return NSDate
+ */
+- (NSDate *)minuteStartDateForDate:(NSDate *)date;
+/**
+ 回到 date 小时开始的时间: 2020-4-1 11:12:56 -> 2020-4-1 11:00:00
 
+ @param date 指定日期
+ @return NSDate
+ */
+- (NSDate *)hourStartDateForDate:(NSDate *)date;
+/**
+ 回到 date 天开始的时间: 2020-4-1 11:12:56 -> 2020-4-1 00:00:00
+
+ @param date 指定日期
+ @return NSDate
+ */
 - (NSDate *)dayStartDateForDate:(NSDate *)date;
+/**
+ 回到 date 周开始的一天
+ 
+ SSDateWeekModeDefault: 2020-4-1 11:12:56 -> 2020-3-29 00:00:00
+ SSDateWeekModeUsually: 2020-4-1 11:12:56 -> 2020-3-30 00:00:00
 
+ @param date 指定日期
+ @param weekMode 周开始模式
+ @return NSDate
+ */
 - (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode;
+/**
+ 回到 date 月开始的一天
 
+ @param date 指定日期: 2020-4-11 11:12:56 -> 2020-4-1 00:00:00
+ @return NSDate
+ */
 - (NSDate *)monthStartDateForDate:(NSDate *)date;
+/**
+ 回到 date 年开始的一天: 2020-4-1 11:12:56 -> 2020-1-1 00:00:00
 
+ @param date 指定日期
+ @return NSDate
+ */
 - (NSDate *)yearStartDateForDate:(NSDate *)date;
 
 @end
@@ -503,7 +550,7 @@ NS_ASSUME_NONNULL_BEGIN
  返回  @"2019年3月1日 - 2019年3月3日"
  
  @param dateArray 日期数组
- @param dateFormat 指定日期格式，默认格式为2019年3月4日
+ @param dateFormat 指定日期格式，默认格式为 y年M月d日
  @return 日期数组里从最早时间开始的一个连续的日期区间拼接字符
  */
 - (NSString *)dateRangeStringFromDates:(NSArray<NSDate *> *)dateArray dateFormat:(NSString *)dateFormat;
@@ -521,28 +568,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSString *)dateRangeStringFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate dateFormat:(NSString *)dateFormat;
 
 /**
- 获取包含[fromDate, toDate]的日期区间里所有日期的数组
+ 获取包含[fromDate, toDate]的日期区间里所有的日期的数组
 
  @param fromDate 开始日期
  @param toDate 结束日期
  @return 包含[fromDate, toDate]的日期区间里所有日期的数组
  */
 - (NSArray<NSDate *> *)datesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate;
-
-@end
-
-#pragma mark - 其他拓展
-
-@interface SSDateHelper (Other)
-
-/**
- 根据指定日期获取特定的时间描述
-
- @param date 指定日期
- @param isShowTime 是否显示时间
- @return 特定的时间描述
- */
-- (NSString *)ss_timeDescriptionFromDate:(NSDate *)date showTime:(BOOL)isShowTime;
 
 /**
  获取日期数组里最早的日期
@@ -559,6 +591,21 @@ NS_ASSUME_NONNULL_BEGIN
  @return 日期数组里最晚的日期
  */
 - (NSDate *)latestDateFromDates:(NSArray<NSDate *> *)dateArray;
+
+@end
+
+#pragma mark - 其他拓展
+
+@interface SSDateHelper (Other)
+
+/**
+ 根据指定日期获取特定的时间描述
+
+ @param date 指定日期
+ @param isShowTime 是否显示时间
+ @return 特定的时间描述
+ */
+- (NSString *)ss_timeDescriptionFromDate:(NSDate *)date showTime:(BOOL)isShowTime;
 
 @end
 

@@ -31,9 +31,7 @@ static NSString *kJpgTempPath = @"tmp/ss_temp_image.JPG";
         if ([NSFileManager.defaultManager fileExistsAtPath:jpgPath]) {
             [NSFileManager.defaultManager removeItemAtPath:jpgPath error:nil];
         }
-        if (complete) {
-            complete(success);
-        }
+        !complete?:complete(success);
     }];
 }
 
