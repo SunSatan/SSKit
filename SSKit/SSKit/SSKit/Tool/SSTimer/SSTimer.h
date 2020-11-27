@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-// SSTimer 为了解决 NSTimer 循环引用
+// SSTimer 为了解决 NSTimer 循环引用，并提供高精度的定时器
 // 通过引入中间类 SSTimer，替换 NSTimer 的 target。
 // 并利用 SSTimer 弱引用的 target，让 SSTimer 和 NSTimer 自动管理生命周期，只需要创建和使用，不需要手动释放。
 // 重写了 NSTimer 常用的四个方法，包括 block 方法，因为需要使用 target，所以重写的 block 方法需要多传一个 target 参数。

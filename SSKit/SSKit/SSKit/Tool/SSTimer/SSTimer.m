@@ -15,19 +15,21 @@
 @property (nonatomic, assign) SEL selector;  // 因为要替换timer的selector，所以SSTTimer需要存储target的selector
 @property (nonatomic, weak)   id  target;    // 弱引用原本是timer的target，将timer的target变为自己(SSTTimer)
 
+@property (nonatomic, strong) dispatch_source_t timer_gcd;
+
 @end
 
 @implementation SSTimer
 
-#pragma mark - dealloc && clean
+#pragma mark - dealloc
 
 - (void)dealloc
 {
-    NSLog(@"SSTimer dealloced!");
-    if (_timer) {
-        [self cleanTimer];
-    }
+    NSLog(@"SSTimer -> dealloced!");
+    if (_timer) [self cleanTimer];
 }
+
+#pragma mark - clean
 
 - (void)cleanTimer
 {
@@ -119,7 +121,7 @@
 + (SSTimer *)timerWithTimeInterval:(NSTimeInterval)timeInterval
                             target:(id)target
                            repeats:(BOOL)yesOrNo
-                             block:(void (^)(NSTimer *timer))block
+                             block:(void(^)(NSTimer *timer))block
 {
     SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil];
     timerTarget.timer = [NSTimer timerWithTimeInterval:timeInterval
@@ -134,7 +136,7 @@
                             target:(id)target
                            repeats:(BOOL)yesOrNo
                        runLoopMode:(NSRunLoopMode)runLoopMode
-                             block:(void (^)(NSTimer *timer))block
+                             block:(void(^)(NSTimer *timer))block
 {
     SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil];
     timerTarget.timer = [NSTimer timerWithTimeInterval:timeInterval
@@ -149,7 +151,7 @@
 + (SSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                      target:(id)target
                                     repeats:(BOOL)yesOrNo
-                                      block:(void (^)(NSTimer *timer))block
+                                      block:(void(^)(NSTimer *timer))block
 {
     SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil];
     timerTarget.timer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
@@ -175,9 +177,62 @@
     }
 }
 
-- (void)timerefgfdfdc
+- (void)absoluteTimerWithTimeInterval:(NSTimeInterval)timeInterval
+                               target:(id)target
+                              repeats:(BOOL)yesOrNo
+                                block:(void(^)(dispatch_source_t timer))block
 {
+    dispatch_source_t timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue((intptr_t)"SSTime_Queue", 0));
     
+    dispatch_source_set_timer(timer, DISPATCH_TIME_NOW, timeInterval * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(timer, ^{
+        block(timer);
+    });
+    dispatch_resume(timer);
 }
+
+
+
++ (SSTimer *)GCD_timerWithTimeInterval:(NSTimeInterval)timeInterval
+                             time:(dispatch_time_t)time
+                           target:(id)target
+                          repeats:(BOOL)yesOrNo
+                            block:(void(^)(dispatch_source_t timer))block
+{
+    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil];
+    timerTarget.timer_gcd = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue((intptr_t)"SSTimer_Queue", 0));
+    dispatch_source_set_timer(timerTarget.timer_gcd, time, timeInterval * NSEC_PER_SEC, 0 * NSEC_PER_SEC);
+    dispatch_source_set_event_handler(timerTarget.timer_gcd, ^{
+        block(timerTarget.timer_gcd);
+    });
+    dispatch_resume(timerTarget.timer_gcd);
+    return timerTarget;
+}
+
+dispatch_time_t ss_dispatch_time_now_after_seconds(long second) {
+    int64_t delta = second * NSEC_PER_SEC;
+    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, delta);
+    return time;
+}
+
+dispatch_time_t timer_absolute_now_after_seconds(long second) {
+    int64_t delta = second * NSEC_PER_SEC;
+    dispatch_time_t time = dispatch_walltime(NULL, delta);
+    return time;
+}
+
+dispatch_time_t timer_absolute_from_date_after_seconds(NSDate *date, long after) {
+    NSTimeInterval interval = [date timeIntervalSince1970];
+    double second, nanosecond;
+    nanosecond = modf(interval, &second);
+    struct timespec time;
+    time.tv_sec = second;
+    time.tv_nsec = nanosecond * NSEC_PER_SEC;
+    int64_t delta = after * NSEC_PER_SEC;
+    dispatch_time_t milestone = dispatch_walltime(&time, delta);
+    return milestone;
+}
+
+
 @end
 
