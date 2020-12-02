@@ -16,11 +16,14 @@ NS_ASSUME_NONNULL_BEGIN
 // 重写了 NSTimer 常用的四个方法，包括 block 方法，因为需要使用 target，所以重写的 block 方法需要多传一个 target 参数。
 // 多添加了两个可以修改 RunloopMode 的参数的方法。
 
+typedef void(^timerAction)(NSTimer *timer);
+typedef void(^GCD_timerAction)(dispatch_source_t timer);
+
 @interface SSTimer : NSObject
 
 #pragma mark - clean timer
 
-// 本身不需要手动调用，提供给想要在viewWillDisappear中释放timer的
+// 本身不需要手动调用，提供给想要在 viewWillDisappear 中释放timer的
 
 - (void)cleanTimer;
 
@@ -52,18 +55,18 @@ NS_ASSUME_NONNULL_BEGIN
 + (SSTimer *)timerWithTimeInterval:(NSTimeInterval)timeInterval
                             target:(id)target
                            repeats:(BOOL)yesOrNo
-                             block:(void(^)(NSTimer *timer))block;
+                             block:(timerAction)block;
 
 + (SSTimer *)timerWithTimeInterval:(NSTimeInterval)timeInterval
                             target:(id)target
                            repeats:(BOOL)yesOrNo
                        runLoopMode:(NSRunLoopMode)runLoopMode
-                             block:(void(^)(NSTimer *timer))block;
+                             block:(timerAction)block;
 
 + (SSTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)timeInterval
                                      target:(id)target
                                     repeats:(BOOL)yesOrNo
-                                      block:(void(^)(NSTimer *timer))block;
+                                      block:(timerAction)block;
 
 @end
 

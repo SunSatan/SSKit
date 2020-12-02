@@ -35,7 +35,6 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (instancetype)ss_loadFromStoryboard:(NSString *)StoryboardName
                          StoryboardID:(NSString *)StoryboardID;
-
 /**
  * 设置导航栏透明(包括隐藏下划线)
  */
