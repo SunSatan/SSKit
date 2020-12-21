@@ -144,7 +144,7 @@
                              block:(timerAction)block
 {
     NSUInteger loopNumber = yesOrNo?NSUIntegerMax:1;
-    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:selector loopNumber:loopNumber];
+    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil loopNumber:loopNumber];
     timerTarget.timer = [NSTimer timerWithTimeInterval:timeInterval
                                                 target:timerTarget
                                               selector:@selector(blcokInvoke:)
@@ -160,7 +160,7 @@
                                       block:(timerAction)block
 {
     NSUInteger loopNumber = yesOrNo?NSUIntegerMax:1;
-    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:selector loopNumber:loopNumber];
+    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil loopNumber:loopNumber];
     timerTarget.timer = [NSTimer scheduledTimerWithTimeInterval:timeInterval
                                                          target:timerTarget
                                                        selector:@selector(blcokInvoke:)
@@ -190,7 +190,8 @@
                                repeats:(BOOL)yesOrNo
                                  block:(GCD_timerAction)block
 {
-    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil];
+    NSUInteger loopNumber = yesOrNo?NSUIntegerMax:1;
+    SSTimer *timerTarget = [SSTimer timerWithTarget:target selector:nil loopNumber:loopNumber];
     timerTarget.timer_gcd = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, dispatch_get_global_queue((intptr_t)"SSTimer_Queue", 0));
     dispatch_source_set_timer(timerTarget.timer_gcd, time, timeInterval * NSEC_PER_SEC, 0);
     dispatch_source_set_event_handler(timerTarget.timer_gcd, ^{
