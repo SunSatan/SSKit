@@ -52,6 +52,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (class, nonatomic, readonly) NSInteger screenNativeHeight;
 /// 屏幕分辨率的宽
 @property (class, nonatomic, readonly) NSInteger screenNativeWidth;
+#define SSScreenNativeWidth SSScreen.screenNativeWidth
 
 @end
 

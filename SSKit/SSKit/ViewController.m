@@ -51,22 +51,27 @@
     [self ss_navigationBarImageBackButton:@"icon_back_black"];
     self.view.backgroundColor = SSColorLightAndDark(UIColor.redBlood, UIColor.blueDoder);
     
-    self.text = [[UILabel alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:self.text];
-    self.text.textAlignment = NSTextAlignmentCenter;
-    self.text.numberOfLines = 0;
+//    self.text = [[UILabel alloc] initWithFrame:self.view.bounds];
+//    [self.view addSubview:self.text];
+//    self.text.textAlignment = NSTextAlignmentCenter;
+//    self.text.numberOfLines = 0;
+//
+//    if (self.isroot) {
+//        self.decibel = SSDecibel.new;
+//        @weakify;
+//        [self.decibel startCheckDecibelWithInterval:0.5
+//                                      updateDecibel:^(NSUInteger db) {
+//            @strongify;
+//            NSLog(@"avg: %ld", self.decibel.avgDB);
+//            NSLog(@"min: %ld", self.decibel.minDB);
+//            NSLog(@"max: %ld", self.decibel.maxDB);
+//        }];
+//    }
     
-    if (self.isroot) {
-        self.decibel = SSDecibel.new;
-        @weakify;
-        [self.decibel startCheckDecibelWithInterval:0.5
-                                      updateDecibel:^(NSUInteger db) {
-            @strongify;
-            NSLog(@"avg: %ld", self.decibel.avgDB);
-            NSLog(@"min: %ld", self.decibel.minDB);
-            NSLog(@"max: %ld", self.decibel.maxDB);
-        }];
-    }
+    NSCalendarUnit unit = NSCalendarUnitWeekday|NSCalendarUnitWeekdayOrdinal|NSCalendarUnitWeekOfMonth|NSCalendarUnitWeekOfYear|NSCalendarUnitYearForWeekOfYear;
+    NSDateComponents *components = [NSCalendar.currentCalendar components:unit fromDate:NSDate.date];
+    NSLog(@"%@",components);
+    NSLog(@"%ld",[SSDateMainHelper weekOfCurrentMonth]);
 }
 
 - (void)viewWillDisappear:(BOOL)animated

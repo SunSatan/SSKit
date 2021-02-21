@@ -77,45 +77,37 @@ static char * const kENWeekday[] = {
 
 static SSDateHelper *_mainHelper = nil;
 
-+ (instancetype)main
-{
++ (instancetype)main {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _mainHelper = [[super allocWithZone:nil] init];
-        _mainHelper.dateFormatter = [[NSDateFormatter alloc] init];
+        _mainHelper.dateFormatter = [NSDateFormatter.alloc init];
         _mainHelper.chineseCalendar = [NSCalendar calendarWithIdentifier:NSCalendarIdentifierChinese];
     });
     return _mainHelper;
 }
 
-+ (instancetype)allocWithZone:(struct _NSZone *)zone
-{
++ (instancetype)allocWithZone:(struct _NSZone *)zone {
     return [self main];
 }
 
-- (id)copyWithZone:(struct _NSZone *)zone
-{
+- (id)copyWithZone:(struct _NSZone *)zone {
     return _mainHelper;
 }
 
-- (id)mutableCopyWithZone:(NSZone *)zone
-{
+- (id)mutableCopyWithZone:(NSZone *)zone {
     return _mainHelper;
 }
 
 #pragma mark - 错误信息打印
 
-- (void)PrintErrorMessagesWithSelector:(SEL)sel
-                             parameter:(NSString *)parmName
-                           returnValue:(NSString *)returnValue
-{
+- (void)PrintErrorMessagesWithSelector:(SEL)sel parameter:(NSString *)parmName returnValue:(NSString *)returnValue {
     NSLog(@"'-[SSDateHelper %@]' %@ is nil, so return %@.", NSStringFromSelector(sel), parmName, returnValue);
 }
 
 #pragma mark - NSDate 转为 NSString
 
-- (NSString *)ol_DMY_stringFromDate:(NSDate *)date
-{
+- (NSString *)ol_DMY_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -126,8 +118,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)ol_DMYHM_stringFromDate:(NSDate *)date
-{
+- (NSString *)ol_DMYHM_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -138,8 +129,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)dot_YMD_stringFromDate:(NSDate *)date
-{
+- (NSString *)dot_YMD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -150,8 +140,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)dot_YMDHM_stringFromDate:(NSDate *)date
-{
+- (NSString *)dot_YMDHM_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -162,8 +151,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)hl_YMD_stringFromDate:(NSDate *)date
-{
+- (NSString *)hl_YMD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -174,8 +162,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)hl_YYYYMMDD_stringFromDate:(NSDate *)date
-{
+- (NSString *)hl_YYYYMMDD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -186,8 +173,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)hl_YMDHM_stringFromDate:(NSDate *)date
-{
+- (NSString *)hl_YMDHM_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -198,8 +184,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)hl_YMDHMS_stringFromDate:(NSDate *)date
-{
+- (NSString *)hl_YMDHMS_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -210,8 +195,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)hl_YYYYMMDDHHMMSS_stringFromDate:(NSDate *)date
-{
+- (NSString *)hl_YYYYMMDDHHMMSS_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -222,8 +206,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)cn_YMD_stringFromDate:(NSDate *)date
-{
+- (NSString *)cn_YMD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -234,8 +217,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)cn_YMDHM_stringFromDate:(NSDate *)date
-{
+- (NSString *)cn_YMDHM_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -246,8 +228,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)cn_YMDHMS_stringFromDate:(NSDate *)date
-{
+- (NSString *)cn_YMDHMS_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -258,8 +239,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)cn_YMDHHMMSS_stringFromDate:(NSDate *)date
-{
+- (NSString *)cn_YMDHHMMSS_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -270,9 +250,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-
-- (NSString *)cn_MD_stringFromDate:(NSDate *)date
-{
+- (NSString *)cn_MD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -283,8 +261,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)HM_stringFromDate:(NSDate *)date
-{
+- (NSString *)HM_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -295,8 +272,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)HMS_stringFromDate:(NSDate *)date
-{
+- (NSString *)HMS_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -307,8 +283,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)HHMM_stringFromDate:(NSDate *)date
-{
+- (NSString *)HHMM_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -319,8 +294,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)HHMMSS_stringFromDate:(NSDate *)date
-{
+- (NSString *)HHMMSS_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -331,8 +305,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)week_StringFromDate:(NSDate *)date
-{
+- (NSString *)week_StringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -343,8 +316,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)weekday_StringFromDate:(NSDate *)date
-{
+- (NSString *)weekday_StringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -355,8 +327,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter stringFromDate:date];
 }
 
-- (NSString *)cn_week_StringFromDate:(NSDate *)date
-{
+- (NSString *)cn_week_StringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -368,8 +339,7 @@ static SSDateHelper *_mainHelper = nil;
     return [NSString stringWithFormat:@"%s", kCNWeek[weekday]];
 }
 
-- (NSString *)cn_weekday_StringFromDate:(NSDate *)date
-{
+- (NSString *)cn_weekday_StringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -381,8 +351,7 @@ static SSDateHelper *_mainHelper = nil;
     return [NSString stringWithFormat:@"%s", kCNWeekday[weekday]];
 }
 
-- (NSString *)en_week_StringFromDate:(NSDate *)date
-{
+- (NSString *)en_week_StringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -394,8 +363,7 @@ static SSDateHelper *_mainHelper = nil;
     return [NSString stringWithFormat:@"%s", kENWeek[weekday]];
 }
 
-- (NSString *)en_weekday_StringFromDate:(NSDate *)date
-{
+- (NSString *)en_weekday_StringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -409,8 +377,7 @@ static SSDateHelper *_mainHelper = nil;
 
 #pragma mark - NSString 转为 NSDate
 
-- (NSDate *)ol_DMY_dateFromString:(NSString *)str
-{
+- (NSDate *)ol_DMY_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -421,8 +388,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)ol_DMYHM_dateFromString:(NSString *)str
-{
+- (NSDate *)ol_DMYHM_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -433,8 +399,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_YYYYMMDD_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_YYYYMMDD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -445,8 +410,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_YYYYMMDDHM_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_YYYYMMDDHM_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -457,8 +421,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_YYYYMMDDHHMM_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_YYYYMMDDHHMM_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -469,8 +432,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_YYYYMMDDHMS_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_YYYYMMDDHMS_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -481,8 +443,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_YYYYMMDDHHMMSS_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_YYYYMMDDHHMMSS_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -493,8 +454,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_MD_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_MD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -505,8 +465,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)hl_MMDD_dateFromString:(NSString *)str
-{
+- (NSDate *)hl_MMDD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -517,8 +476,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)cn_YMD_dateFromString:(NSString *)str
-{
+- (NSDate *)cn_YMD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -529,8 +487,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)cn_MD_dateFromString:(NSString *)str
-{
+- (NSDate *)cn_MD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -541,8 +498,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)cn_YMDHM_dateFromString:(NSString *)str
-{
+- (NSDate *)cn_YMDHM_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -553,8 +509,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)cn_MDHM_dateFromString:(NSString *)str
-{
+- (NSDate *)cn_MDHM_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -565,8 +520,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)dot_YMD_dateFromString:(NSString *)str
-{
+- (NSDate *)dot_YMD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -577,8 +531,7 @@ static SSDateHelper *_mainHelper = nil;
     return [self.dateFormatter dateFromString:str];
 }
 
-- (NSDate *)dot_MD_dateFromString:(NSString *)str
-{
+- (NSDate *)dot_MD_dateFromString:(NSString *)str {
     if (!str || str.length <= 0) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"str"
@@ -591,8 +544,7 @@ static SSDateHelper *_mainHelper = nil;
 
 #pragma mark - 中国农历、生肖
 
-- (NSString *)nl_YMD_stringFromDate:(NSDate *)date
-{
+- (NSString *)nl_YMD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -608,8 +560,7 @@ static SSDateHelper *_mainHelper = nil;
     return cn_str;
 }
 
-- (NSString *)nl_MD_stringFromDate:(NSDate *)date
-{
+- (NSString *)nl_MD_stringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -624,8 +575,7 @@ static SSDateHelper *_mainHelper = nil;
     return cn_str;
 }
 
-- (NSString *)nl_yearsStringFromDate:(NSDate *)date
-{
+- (NSString *)nl_yearsStringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -639,8 +589,7 @@ static SSDateHelper *_mainHelper = nil;
     return cn_str;
 }
 
-- (NSString *)nl_monthStringFromDate:(NSDate *)date
-{
+- (NSString *)nl_monthStringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -652,8 +601,7 @@ static SSDateHelper *_mainHelper = nil;
     return month_str;
 }
 
-- (NSString *)nl_dayStringFromDate:(NSDate *)date
-{
+- (NSString *)nl_dayStringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -665,8 +613,7 @@ static SSDateHelper *_mainHelper = nil;
     return day_str;
 }
 
-- (NSString *)nl_zodiacStringFromDate:(NSDate *)date
-{
+- (NSString *)nl_zodiacStringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -679,8 +626,7 @@ static SSDateHelper *_mainHelper = nil;
     return zodiac;
 }
 
-- (NSString *)nl_earthlyBranchesZodiacStringFromDate:(NSDate *)date
-{
+- (NSString *)nl_earthlyBranchesZodiacStringFromDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -697,8 +643,7 @@ static SSDateHelper *_mainHelper = nil;
 
 #pragma mark - 判断、比较
 
-- (BOOL)isTodayForDate:(NSDate *)date
-{
+- (BOOL)isTodayForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -707,15 +652,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:unit fromDate:[NSDate date]];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *todayComponents = [NSCalendar.currentCalendar components:unit fromDate:NSDate.date];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.day == 0);
     return sure;
 }
 
-- (BOOL)isLeapYearForDate:(NSDate *)date
-{
+- (BOOL)isLeapYearForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -723,7 +667,7 @@ static SSDateHelper *_mainHelper = nil;
         return NO;
     }
     
-    NSInteger yearInteger = [[NSCalendar currentCalendar] component:NSCalendarUnitYear fromDate:date];
+    NSInteger yearInteger = [NSCalendar.currentCalendar component:NSCalendarUnitYear fromDate:date];
     //能被4整除但不能被100整除为普通闰年，能被400整除为世纪闰年
     if ((yearInteger % 4 == 0 && yearInteger % 100 != 0) ||
         yearInteger % 400 == 0) {
@@ -732,8 +676,7 @@ static SSDateHelper *_mainHelper = nil;
     return NO;
 }
 
-- (BOOL)isSameDayFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isSameDayFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!toDate || !fromDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate/fromDate"
@@ -742,15 +685,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *toDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:toDate];
-    NSDateComponents *fromDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:fromDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *toDateComponents = [NSCalendar.currentCalendar components:unit fromDate:toDate];
+    NSDateComponents *fromDateComponents = [NSCalendar.currentCalendar components:unit fromDate:fromDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.day == 0);
     return sure;
 }
 
-- (BOOL)isSameTimeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isSameTimeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!toDate || !fromDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate/fromDate"
@@ -759,15 +701,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
-    NSDateComponents *toDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:toDate];
-    NSDateComponents *fromDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:fromDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *toDateComponents = [NSCalendar.currentCalendar components:unit fromDate:toDate];
+    NSDateComponents *fromDateComponents = [NSCalendar.currentCalendar components:unit fromDate:fromDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMinute fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.minute == 0);
     return sure;
 }
 
-- (BOOL)isEarlierThanTodayForDate:(NSDate *)date
-{
+- (BOOL)isEarlierThanTodayForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -776,15 +717,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:unit fromDate:[NSDate date]];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *todayComponents = [NSCalendar.currentCalendar components:unit fromDate:NSDate.date];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
     BOOL earlier = (comp.day > 0);
     return earlier;
 }
 
-- (BOOL)isLaterThanTodayForDate:(NSDate *)date
-{
+- (BOOL)isLaterThanTodayForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -793,15 +733,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:unit fromDate:[NSDate date]];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *todayComponents = [NSCalendar.currentCalendar components:unit fromDate:NSDate.date];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
     BOOL later = (comp.day < 0);
     return later;
 }
 
-- (BOOL)isEarlierThanPresentTimeForDate:(NSDate *)date
-{
+- (BOOL)isEarlierThanPresentTimeForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -810,15 +749,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:unit fromDate:[NSDate date]];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *todayComponents = [NSCalendar.currentCalendar components:unit fromDate:NSDate.date];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMinute fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.minute > 0);
     return sure;
 }
 
-- (BOOL)isLaterThanPresentTimeForDate:(NSDate *)date
-{
+- (BOOL)isLaterThanPresentTimeForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -827,15 +765,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *todayComponents = [[NSCalendar currentCalendar] components:unit fromDate:[NSDate date]];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *todayComponents = [NSCalendar.currentCalendar components:unit fromDate:NSDate.date];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMinute fromDateComponents:dateComponents toDateComponents:todayComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.minute < 0);
     return sure;
 }
 
-- (BOOL)isEarlierDayFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isEarlierDayFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!toDate || !fromDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate/fromDate"
@@ -844,15 +781,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *toDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:toDate];
-    NSDateComponents *fromDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:fromDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *toDateComponents = [NSCalendar.currentCalendar components:unit fromDate:toDate];
+    NSDateComponents *fromDateComponents = [NSCalendar.currentCalendar components:unit fromDate:fromDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.day > 0);
     return sure;
 }
 
-- (BOOL)isLaterDayFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isLaterDayFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!toDate || !fromDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate/fromDate"
@@ -861,15 +797,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *toDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:toDate];
-    NSDateComponents *fromDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:fromDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *toDateComponents = [NSCalendar.currentCalendar components:unit fromDate:toDate];
+    NSDateComponents *fromDateComponents = [NSCalendar.currentCalendar components:unit fromDate:fromDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.day < 0);
     return sure;
 }
 
-- (BOOL)isEarlierTimeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isEarlierTimeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!toDate || !fromDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate/fromDate"
@@ -878,15 +813,14 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
-    NSDateComponents *toDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:toDate];
-    NSDateComponents *fromDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:fromDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *toDateComponents = [NSCalendar.currentCalendar components:unit fromDate:toDate];
+    NSDateComponents *fromDateComponents = [NSCalendar.currentCalendar components:unit fromDate:fromDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMinute fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.minute > 0);
     return sure;
 }
 
-- (BOOL)isLaterTimeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isLaterTimeFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!toDate || !fromDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate/fromDate"
@@ -895,17 +829,16 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute;
-    NSDateComponents *toDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:toDate];
-    NSDateComponents *fromDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:fromDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *toDateComponents = [NSCalendar.currentCalendar components:unit fromDate:toDate];
+    NSDateComponents *fromDateComponents = [NSCalendar.currentCalendar components:unit fromDate:fromDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMinute fromDateComponents:fromDateComponents toDateComponents:toDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (comp.minute < 0);
     return sure;
 }
 
 #pragma mark - 计算:增加、差值
 
-- (NSDate *)dateByAddingYears:(NSInteger)years toDate:(NSDate *)toDate
-{
+- (NSDate *)dateByAddingYears:(NSInteger)years toDate:(NSDate *)toDate {
     if (!toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate"
@@ -913,15 +846,14 @@ static SSDateHelper *_mainHelper = nil;
         return nil;
     }
     
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:toDate];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:toDate];
     
     dateComponents.year += years;
-    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    NSDate *date = [NSCalendar.currentCalendar dateFromComponents:dateComponents];
     return date;
 }
 
-- (NSDate *)dateByAddingMonths:(NSInteger)months toDate:(NSDate *)toDate
-{
+- (NSDate *)dateByAddingMonths:(NSInteger)months toDate:(NSDate *)toDate {
     if (!toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate"
@@ -929,19 +861,18 @@ static SSDateHelper *_mainHelper = nil;
         return nil;
     }
     
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:toDate];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond fromDate:toDate];
     
     NSInteger moveYears  = months/12;
     NSInteger moveMonths = months%12;
     dateComponents.year += moveYears;
     dateComponents.month += moveMonths;
     
-    NSDate *date = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    NSDate *date = [NSCalendar.currentCalendar dateFromComponents:dateComponents];
     return date;
 }
 
-- (NSDate *)dateByAddingDays:(NSTimeInterval)days toDate:(NSDate *)toDate
-{
+- (NSDate *)dateByAddingDays:(NSTimeInterval)days toDate:(NSDate *)toDate {
     if (!toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate"
@@ -952,8 +883,7 @@ static SSDateHelper *_mainHelper = nil;
     return date;
 }
 
-- (NSDate *)dateByAddingHours:(NSTimeInterval)hours toDate:(NSDate *)toDate
-{
+- (NSDate *)dateByAddingHours:(NSTimeInterval)hours toDate:(NSDate *)toDate {
     if (!toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate"
@@ -964,8 +894,7 @@ static SSDateHelper *_mainHelper = nil;
     return date;
 }
 
-- (NSDate *)dateByAddingMinutes:(NSTimeInterval)minutes toDate:(NSDate *)toDate
-{
+- (NSDate *)dateByAddingMinutes:(NSTimeInterval)minutes toDate:(NSDate *)toDate {
     if (!toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate"
@@ -976,8 +905,7 @@ static SSDateHelper *_mainHelper = nil;
     return date;
 }
 
-- (NSDate *)dateByAddingSeconds:(NSTimeInterval)seconds toDate:(NSDate *)toDate
-{
+- (NSDate *)dateByAddingSeconds:(NSTimeInterval)seconds toDate:(NSDate *)toDate {
     if (!toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"toDate"
@@ -988,8 +916,9 @@ static SSDateHelper *_mainHelper = nil;
     return date;
 }
 
-- (NSInteger)yearsDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateSubMode)mode
-{
+- (NSInteger)yearsDifferenceForDate:(NSDate *)date
+                            subDate:(NSDate *)subDate
+                            subMode:(SSDateSubMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1008,14 +937,15 @@ static SSDateHelper *_mainHelper = nil;
         unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     }
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitYear fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitYear fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     return comp.year;
 }
 
-- (NSInteger)monthsDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateSubMode)mode
-{
+- (NSInteger)monthsDifferenceForDate:(NSDate *)date
+                             subDate:(NSDate *)subDate
+                             subMode:(SSDateSubMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1034,14 +964,15 @@ static SSDateHelper *_mainHelper = nil;
         unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     }
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMonth fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMonth fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     return comp.month;
 }
 
-- (NSInteger)daysDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateSubMode)mode
-{
+- (NSInteger)daysDifferenceForDate:(NSDate *)date
+                           subDate:(NSDate *)subDate
+                           subMode:(SSDateSubMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1057,14 +988,15 @@ static SSDateHelper *_mainHelper = nil;
         unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     }
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     return comp.day;
 }
 
-- (NSInteger)hoursDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateSubMode)mode
-{
+- (NSInteger)hoursDifferenceForDate:(NSDate *)date
+                            subDate:(NSDate *)subDate
+                            subMode:(SSDateSubMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1080,14 +1012,15 @@ static SSDateHelper *_mainHelper = nil;
         unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     }
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitHour fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitHour fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     return comp.hour;
 }
 
-- (NSInteger)minutesDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateSubMode)mode
-{
+- (NSInteger)minutesDifferenceForDate:(NSDate *)date
+                              subDate:(NSDate *)subDate
+                              subMode:(SSDateSubMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1103,14 +1036,15 @@ static SSDateHelper *_mainHelper = nil;
         unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     }
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitMinute fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitMinute fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     return comp.minute;
 }
 
-- (NSInteger)secondsDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateSubMode)mode
-{
+- (NSInteger)secondsDifferenceForDate:(NSDate *)date
+                              subDate:(NSDate *)subDate
+                              subMode:(SSDateSubMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1120,14 +1054,15 @@ static SSDateHelper *_mainHelper = nil;
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute|NSCalendarUnitSecond;
     
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitSecond fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitSecond fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     return comp.second;
 }
 
-- (NSInteger)weeksDifferenceForDate:(NSDate *)date subDate:(NSDate *)subDate subMode:(SSDateWeekMode)mode
-{
+- (NSInteger)weeksDifferenceForDate:(NSDate *)date
+                            subDate:(NSDate *)subDate
+                            subMode:(SSDateWeekMode)mode {
     if (!date || !subDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date/subDate"
@@ -1136,13 +1071,13 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitWeekday;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *subDateComp = [[NSCalendar currentCalendar] components:unit fromDate:subDate];
-    NSDateComponents *comp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *subDateComp = [NSCalendar.currentCalendar components:unit fromDate:subDate];
+    NSDateComponents *comp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:subDateComp toDateComponents:dateComp options:NSCalendarWrapComponents];
     
     if (mode == SSDateWeekModeUsually) {
-        //如果以我们平时习惯的周天为周末，就要重新架构weekday的排序。
-        //需要先把默认weekday往前移一位，在把代表周天的0移到7。
+        // 如果以我们平时习惯的周天为周末，就要重新架构weekday的排序。
+        // 需要先把默认weekday往前移一位，在把代表周天的0移到7。
         dateComp.weekday -= 1;
         subDateComp.weekday -= 1;
         dateComp.weekday = (dateComp.weekday == 0) ? 7 : dateComp.weekday;
@@ -1155,10 +1090,81 @@ static SSDateHelper *_mainHelper = nil;
     return weekDifference;
 }
 
+#pragma mark - 年份拓展
+
+- (NSInteger)dayNumberOfCurrentYear {
+    return [self dayNumberOfYearForDate:NSDate.date];
+}
+
+- (NSInteger)dayNumberOfYearForDate:(NSDate *)date {
+    if (!date) {
+        [self PrintErrorMessagesWithSelector:_cmd
+                                   parameter:@"date"
+                                 returnValue:@"0"];
+        return 0;
+    }
+    
+    NSRange dayRange = [NSCalendar.currentCalendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitYear forDate:date];
+    return dayRange.length;
+}
+
+#pragma mark - 天数拓展
+
+- (NSInteger)dayOfYearForToday {
+    return [self dayOfYearForDate:NSDate.date];
+}
+
+- (NSInteger)dayOfYearForDate:(NSDate *)date {
+    NSDate *yearStartDate = [self yearStartDateForDate:date];
+    NSUInteger day = [self daysDifferenceForDate:date
+                                         subDate:yearStartDate
+                                         subMode:SSDateSubModeDate];
+    return day+1; // 差值再加benshen
+}
+
+#pragma mark - 星期拓展
+
+- (NSInteger)weekForDate:(NSDate *)date {
+    return [self weekForDate:date weekMode:SSDateWeekModeDefault];
+}
+
+- (NSInteger)weekForDate:(NSDate *)date
+                weekMode:(SSDateWeekMode)mode {
+    NSInteger weekday = [NSCalendar.currentCalendar components:NSCalendarUnitWeekday fromDate:date].weekday;
+    if (mode == SSDateWeekModeUsually) {
+        weekday -= 1;
+        weekday = (weekday == 0) ? 7 : weekday;
+    }
+    return weekday;
+}
+
+- (NSInteger)weekOfCurrentYearInToday {
+    return [self weekOfYearForDate:NSDate.date];
+}
+
+- (NSInteger)weekOfYearForDate:(NSDate *)date {
+    NSInteger day = [self dayOfYearForDate:date];
+    NSInteger week = ceil(day/7.0);
+    if (week <= 1) return week;
+    
+    NSDate *yearStartDate = [self yearStartDateForDate:date];
+    NSInteger weekStartDate = [self weekForDate:NSDate.date];
+    
+    return week;
+}
+
+- (NSInteger)weekOfCurrentMonthInToday {
+    return [self weekOfMonthForDate:NSDate.date];
+}
+
+- (NSInteger)weekOfMonthForDate:(NSDate *)date {
+    return [NSCalendar.currentCalendar components:NSCalendarUnitWeekOfMonth
+                                         fromDate:date].weekOfMonth;
+}
+
 #pragma mark - 日期拓展
 
-- (NSDate *)minuteStartDateForDate:(NSDate *)date
-{
+- (NSDate *)minuteStartDateForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1172,8 +1178,7 @@ static SSDateHelper *_mainHelper = nil;
     return minuteLastDate;
 }
 
-- (NSDate *)hourStartDateForDate:(NSDate *)date
-{
+- (NSDate *)hourStartDateForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1187,8 +1192,7 @@ static SSDateHelper *_mainHelper = nil;
     return hourLastDate;
 }
 
-- (NSDate *)dayStartDateForDate:(NSDate *)date
-{
+- (NSDate *)dayStartDateForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1202,8 +1206,7 @@ static SSDateHelper *_mainHelper = nil;
     return dayStartDate;
 }
 
-- (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode
-{
+- (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd parameter:@"date" returnValue:@"nil"];
         return nil;
@@ -1220,12 +1223,11 @@ static SSDateHelper *_mainHelper = nil;
     
     dateComp.day = dateComp.day - num;
     
-    NSDate *weekStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    NSDate *weekStartDate = [NSCalendar.currentCalendar dateFromComponents:dateComp];
     return weekStartDate;
 }
 
-- (NSDate *)monthStartDateForDate:(NSDate *)date
-{
+- (NSDate *)monthStartDateForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1234,13 +1236,12 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDate *monthStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDate *monthStartDate = [NSCalendar.currentCalendar dateFromComponents:dateComp];
     return monthStartDate;
 }
 
-- (NSDate *)yearStartDateForDate:(NSDate *)date
-{
+- (NSDate *)yearStartDateForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1249,20 +1250,18 @@ static SSDateHelper *_mainHelper = nil;
     }
     
     NSCalendarUnit unit = NSCalendarUnitYear;
-    NSDateComponents *dateComp = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDate *yearStartDate = [[NSCalendar currentCalendar] dateFromComponents:dateComp];
+    NSDateComponents *dateComp = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDate *yearStartDate = [NSCalendar.currentCalendar dateFromComponents:dateComp];
     return yearStartDate;
 }
 
 #pragma mark - 月份拓展
 
-- (NSInteger)dayNumberOfCurrentMonth
-{
-    return [self dayNumberOfMonthForDate:[NSDate date]];
+- (NSInteger)dayNumberOfCurrentMonth {
+    return [self dayNumberOfMonthForDate:NSDate.date];
 }
 
-- (NSInteger)dayNumberOfMonthForDate:(NSDate *)date
-{
+- (NSInteger)dayNumberOfMonthForDate:(NSDate *)date {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1270,39 +1269,34 @@ static SSDateHelper *_mainHelper = nil;
         return 0;
     }
     
-    NSRange dayRange = [[NSCalendar currentCalendar] rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
+    NSRange dayRange = [NSCalendar.currentCalendar rangeOfUnit:NSCalendarUnitDay inUnit:NSCalendarUnitMonth forDate:date];
     return dayRange.length;
 }
 
-- (NSDate *)firstDateOfLastMonth
-{
-    return [self firstDateOfMonthForDate:[NSDate date] monthsLater:-1];
+- (NSDate *)firstDateOfLastMonth {
+    return [self firstDateOfMonthForDate:NSDate.date monthsLater:-1];
 }
 
-- (NSDate *)firstDateOfCurrentMonth
-{
-    return [self firstDateOfMonthForDate:[NSDate date] monthsLater:0];
+- (NSDate *)firstDateOfCurrentMonth {
+    return [self firstDateOfMonthForDate:NSDate.date monthsLater:0];
 }
 
-- (NSDate *)firstDateOfNextMonth
-{
-    return [self firstDateOfMonthForDate:[NSDate date] monthsLater:1];
+- (NSDate *)firstDateOfNextMonth {
+    return [self firstDateOfMonthForDate:NSDate.date monthsLater:1];
 }
 
-- (NSDate *)firstDateOfMonthForDate:(NSDate *)date
-{
+- (NSDate *)firstDateOfMonthForDate:(NSDate *)date {
     return [self firstDateOfMonthForDate:date monthsLater:0];
 }
 
-- (NSDate *)firstDateOfMonthForDate:(NSDate *)date monthsLater:(NSInteger)number
-{
+- (NSDate *)firstDateOfMonthForDate:(NSDate *)date monthsLater:(NSInteger)number {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
                                  returnValue:@"nil"];
         return nil;
     }
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:date];
     //日期设为1号
     dateComponents.day = 1;
     //设置年份和月份
@@ -1311,14 +1305,13 @@ static SSDateHelper *_mainHelper = nil;
     dateComponents.year  = dateComponents.year  + moveYears;
     dateComponents.month = dateComponents.month + moveMonths;
     
-    NSDate *firstDateOfMonth = [[NSCalendar currentCalendar] dateFromComponents:dateComponents];
+    NSDate *firstDateOfMonth = [NSCalendar.currentCalendar dateFromComponents:dateComponents];
     return firstDateOfMonth;
 }
 
 #pragma mark - 日期区间
 
-- (BOOL)isContinuousDateRangeForDates:(NSArray<NSDate *> *)dates
-{
+- (BOOL)isContinuousDateRangeForDates:(NSArray<NSDate *> *)dates {
     if (!dates) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"dates"
@@ -1334,10 +1327,10 @@ static SSDateHelper *_mainHelper = nil;
     
     BOOL flag = YES;
     for (int i=0, j=1; j<dateSortArray.count; i++, j++) {
-        NSDateComponents *dateComponentsI = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dateSortArray[i]];
-        NSDateComponents *dateComponentsJ = [[NSCalendar currentCalendar] components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dateSortArray[j]];
+        NSDateComponents *dateComponentsI = [NSCalendar.currentCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dateSortArray[i]];
+        NSDateComponents *dateComponentsJ = [NSCalendar.currentCalendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dateSortArray[j]];
         
-        NSDateComponents *compare = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:dateComponentsI toDateComponents:dateComponentsJ options:NSCalendarWrapComponents];
+        NSDateComponents *compare = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:dateComponentsI toDateComponents:dateComponentsJ options:NSCalendarWrapComponents];
         if (compare.day != 1) {
             flag = NO;
             break;
@@ -1346,8 +1339,7 @@ static SSDateHelper *_mainHelper = nil;
     return flag;
 }
 
-- (BOOL)isExsitDateRangeForDate:(NSDate *)date fromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (BOOL)isExsitDateRangeForDate:(NSDate *)date fromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1364,17 +1356,16 @@ static SSDateHelper *_mainHelper = nil;
     NSDate *endDate   = [fromDate laterDate:toDate];
     
     NSCalendarUnit unit = NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay;
-    NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:unit fromDate:date];
-    NSDateComponents *startDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:startDate];
-    NSDateComponents *endDateComponents = [[NSCalendar currentCalendar] components:unit fromDate:endDate];
-    NSDateComponents *startComp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:startDateComponents toDateComponents:dateComponents options:NSCalendarWrapComponents];
-    NSDateComponents *endComp = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:endDateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:unit fromDate:date];
+    NSDateComponents *startDateComponents = [NSCalendar.currentCalendar components:unit fromDate:startDate];
+    NSDateComponents *endDateComponents = [NSCalendar.currentCalendar components:unit fromDate:endDate];
+    NSDateComponents *startComp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:startDateComponents toDateComponents:dateComponents options:NSCalendarWrapComponents];
+    NSDateComponents *endComp = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDateComponents:dateComponents toDateComponents:endDateComponents options:NSCalendarWrapComponents];
     BOOL sure = (startComp.day >= 0 && endComp.day >= 0);
     return sure;
 }
 
-- (NSString *)dateRangeStringFromDates:(NSArray<NSDate *> *)dateArray dateFormat:(NSString *)dateFormat
-{
+- (NSString *)dateRangeStringFromDates:(NSArray<NSDate *> *)dateArray dateFormat:(NSString *)dateFormat {
     if (!dateArray) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"dateArray"
@@ -1399,7 +1390,7 @@ static SSDateHelper *_mainHelper = nil;
     NSDate *endDate   = dates.lastObject;
     
     for (int i=0, j=1; j<dates.count; i++, j++) {
-        NSDateComponents *dateComponents = [[NSCalendar currentCalendar] components:NSCalendarUnitDay fromDate:dates[i] toDate:dates[j] options:NSCalendarWrapComponents];
+        NSDateComponents *dateComponents = [NSCalendar.currentCalendar components:NSCalendarUnitDay fromDate:dates[i] toDate:dates[j] options:NSCalendarWrapComponents];
         if (!(dateComponents.day == 1 || dateComponents.day == 0)) {
             endDate = dates[i];
             break;
@@ -1417,8 +1408,7 @@ static SSDateHelper *_mainHelper = nil;
     return dateRange;
 }
 
-- (NSString *)dateRangeStringFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate dateFormat:(NSString *)dateFormat
-{
+- (NSString *)dateRangeStringFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate dateFormat:(NSString *)dateFormat {
     if (!fromDate || !toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"fromDate/toDate"
@@ -1439,8 +1429,7 @@ static SSDateHelper *_mainHelper = nil;
     return dateRange;
 }
 
-- (NSArray<NSDate *> *)datesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate
-{
+- (NSArray<NSDate *> *)datesFromDate:(NSDate *)fromDate toDate:(NSDate *)toDate {
     if (!fromDate || !toDate) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"fromDate/toDate"
@@ -1463,8 +1452,7 @@ static SSDateHelper *_mainHelper = nil;
     return dateArray;
 }
 
-- (NSDate *)earliestDateFromDates:(NSArray<NSDate *> *)dateArray
-{
+- (NSDate *)earliestDateFromDates:(NSArray<NSDate *> *)dateArray {
     if (!dateArray) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"dateArray"
@@ -1482,8 +1470,7 @@ static SSDateHelper *_mainHelper = nil;
     return earliestDate;
 }
 
-- (NSDate *)latestDateFromDates:(NSArray<NSDate *> *)dateArray
-{
+- (NSDate *)latestDateFromDates:(NSArray<NSDate *> *)dateArray {
     if (!dateArray) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"dateArray"
@@ -1503,8 +1490,7 @@ static SSDateHelper *_mainHelper = nil;
 
 #pragma mark - 其他拓展
 
-- (NSString *)ss_timeDescriptionFromDate:(NSDate *)date showTime:(BOOL)isShowTime
-{
+- (NSString *)ss_timeDescriptionFromDate:(NSDate *)date showTime:(BOOL)isShowTime {
     if (!date) {
         [self PrintErrorMessagesWithSelector:_cmd
                                    parameter:@"date"
@@ -1512,13 +1498,13 @@ static SSDateHelper *_mainHelper = nil;
         return kEmptyString;
     }
     
-    NSInteger daysCount = [self daysDifferenceForDate:[NSDate date]
+    NSInteger daysCount = [self daysDifferenceForDate:NSDate.date
                                               subDate:date
                                               subMode:SSDateSubModeRelative];
-    NSInteger weeksCount = [self weeksDifferenceForDate:[NSDate date]
+    NSInteger weeksCount = [self weeksDifferenceForDate:NSDate.date
                                                 subDate:date
                                                 subMode:SSDateWeekModeUsually];
-    NSInteger yearsCount = [self yearsDifferenceForDate:[NSDate date]
+    NSInteger yearsCount = [self yearsDifferenceForDate:NSDate.date
                                                 subDate:date
                                                 subMode:SSDateSubModeRelative];
     

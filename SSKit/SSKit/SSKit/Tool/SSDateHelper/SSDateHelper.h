@@ -29,14 +29,14 @@
 typedef NS_ENUM(NSUInteger, SSDateSubMode) {
     /** 
      减法计算相对精确：比如只要不是同一年(一个月、一天、一小时、一分、一秒)就会返回差值，并不在乎两个日期是不是只相差一秒
-     例如：2020-01-01 和 2019-12-31 的年份差值为1或-1
-     例如：2020-01-30 和 2020-02-02 的月份差值为1或-1
+     例如：2020-01-01 和 2019-12-31 的年份差值为1（或-1）
+     例如：2020-01-30 和 2020-02-02 的月份差值为1（或-1）
      */
     SSDateSubModeRelative,
     /**
      减法计算精确到日：比如在计算天、时、分、秒的差值时与 SSDateSubModeRelative 效果相同
      例如：2020-01-02 和 2019-01-03 的年份差值为0 
-     例如：2020-01-02 和 2019-01-02 的年份差值为1或-1
+     例如：2020-01-02 和 2019-01-02 的年份差值为1（或-1）
      */
     SSDateSubModeDate,
     /** 减法计算精确到秒 */
@@ -121,7 +121,7 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 #pragma mark - NSString 转为 NSDate
-
+// 注：重新测试 NSString 转 NSDate 需要完整的年月日
 @interface SSDateHelper (StringToDate)
 
 /// 参数格式为 yyyy-MM-dd (2019-04-01)
@@ -445,7 +445,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDate *)dayStartDateForDate:(NSDate *)date;
 /**
- 回到 date 周开始的一天
+ 回到 date 的周开始的第一天
  
  SSDateWeekModeDefault: 2020-4-1 11:12:56 -> 2020-3-29 00:00:00
  SSDateWeekModeUsually: 2020-4-1 11:12:56 -> 2020-3-30 00:00:00
@@ -456,7 +456,7 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (NSDate *)weekStartDateForDate:(NSDate *)date weekMode:(SSDateWeekMode)weekMode;
 /**
- 回到 date 月开始的一天
+ 回到 date 月开始的第一天
 
  @param date 指定日期: 2020-4-11 11:12:56 -> 2020-4-1 00:00:00
  @return NSDate
@@ -469,6 +469,52 @@ NS_ASSUME_NONNULL_BEGIN
  @return NSDate
  */
 - (NSDate *)yearStartDateForDate:(NSDate *)date;
+
+@end
+
+#pragma mark - 年份拓展
+
+@interface SSDateHelper (YearExpansion)
+/**
+ 当前年份共有多少天
+ */
+- (NSInteger)dayNumberOfCurrentYear;
+/**
+ 获取指定日期是所在年份共有多少天
+ */
+- (NSInteger)dayNumberOfYearForDate:(NSDate *)date;
+
+@end
+
+#pragma mark - 天数拓展
+
+@interface SSDateHelper (DayExpansion)
+/**
+ 今天是今年的第几天
+ */
+- (NSInteger)dayOfYearForToday;
+/**
+ 获取指定日期是所在年份的第几天
+ */
+- (NSInteger)dayOfYearForDate:(NSDate *)date;
+
+@end
+
+#pragma mark - 星期拓展
+
+@interface SSDateHelper (WeekExpansion)
+
+- (NSInteger)weekOfCurrentYear;
+
+- (NSInteger)weekOfYearForDate:(NSDate *)date;
+/**
+ 获取指定日期是所在月份的第几周
+ */
+- (NSInteger)weekOfCurrentMonthInToday;
+/**
+ 获取指定日期是所在月份的第几周
+ */
+- (NSInteger)weekOfMonthForDate:(NSDate *)date;
 
 @end
 
