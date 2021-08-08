@@ -83,7 +83,7 @@
     CGFloat safeAreaTop = 0;
     if (@available(iOS 11.0, *)) {
         UIViewController *vc = UIViewController.new;
-        safeAreaTop = vc.view.safeAreaInsets.top;
+        safeAreaTop = UIApplication.sharedApplication.keyWindow.safeAreaInsets.top;
     }
     return safeAreaTop;
 }
@@ -91,8 +91,7 @@
 + (CGFloat)safeAreaBottom {
     CGFloat safeAreaBottom = 0 ;
     if (@available(iOS 11.0, *)) {
-        UIViewController *vc = UIViewController.new;
-        safeAreaBottom = vc.view.safeAreaInsets.bottom;
+        safeAreaBottom = UIApplication.sharedApplication.keyWindow.safeAreaInsets.bottom;
     }
     return safeAreaBottom;
 }

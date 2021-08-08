@@ -25,7 +25,6 @@ NSString * const SSDisplayScreen   = @"DisplayScreen";
 NSString * const SSSIMCard         = @"SIMCard";
 
 static NSString * const SSLatestOSVersionNow = @"至今最新";
-
 static NSString * const SSSingleSIMCard = @"单卡单待";
 static NSString * const SSDualSIMCard   = @"双卡双待";
 static NSString * const SSNoSIMCard   = @"不支持SIM卡";

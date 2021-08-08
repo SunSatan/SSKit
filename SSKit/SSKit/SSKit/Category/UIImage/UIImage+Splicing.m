@@ -19,8 +19,7 @@
 - (UIImage *)ss_imageCropToRect:(CGRect)rect
                      widthScale:(CGFloat)widthScale
                     heightScale:(CGFloat)heightScale
-                resultImageSize:(CGSize)resultImageSize
-{
+                resultImageSize:(CGSize)resultImageSize {
     UIImage *image = self.copy;
     CGFloat scale = ss_minScale(rect.size, resultImageSize);
     CGRect drawRect = CGRectMake(-rect.origin.x, -rect.origin.y,
@@ -36,8 +35,6 @@
     
     return resultImage;
 }
-
-
 
 - (NSArray<UIImage *> *)ss_imageCutApartToSquareForRow:(NSUInteger)row
                                                 column:(NSUInteger)column
